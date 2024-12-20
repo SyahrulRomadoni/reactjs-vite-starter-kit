@@ -7,10 +7,8 @@ import { logout } from "./services/authService";
 export default function App() {
     // Import useNavigate
     const navigate = useNavigate();
-
     // Cek apakah token ada di localStorage
     const token = localStorage.getItem("authToken");
-
     // Fungsi Logout
     const handleLogout = async () => {
         try {
@@ -29,49 +27,75 @@ export default function App() {
 
     return (
         <div>
-            <nav className="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
-                <div className="container">
-                    <Link to="/" className="navbar-brand">HOME</Link>
-                    <button
-                        className="navbar-toggler"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#navbarSupportedContent"
-                        aria-controls="navbarSupportedContent"
-                        aria-expanded="false"
-                        aria-label="Toggle navigation"
-                    ><span className="navbar-toggler-icon"></span></button>
-                    <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-                            {!token ? (
-                                <>
-                                    <li className="nav-item">
-                                        <Link to="/login" className="nav-link" aria-current="page">Login</Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <Link to="/register" className="nav-link" aria-current="page">Register</Link>
-                                    </li>
-                                </>
-                            ) : (
-                                <>
-                                    <li className="nav-item">
-                                        <Link to="/dashboard" className="nav-link" aria-current="page">Dashboard</Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <Link to="/profile" className="nav-link" aria-current="page">Profile</Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <button className="btn btn-danger" onClick={handleLogout}>Logout</button>
-                                    </li>
-                                </>
-                            )}
-                        </ul>
-                    </div>
-                </div>
-            </nav>
+            <div className="container-fluid">
+                <div className="row" style={{ height: '100vh' }}>
 
-            <div className="container mt-5">
-                <AppRoutes />
+                    {/* Sidebar */}
+                    <div className="col-2 p-4" style={{ backgroundColor: 'red' }}>
+                        <div className="row mb-5">
+                            <div className="col-6">
+                                <h5>Charging Points</h5>
+                            </div>
+                            <div className="col-6">
+                                <h4>Buttom</h4>
+                            </div>
+                        </div>
+
+                        <div className="row">
+                            <div className="col-12">
+                                <ul className="nav flex-column">
+                                    <li className="nav-item">
+                                        <a className="nav-link text-start text-white bg-primary m-1 rounded w-100" href="#">Menu 1</a>
+                                    </li>
+                                    <li className="nav-item">
+                                        <a className="nav-link text-start text-white m-1 rounded w-100" href="#">Menu 2</a>
+                                    </li>
+                                    <li className="nav-item">
+                                        <a className="nav-link text-start text-white m-1 rounded w-100" href="#">Menu 3</a>
+                                    </li>
+                                    <li className="nav-item">
+                                        <a className="nav-link text-start text-white m-1 rounded w-100" href="#">Menu 4</a>
+                                    </li>
+                                    <li className="nav-item dropdown">
+                                        <div class="accordion accordion-flush" id="drowpdownAccordion1">
+                                            <div class="accordion-item">
+                                                <a class="nav-link text-start text-dark m-1 rounded w-100" type="button" data-bs-toggle="collapse" data-bs-target="#flush-dropdownAccordion1" aria-expanded="false" aria-controls="flush-dropdownAccordion1">
+                                                    Menu 5
+                                                </a>
+                                                <div id="flush-dropdownAccordion1" class="collapse" data-bs-parent="#drowpdownAccordion1" style={{ padding: '10px 10px 10px 10px' }}>
+                                                    <ul className="nav flex-column">
+                                                        <li className="nav-item">
+                                                            <a className="nav-link text-start text-dark m-1 rounded w-100" href="#">Menu 5.1</a>
+                                                        </li>
+                                                        <li className="nav-item">
+                                                            <a className="nav-link text-start text-dark m-1 rounded w-100" href="#">Menu 5.2</a>
+                                                        </li>
+                                                        <li className="nav-item">
+                                                            <a className="nav-link text-start text-dark m-1 rounded w-100" href="#">Menu 5.3</a>
+                                                        </li>
+                                                        <li className="nav-item">
+                                                            <a className="nav-link text-start text-dark m-1 rounded w-100" href="#">Menu 5.4</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li className="nav-item">
+                                        <button className="nav-link btn btn-link text-start text-white m-1 rounded w-100" onClick={handleLogout}>Logout</button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    {/* Content */}
+                    <div className="col-10 p-3" style={{ backgroundColor: 'blue' }}>
+                        <AppRoutes />
+                    </div>
+
+                </div>
             </div>
         </div>
     );
