@@ -4,7 +4,6 @@ npm run dev
 ## Install Library ##
 npm install
 npm install react-router-dom
-npm install react-router-dom
 npm install dotenv
 
 ## Structure ##
