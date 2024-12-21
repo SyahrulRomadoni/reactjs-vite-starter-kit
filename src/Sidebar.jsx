@@ -43,48 +43,48 @@ export default function Sidebar() {
                     <ul className="nav flex-column">
                         <li className="nav-item">
                             <a className="nav-link text-start text-white bg-primary m-1 rounded w-100" href="#">
-                                <i class="bi bi-arrow-down-circle"></i> Menu 1
+                                <i className="bi bi-arrow-down-circle"></i> Menu 1
                             </a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link text-start text-white m-1 rounded w-100" href="#">
-                                <i class="bi bi-arrow-down-circle"></i> Menu 2
+                                <i className="bi bi-arrow-down-circle"></i> Menu 2
                             </a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link text-start text-white m-1 rounded w-100" href="#">
-                                <i class="bi bi-arrow-down-circle"></i> Menu 3
+                                <i className="bi bi-arrow-down-circle"></i> Menu 3
                             </a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link text-start text-white m-1 rounded w-100" href="#">
-                                <i class="bi bi-arrow-down-circle"></i> Menu 4
+                                <i className="bi bi-arrow-down-circle"></i> Menu 4
                             </a>
                         </li>
                         <li className="nav-item dropdown">
-                            <a class="nav-link text-start text-white m-1 rounded w-100" data-bs-toggle="collapse" href="#menu5" role="button" aria-expanded="false" aria-controls="menu5">
-                             <i class="bi bi-arrow-down-circle"></i> Menu 5 <i class="bi bi-arrow-down-circle" style={{ float: 'right'}}></i>
+                            <a className="nav-link text-start text-white m-1 rounded w-100" data-bs-toggle="collapse" href="#menu5" role="button" aria-expanded="false" aria-controls="menu5">
+                             <i className="bi bi-arrow-down-circle"></i> Menu 5 <i className="bi bi-arrow-down-circle" style={{ float: 'right'}}></i>
                             </a>
-                            <div class="collapse" id="menu5" style={{ padding: '10px 10px 10px 30px'}}>
+                            <div className="collapse" id="menu5" style={{ padding: '10px 10px 10px 30px'}}>
                                 <ul className="nav flex-column">
                                     <li className="nav-item">
                                         <a className="nav-link text-start text-white m-1 rounded w-100" href="#">
-                                            <i class="bi bi-arrow-down-circle"></i> Menu 5.1
+                                            <i className="bi bi-arrow-down-circle"></i> Menu 5.1
                                         </a>
                                     </li>
                                     <li className="nav-item">
                                         <a className="nav-link text-start text-white m-1 rounded w-100" href="#">
-                                            <i class="bi bi-arrow-down-circle"></i> Menu 5.2
+                                            <i className="bi bi-arrow-down-circle"></i> Menu 5.2
                                         </a>
                                     </li>
                                     <li className="nav-item">
                                         <a className="nav-link text-start text-white m-1 rounded w-100" href="#">
-                                            <i class="bi bi-arrow-down-circle"></i> Menu 5.3
+                                            <i className="bi bi-arrow-down-circle"></i> Menu 5.3
                                         </a>
                                     </li>
                                     <li className="nav-item">
                                         <a className="nav-link text-start text-white m-1 rounded w-100" href="#">
-                                            <i class="bi bi-arrow-down-circle"></i> Menu 5.4
+                                            <i className="bi bi-arrow-down-circle"></i> Menu 5.4
                                         </a>
                                     </li>
                                 </ul>
@@ -92,7 +92,7 @@ export default function Sidebar() {
                         </li>
                         <li className="nav-item">
                             <button className="nav-link btn btn-link text-start text-white m-1 rounded w-100" onClick={handleLogout}>
-                                <i class="bi bi-arrow-down-circle"></i> Logout
+                                <i className="bi bi-arrow-down-circle"></i> Logout
                             </button>
                         </li>
                     </ul>

@@ -1,7 +1,7 @@
 // src/routes/index.jsx
 
 import { Routes, Route } from "react-router-dom";
-import AuthGuard from '../middleware/AuthGuard.jsx';
+import RoutesMiddleware from '../middleware/routesMiddleware.jsx';
 import Home from "../views/home/index.jsx";
 import Register from "../views/auth/register.jsx";
 import Login from "../views/auth/login.jsx";
@@ -19,8 +19,8 @@ export default function AppRoutes() {
             {/* Route "/login" */}
             <Route path="/login" element={<Login />} />
 
-            {/* Menggunakan AuthGuard untuk route yang dilindungi */}
-            <Route element={<AuthGuard />}>
+            {/* Menggunakan RoutesMiddleware untuk route yang dilindungi */}
+            <Route element={<RoutesMiddleware />}>
                 {/* Route "/dashboard" */}
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/profile" element={<Profile />} />
