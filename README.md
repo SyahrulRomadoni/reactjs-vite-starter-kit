@@ -37,9 +37,14 @@ Project/
   │   │   │   └── index.jsx
   │   │   └── user
   │   │       └── index.jsx
-  │   ├── .env.example
+  │   ├── App.css
   │   ├── App.jsx
-  │   └── main.jsx
+  │   ├── Footer.jsx
+  │   ├── Header.jsx
+  │   ├── index.css
+  │   ├── main.jsx
+  │   └── Sidebar.jsx
+  ├── .env.example
   └── package.json
   ```
 
