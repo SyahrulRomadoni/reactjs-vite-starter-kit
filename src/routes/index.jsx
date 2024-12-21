@@ -1,7 +1,7 @@
 // src/routes/index.jsx
 
 import { Routes, Route } from "react-router-dom";
-import AuthGuard from '../services/AuthGuard';
+import AuthGuard from '../middleware/AuthGuard.jsx';
 import Home from "../views/home/index.jsx";
 import Register from "../views/auth/register.jsx";
 import Login from "../views/auth/login.jsx";

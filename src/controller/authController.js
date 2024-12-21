@@ -1,8 +1,20 @@
-// src/services/AuthService.jsx
+// src/services/authController.jsx
 
 import axios from "axios";
 
 const API_URL = import.meta.env.VITE_API_URL_ENDPOINT || "http://localhost:3001/api";
+
+export const register = async (name, email, password) => {
+    try {
+        // Static uuid_role
+        const uuid_role = "108f8d4f-cbda-4f1f-8216-a3dd764c5e5d";
+        // Kirim request ke API
+        const response = await axios.post(`${API_URL}/auth/register`, { uuid_role, name, email, password });
+        return response.data;
+    } catch (error) {
+        throw error.response ? error.response.data : error;
+    }
+};
 
 export const login = async (email, password) => {
     try {

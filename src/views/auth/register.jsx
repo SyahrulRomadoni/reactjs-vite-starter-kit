@@ -3,19 +3,22 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { register } from "../../controller/authController";
 
 export default function Register() {
-    const API_URL = import.meta.env.VITE_API_URL_ENDPOINT || "http://localhost:3001/api";
+    // Gunakan hook useNavigate untuk navigasi
     const navigate = useNavigate();
+    // State untuk menyimpan error jika ada dan loading text
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
+    
+    // Formdata
     const [formData, setFormData] = useState({
         name: "",
         email: "",
         password: "",
         confirmPassword: "",
     });
-    const [error, setError] = useState("");
-    const [loading, setLoading] = useState(false);
-
     // Handle perubahan input form
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -26,6 +29,20 @@ export default function Register() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        // Validasi individual
+        const errorMessages = {
+            name: "Name tidak boleh kosong.",
+            email: "Email tidak boleh kosong.",
+            password: "Password tidak boleh kosong.",
+            confirmPassword: "Konfirmasi password tidak boleh kosong.",
+        };
+        for (const [key, message] of Object.entries(errorMessages)) {
+            if (!formData[key]) {
+                setError(message);
+                return;
+            }
+        }
+
         // Validasi password konfirmasi
         if (formData.password !== formData.confirmPassword) {
             setError("Password and Confirm Password must match.");
@@ -35,17 +52,10 @@ export default function Register() {
         try {
             setLoading(true);
             setError("");
-
-            // Kirim data ke API register
-            const response = await axios.post(`${API_URL}/auth/register`, {
-                uuid_role: "108f8d4f-cbda-4f1f-8216-a3dd764c5e5d",
-                name: formData.name,
-                email: formData.email,
-                password: formData.password,
-            });
-
-            // Jika registrasi berhasil, arahkan ke halaman login atau dashboard
-            alert("Registration Successful!");
+            // Kirim request login
+            const result = await register(formData.name, formData.email, formData.password);
+            // Menampilkan pesan
+            alert(result.message);
             navigate("/login");
         } catch (err) {
             setError(err.message || "Something went wrong");
@@ -57,19 +67,18 @@ export default function Register() {
     return (
         <div className="p-5 mb-4 bg-light rounded-3">
             <div className="container-fluid py-5">
-                <h1 className="display-5 fw-bold">Register</h1>
-                <p className="col-md-8 fs-4">Register</p>
-
+            <h1 className="display-5 fw-bold">Register</h1>
+                {error && <div className="alert alert-danger">{error}</div>}
                 <form onSubmit={handleSubmit}>
                     <div className="mb-3">
                         <label htmlFor="name" className="form-label">
                             Name
                         </label>
                         <input
-                            type="text"
-                            className="form-control"
                             id="name"
                             name="name"
+                            type="text"
+                            className="form-control"
                             value={formData.name}
                             onChange={handleChange}
                             required
@@ -80,10 +89,10 @@ export default function Register() {
                             Email address
                         </label>
                         <input
-                            type="email"
-                            className="form-control"
                             id="email"
                             name="email"
+                            type="email"
+                            className="form-control"
                             value={formData.email}
                             onChange={handleChange}
                             required
@@ -94,10 +103,10 @@ export default function Register() {
                             Password
                         </label>
                         <input
-                            type="password"
-                            className="form-control"
                             id="password"
                             name="password"
+                            type="password"
+                            className="form-control"
                             value={formData.password}
                             onChange={handleChange}
                             required
@@ -108,18 +117,15 @@ export default function Register() {
                             Confirm Password
                         </label>
                         <input
-                            type="password"
-                            className="form-control"
                             id="confirmPassword"
                             name="confirmPassword"
+                            type="password"
+                            className="form-control"
                             value={formData.confirmPassword}
                             onChange={handleChange}
                             required
                         />
                     </div>
-
-                    {error && <div className="alert alert-danger">{error}</div>}
-
                     <button type="submit" className="btn btn-primary" disabled={loading}>
                         {loading ? "Registering..." : "Register"}
                     </button>

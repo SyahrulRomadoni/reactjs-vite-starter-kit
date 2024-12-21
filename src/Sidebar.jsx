@@ -1,7 +1,7 @@
 // src/Sidebar.jsx
 
 import { Link, useNavigate } from "react-router-dom";
-import { logout } from "./services/authService";
+import { logout } from "./controller/authController";
 
 export default function Sidebar() {
 

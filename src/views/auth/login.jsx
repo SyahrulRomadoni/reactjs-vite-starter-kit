@@ -2,28 +2,54 @@
 
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { login } from "../../services/authService";
+import { login } from "../../controller/authController";
 
 export default function Login() {
-    // State untuk menyimpan data email dan password
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    // State untuk menyimpan error jika ada
-    const [error, setError] = useState("");
     // Gunakan hook useNavigate untuk navigasi
     const navigate = useNavigate();
+    // State untuk menyimpan error jika ada dan loading text
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
+
+    // Formdata
+    const [formData, setFormData] = useState({
+        email: "",
+        password: "",
+    });
+    // Handle perubahan input form
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    };
 
     const handleLogin = async (e) => {
         e.preventDefault();
+
+        // Validasi individual
+        const errorMessages = {
+            email: "Email tidak boleh kosong.",
+            password: "Password tidak boleh kosong.",
+        };
+        for (const [key, message] of Object.entries(errorMessages)) {
+            if (!formData[key]) {
+                setError(message);
+                return;
+            }
+        }
+
         try {
+            setLoading(true);
+            setError("");
             // Kirim request login
-            const result = await login(email, password);
+            const result = await login(formData.email, formData.password);
             // Menampilkan pesan
             alert(result.message);
             // Arahkan ke halaman dashboard
             navigate("/dashboard");
         } catch (err) {
             setError(err.message || "Something went wrong");
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -36,24 +62,30 @@ export default function Login() {
                     <div className="mb-3">
                         <label>Email</label>
                         <input
+                            id="email"
+                            name="email"
                             type="email"
                             className="form-control"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            value={formData.email}
+                            onChange={handleChange}
                             required
                         />
                     </div>
                     <div className="mb-3">
                         <label>Password</label>
                         <input
+                            id="password"
+                            name="password"
                             type="password"
                             className="form-control"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
+                            value={formData.password}
+                            onChange={handleChange}
                             required
                         />
                     </div>
-                    <button type="submit" className="btn btn-primary">Login</button>
+                    <button type="submit" className="btn btn-primary" disabled={loading}>
+                        {loading ? "Login..." : "Login"}
+                    </button>
                 </form>
             </div>
         </div>

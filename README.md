@@ -15,7 +15,7 @@ npm install react-router-dom
 npm install dotenv
 ```
 
-## Structure ##
+## Structure Base ##
 ```plaintext
 Project/
   ├── public/
@@ -39,11 +39,8 @@ Project/
   │   │       └── index.jsx
   │   ├── App.css
   │   ├── App.jsx
-  │   ├── Footer.jsx
-  │   ├── Header.jsx
   │   ├── index.css
-  │   ├── main.jsx
-  │   └── Sidebar.jsx
+  │   └── main.jsx
   ├── .env.example
   └── package.json
   ```

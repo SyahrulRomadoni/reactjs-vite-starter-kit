@@ -1,7 +1,7 @@
 // src/views/user/index.jsx
 
 import React, { useEffect, useState } from "react";
-import { CurrentUser } from "../../services/userService";
+import { CurrentUser } from "../../controller/userController";
 
 export default function Profile() {
     // State untuk menyimpan data user
