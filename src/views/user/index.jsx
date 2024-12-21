@@ -32,11 +32,12 @@ export default function Profile() {
 
     if (!userData) {
         // Tampilkan loading saat data belum ada
-        return <div>Loading...</div>;
+        // return <div>Loading...</div>;
+        return;
     }
 
     return (
-        <div className="p-5 mb-4 bg-light rounded-3">
+        <div className="p-5 mb-4 bg-light rounded-3 shadow">
             <div className="container-fluid py-5">
                 <h1 className="display-5 fw-bold">Profile</h1>
                 <p className="col-md-8 fs-4">Nama: {userData.data.name}</p>

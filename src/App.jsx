@@ -1,33 +1,41 @@
 // src/App.jsx
 
+import './assets/css/AppLight.css';
+// import './assets/css/AppDark.css';
 import AppRoutes from './routes';
 import Header from './Header.jsx';
 import Sidebar from './Sidebar.jsx';
 import Footer from './Footer.jsx';
 
 export default function App() {
+    const token = localStorage.getItem("authToken");
+
     return (
         <div className="container-fluid">
             <div className="row" style={{ height: '100vh' }}>
-                
-                {/* Sidebar */}
-                <div className="col-2 p-4" style={{ backgroundColor: 'red' }}>
-                    <Sidebar />
-                </div>
+                {token ? (
+                    <>
+                        {/* Sidebar */}
+                        <div className="col-2 p-4 bg-sidebar shadow">
+                            <Sidebar />
+                        </div>
 
-                {/* Header & Content & Footer*/}
-                <div className="col-10 p-3" style={{ backgroundColor: 'blue' }}>
+                        {/* Header & Content & Footer */}
+                        <div className="col-10 p-3">
+                            {/* Header */}
+                            <Header />
 
-                    {/* Header */}
-                    <Header />
-                    
-                    {/* Content */}
+                            {/* Content */}
+                            <AppRoutes />
+
+                            {/* Footer */}
+                            <Footer />
+                        </div>
+                    </>
+                ) : (
+                    // Content jika token tidak ada
                     <AppRoutes />
-
-                    {/* Footer */}
-                    <Footer />
-                </div>
-
+                )}
             </div>
         </div>
     );

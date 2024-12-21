@@ -4,11 +4,13 @@ export default function Header() {
     return (
         <div className="row mb-3">
             <div className="col-12">
-                <div className="card">
-                    <div className="card-body">
+
+                <div className="p-3 bg-light rounded-3 shadow">
+                    <div className="container-fluid">
+
                         <div className="row">
                             <div className="col-6">
-                                <h4>Header</h4>
+                                {/* <h4>Header</h4> */}
                             </div>
                             <div className="col-6">
                                 <ul className="nav justify-content-end">
@@ -18,22 +20,21 @@ export default function Header() {
                                     <li className="nav-item">
                                         <a className="nav-link" href="#">Menu 2</a>
                                     </li>
-                                    <li className="nav-item">
-                                        <a className="nav-link" href="#">Menu 3</a>
-                                    </li>
                                     <li className="nav-item dropdown">
-                                        <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Menu 4</a>
+                                        <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Menu 3</a>
                                         <ul className="dropdown-menu">
-                                            <li><a className="dropdown-item" href="#">Menu 4.1</a></li>
-                                            <li><a className="dropdown-item" href="#">Menu 4.2</a></li>
-                                            <li><a className="dropdown-item" href="#">Menu 4.3</a></li>
+                                            <li><a className="dropdown-item" href="#">Menu 3.1</a></li>
+                                            <li><a className="dropdown-item" href="#">Menu 3.2</a></li>
+                                            <li><a className="dropdown-item" href="#">Menu 3.3</a></li>
                                         </ul>
                                     </li>
                                 </ul>
                             </div>
                         </div>
+                        
                     </div>
                 </div>
+
             </div>
         </div>
     );

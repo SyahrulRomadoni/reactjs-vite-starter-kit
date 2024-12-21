@@ -46,6 +46,7 @@ export default function Login() {
             alert(result.message);
             // Arahkan ke halaman dashboard
             navigate("/dashboard");
+            window.location.reload();
         } catch (err) {
             setError(err.message || "Something went wrong");
         } finally {
@@ -54,39 +55,44 @@ export default function Login() {
     };
 
     return (
-        <div className="p-5 mb-4 bg-light rounded-3">
-            <div className="container-fluid py-5">
-                <h1 className="display-5 fw-bold">Login</h1>
-                <form onSubmit={handleLogin}>
-                    {error && <div className="alert alert-danger">{error}</div>}
-                    <div className="mb-3">
-                        <label>Email</label>
-                        <input
-                            id="email"
-                            name="email"
-                            type="email"
-                            className="form-control"
-                            value={formData.email}
-                            onChange={handleChange}
-                            required
-                        />
+        <div className="row justify-content-end align-items-center" style={{ height: '100vh' }}>
+            {/* <div className="col-6 d-flex justify-content-center"></div> */}
+            <div className="col-12 d-flex justify-content-center">
+                <div className="card" style={{ width: '100%', maxWidth: '40%' }}>
+                    <div className="card-body">
+                        <h1 className="fw-bold text-center">Login</h1>
+                        <form onSubmit={handleLogin}>
+                            {error && <div className="alert alert-danger">{error}</div>}
+                            <div className="mb-3">
+                                <label>Email</label>
+                                <input
+                                    id="email"
+                                    name="email"
+                                    type="email"
+                                    className="form-control"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                    required
+                                />
+                            </div>
+                            <div className="mb-3">
+                                <label>Password</label>
+                                <input
+                                    id="password"
+                                    name="password"
+                                    type="password"
+                                    className="form-control"
+                                    value={formData.password}
+                                    onChange={handleChange}
+                                    required
+                                />
+                            </div>
+                            <button type="submit" className="btn btn-primary" disabled={loading}>
+                                {loading ? "Login..." : "Login"}
+                            </button>
+                        </form>
                     </div>
-                    <div className="mb-3">
-                        <label>Password</label>
-                        <input
-                            id="password"
-                            name="password"
-                            type="password"
-                            className="form-control"
-                            value={formData.password}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <button type="submit" className="btn btn-primary" disabled={loading}>
-                        {loading ? "Login..." : "Login"}
-                    </button>
-                </form>
+                </div>
             </div>
         </div>
     );

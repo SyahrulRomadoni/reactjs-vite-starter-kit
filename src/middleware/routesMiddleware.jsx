@@ -35,7 +35,8 @@ const RoutesMiddleware = () => {
 
     // Loading state sebelum otorisasi selesai
     if (isAuthorized === null) {
-        return <div>Loading...</div>;
+        // return <div>Loading...</div>;
+        return;
     }
 
     // Jika authorized, tampilkan halaman; jika tidak, arahkan ke login

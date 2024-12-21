@@ -64,71 +64,69 @@ export default function Register() {
     };
 
     return (
-        <div className="p-5 mb-4 bg-light rounded-3">
-            <div className="container-fluid py-5">
-            <h1 className="display-5 fw-bold">Register</h1>
-                {error && <div className="alert alert-danger">{error}</div>}
-                <form onSubmit={handleSubmit}>
-                    <div className="mb-3">
-                        <label htmlFor="name" className="form-label">
-                            Name
-                        </label>
-                        <input
-                            id="name"
-                            name="name"
-                            type="text"
-                            className="form-control"
-                            value={formData.name}
-                            onChange={handleChange}
-                            required
-                        />
+
+        <div className="row justify-content-end align-items-center" style={{ height: '100vh' }}>
+            {/* <div className="col-6 d-flex justify-content-center"></div> */}
+            <div className="col-12 d-flex justify-content-center">
+                <div className="card" style={{ width: '100%', maxWidth: '40%' }}>
+                    <div className="card-body">
+                    <h1 className="fw-bold text-center">Register</h1>
+                    {error && <div className="alert alert-danger">{error}</div>}
+                    <form onSubmit={handleSubmit}>
+                        <div className="mb-3">
+                            <label htmlFor="name" className="form-label">Name</label>
+                            <input
+                                id="name"
+                                name="name"
+                                type="text"
+                                className="form-control"
+                                value={formData.name}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="email" className="form-label">Email address</label>
+                            <input
+                                id="email"
+                                name="email"
+                                type="email"
+                                className="form-control"
+                                value={formData.email}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="password" className="form-label">Password</label>
+                            <input
+                                id="password"
+                                name="password"
+                                type="password"
+                                className="form-control"
+                                value={formData.password}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="confirmPassword" className="form-label">Confirm Password</label>
+                            <input
+                                id="confirmPassword"
+                                name="confirmPassword"
+                                type="password"
+                                className="form-control"
+                                value={formData.confirmPassword}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                        <button type="submit" className="btn btn-primary" disabled={loading}>
+                            {loading ? "Registering..." : "Register"}
+                        </button>
+                    </form>
                     </div>
-                    <div className="mb-3">
-                        <label htmlFor="email" className="form-label">
-                            Email address
-                        </label>
-                        <input
-                            id="email"
-                            name="email"
-                            type="email"
-                            className="form-control"
-                            value={formData.email}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="password" className="form-label">
-                            Password
-                        </label>
-                        <input
-                            id="password"
-                            name="password"
-                            type="password"
-                            className="form-control"
-                            value={formData.password}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="confirmPassword" className="form-label">
-                            Confirm Password
-                        </label>
-                        <input
-                            id="confirmPassword"
-                            name="confirmPassword"
-                            type="password"
-                            className="form-control"
-                            value={formData.confirmPassword}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <button type="submit" className="btn btn-primary" disabled={loading}>
-                        {loading ? "Registering..." : "Register"}
-                    </button>
-                </form>
+                </div>
             </div>
         </div>
     );
