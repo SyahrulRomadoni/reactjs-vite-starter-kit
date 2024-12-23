@@ -43,17 +43,17 @@ export default function Sidebar() {
 
     return (
         <div>
-            <div className="row mb-5">
-                <div className="col-6">
-                    <h2 className="cs-brand">Charging Points</h2>
+            <div className="row mb-4">
+                <div className="col-12">
+                    <h2 className="cs-brand mb-2">Charging Points</h2>
                 </div>
-                <div className="col-6">
-                    <div className="d-flex align-items-center justify-content-center pt-3">
-                        <i className="bi bi-lightbulb me-3" style={{ fontSize: '25px' }}></i>
+                <div className="col-12">
+                    <div className="d-flex align-items-center">
+                        <i className="bi bi-lightbulb me-3" style={{ fontSize: '20px' }}></i>
                         <div className="form-check form-switch">
                             <input
                                 className="form-check-input"
-                                style={{ transform: 'scale(1.5)' }}
+                                style={{ transform: 'scale(1.3)' }}
                                 type="checkbox"
                                 role="switch"
                                 id="switchModeTheme"
@@ -61,7 +61,7 @@ export default function Sidebar() {
                                 onChange={handleSwitchChange}
                             />
                         </div>
-                        <i className="bi bi-lightbulb-off ms-2" style={{ fontSize: '25px' }}></i>
+                        <i className="bi bi-lightbulb-off ms-2" style={{ fontSize: '20px' }}></i>
                     </div>
                 </div>
             </div>

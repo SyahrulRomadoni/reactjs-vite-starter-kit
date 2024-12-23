@@ -13,11 +13,13 @@ export default function AppRoutes() {
         <Routes>
 
             {/* Route "/" */}
-            <Route path="/" element={<Home />} />
-            {/* Route "/register" */}
-            <Route path="/register" element={<Register />} />
+            <Route path="/" element={<Login />} />
             {/* Route "/login" */}
             <Route path="/login" element={<Login />} />
+            {/* Route "/register" */}
+            <Route path="/register" element={<Register />} />
+            {/* Route "/home" */}
+            <Route path="/home" element={<Home />} />
 
             {/* Menggunakan RoutesMiddleware untuk route yang dilindungi */}
             <Route element={<RoutesMiddleware />}>
