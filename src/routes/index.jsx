@@ -1,7 +1,7 @@
 // src/routes/index.jsx
 
 import { Routes, Route } from "react-router-dom";
-import RoutesMiddleware from '../middleware/routesMiddleware.jsx';
+import { AdminRoutesMiddleware, GuestRoutesMiddleware } from '../middleware/routesMiddleware.jsx';
 import Home from "../views/home/index.jsx";
 import Register from "../views/auth/register.jsx";
 import Login from "../views/auth/login.jsx";
@@ -13,18 +13,21 @@ export default function AppRoutes() {
         <Routes>
 
             {/* Route "/" */}
-            <Route path="/" element={<Login />} />
-            {/* Route "/login" */}
-            <Route path="/login" element={<Login />} />
-            {/* Route "/register" */}
-            <Route path="/register" element={<Register />} />
-            {/* Route "/home" */}
-            <Route path="/home" element={<Home />} />
+            <Route path="/" element={<Home />} />
+
+            {/* Menggunakan RoutesMiddleware untuk route yang tidak dilindungi */}
+            <Route element={<GuestRoutesMiddleware />}>
+                {/* Route "/register" */}
+                <Route path="/register" element={<Register />} />
+                {/* Route "/login" */}
+                <Route path="/login" element={<Login />} />
+            </Route>
 
             {/* Menggunakan RoutesMiddleware untuk route yang dilindungi */}
-            <Route element={<RoutesMiddleware />}>
+            <Route element={<AdminRoutesMiddleware />}>
                 {/* Route "/dashboard" */}
                 <Route path="/dashboard" element={<Dashboard />} />
+                {/* Route "/profile" */}
                 <Route path="/profile" element={<Profile />} />
             </Route>
             
