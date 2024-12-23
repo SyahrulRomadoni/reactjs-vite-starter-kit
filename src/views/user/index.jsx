@@ -37,11 +37,21 @@ export default function Profile() {
     }
 
     return (
-        <div className="p-5 mb-4 bg-light rounded-3 shadow">
-            <div className="container-fluid py-5">
-                <h1 className="display-5 fw-bold">Profile</h1>
-                <p className="col-md-8 fs-4">Nama: {userData.data.name}</p>
-                <p className="col-md-8 fs-4">Email: {userData.data.email}</p>
+        <div>
+            <nav aria-label="breadcrumb text-white">
+                <ol className="breadcrumb">
+                    <li className="breadcrumb-item cs-breadcrumb">TEST</li>
+                    <li className="breadcrumb-item cs-breadcrumb">TEST</li>
+                    <li className="breadcrumb-item cs-breadcrumb">TEST</li>
+                </ol>
+            </nav>
+
+            <div className="p-5 mb-4 cs-bg-1 rounded-3 shadow">
+                <div className="container-fluid py-5">
+                    <h1 className="fw-bold cs-text">Profile</h1>
+                    <p className="col-md-8 cs-text">Nama: {userData.data.name}</p>
+                    <p className="col-md-8 cs-text">Email: {userData.data.email}</p>
+                </div>
             </div>
         </div>
     );

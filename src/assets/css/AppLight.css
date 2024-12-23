@@ -8,21 +8,55 @@ body {
 }
 
 .cs-brand {
-    color: black;
+    color: #000000;
     font-size: 25px;
     margin-bottom: 0px;
 }
 
 .cs-text-1 {
-    color: black;
+    color: #000000;
     font-size: 15px;
 }
 
 .cs-text-1.cs-active {
-    color: white;
+    color: #ffffff;
     background-color: #435ebe;
+}
+
+.cs-text {
+    color: #000000;
 }
 
 .cs-breadcrumb {
     font-size: 15px;
+    color: #000000;
+}
+
+.cs-icon {
+    color: #000000;
+    font-size: 15px;
+}
+
+.cs-card {
+    background-color: #F8F9FA;
+}
+
+.cs-card-header {
+    background-color: #F8F9FA;
+}
+
+.cs-card-body {
+    background-color: #F8F9FA;
+}
+
+.cs-card-footer {
+    background-color: #F8F9FA;
+}
+
+.cs-bg-1 {
+    background-color: #F8F9FA;
+}
+
+.breadcrumb-item+.breadcrumb-item::before {
+    color: #000000;
 }

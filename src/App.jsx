@@ -6,9 +6,26 @@ import AppRoutes from './routes';
 import Header from './Header.jsx';
 import Sidebar from './Sidebar.jsx';
 import Footer from './Footer.jsx';
+import { useEffect, useState } from 'react';
 
 export default function App() {
     const token = localStorage.getItem("authToken");
+    const [theme, setTheme] = useState(localStorage.getItem("theme-mode") || "light");
+
+    // Trigger css Dark/Light mode dari trigger switch
+    useEffect(() => {
+        if (theme === "dark") {
+            import('./assets/css/AppDark.css');
+        } else {
+            import('./assets/css/AppLight.css');
+        }
+    }, [theme]);
+    const handleThemeSwitch = () => {
+        const newTheme = theme === "dark" ? "light" : "dark";
+        localStorage.setItem("theme-mode", newTheme);
+        window.location.reload();
+        setTheme(newTheme);
+    };
 
     return (
         <div className="container-fluid">
@@ -17,7 +34,7 @@ export default function App() {
                     <>
                         {/* Sidebar */}
                         <div className="col-2 p-4 bg-sidebar shadow">
-                            <Sidebar />
+                            <Sidebar onThemeSwitch={handleThemeSwitch} />
                         </div>
 
                         {/* Header & Content & Footer */}

@@ -49,7 +49,7 @@ export default function Sidebar() {
                 </div>
                 <div className="col-12">
                     <div className="d-flex align-items-center">
-                        <i className="bi bi-lightbulb me-3" style={{ fontSize: '20px' }}></i>
+                        <i className="bi bi-lightbulb me-3 cs-icon"></i>
                         <div className="form-check form-switch">
                             <input
                                 className="form-check-input"
@@ -61,7 +61,7 @@ export default function Sidebar() {
                                 onChange={handleSwitchChange}
                             />
                         </div>
-                        <i className="bi bi-lightbulb-off ms-2" style={{ fontSize: '20px' }}></i>
+                        <i className="bi bi-lightbulb-off ms-2 cs-icon"></i>
                     </div>
                 </div>
             </div>
@@ -75,7 +75,7 @@ export default function Sidebar() {
                                 className={`nav-link text-start cs-text-1 m-1 rounded w-100 ${location.pathname === "/dashboard" ? "cs-active" : ""}`}
                                 aria-current="page"
                             >
-                                <i className="bi bi-speedometer2" style={{paddingRight: "10px"}}></i> Dashboard
+                                <i className="bi bi-speedometer2 cs-icon" style={{paddingRight: "10px"}}></i> Dashboard
                             </Link>
                         </li>
                         <li className="nav-item">
@@ -84,7 +84,7 @@ export default function Sidebar() {
                                 className={`nav-link text-start cs-text-1 m-1 rounded w-100 ${location.pathname === "/profile" ? "cs-active" : ""}`}
                                 aria-current="page"
                             >
-                                <i className="bi bi-person" style={{paddingRight: "10px"}}></i> Profile
+                                <i className="bi bi-person cs-icon" style={{paddingRight: "10px"}}></i> Profile
                             </Link>
                         </li>
                         <li className="nav-item dropdown">
@@ -95,12 +95,12 @@ export default function Sidebar() {
                                 <ul className="nav flex-column">
                                     <li className="nav-item">
                                         <a className="nav-link text-start cs-text-1 m-1 rounded w-100" href="#">
-                                            <i className="bi bi-arrow-down-circle" style={{paddingRight: "10px"}}></i> Menu 1
+                                            <i className="bi bi-arrow-down-circle cs-icon" style={{paddingRight: "10px"}}></i> Menu 1
                                         </a>
                                     </li>
                                     <li className="nav-item">
                                         <a className="nav-link text-start cs-text-1 m-1 rounded w-100" href="#">
-                                            <i className="bi bi-arrow-down-circle" style={{paddingRight: "10px"}}></i> Menu 2
+                                            <i className="bi bi-arrow-down-circle cs-icon" style={{paddingRight: "10px"}}></i> Menu 2
                                         </a>
                                     </li>
                                 </ul>
@@ -108,7 +108,7 @@ export default function Sidebar() {
                         </li>
                         <li className="nav-item">
                             <a className="nav-link btn btn-link text-start cs-text-1 m-1 rounded w-100" onClick={handleLogout}>
-                                <i className="bi bi-door-closed" style={{paddingRight: "10px"}}></i> Logout
+                                <i className="bi bi-door-closed cs-icon" style={{paddingRight: "10px"}}></i> Logout
                             </a>
                         </li>
                     </ul>

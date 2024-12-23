@@ -5,7 +5,7 @@ export default function Header() {
         <div className="row mb-3">
             <div className="col-12">
 
-                <div className="p-3 bg-light rounded-3 shadow">
+                <div className="p-3 cs-bg-1 rounded-3 shadow">
                     <div className="container-fluid">
 
                         <div className="row">
@@ -15,13 +15,13 @@ export default function Header() {
                             <div className="col-6">
                                 <ul className="nav justify-content-end">
                                     <li className="nav-item">
-                                        <a className="nav-link active" aria-current="page" href="#">Menu 1</a>
+                                        <a className="nav-link cs-text" href="#">Menu 1</a>
                                     </li>
                                     <li className="nav-item">
-                                        <a className="nav-link" href="#">Menu 2</a>
+                                        <a className="nav-link cs-text" href="#">Menu 2</a>
                                     </li>
                                     <li className="nav-item dropdown">
-                                        <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Menu 3</a>
+                                        <a className="nav-link cs-text dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Menu 3</a>
                                         <ul className="dropdown-menu">
                                             <li><a className="dropdown-item" href="#">Menu 3.1</a></li>
                                             <li><a className="dropdown-item" href="#">Menu 3.2</a></li>
