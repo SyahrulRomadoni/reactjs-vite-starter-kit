@@ -7,7 +7,7 @@ export default function Header() {
                 <div style={{ margin: '20px 20px -10px 20px'}}>
                     <div className="row">
                         <div className="col-6">
-                            <p>2024 © Syahrul Romadoni</p>
+                            <p className="cs-text">2024 © Syahrul Romadoni</p>
                         </div>
                         <div className="col-6">
                             {/* <h4 className="text-end">Text 2</h4> */}
