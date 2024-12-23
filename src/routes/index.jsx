@@ -12,6 +12,7 @@ export default function AppRoutes() {
     return (
         <Routes>
 
+            {/* Rote Bebas Pakai */}
             {/* Route "/" */}
             <Route path="/" element={<Home />} />
 
