@@ -15,8 +15,8 @@ export default function Dashboard() {
             
             <div className="p-5 mb-4 cs-bg-1 rounded-3 shadow">
                 <div className="container-fluid py-5">
-                    <h1 className="fw-bold cs-text">HALAMAN DASHBOARD</h1>
-                    <p className="col-md-8 cs-text">Dashboard</p>
+                    <h1 className="fw-bold">HALAMAN DASHBOARD</h1>
+                    <p className="col-md-8">Dashboard</p>
                 </div>
             </div>
         </div>

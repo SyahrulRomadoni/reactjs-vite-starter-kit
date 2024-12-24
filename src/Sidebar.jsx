@@ -1,21 +1,9 @@
-// src/Sidebar.jsx
-
+import { useEffect, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { logout } from "./controller/authController";
 
 export default function Sidebar() {
-
-    // Switch auto dark kalo kalo theme-mode dark kalo gak dia jadi null = light mode
     const location = useLocation();
-    const dark = localStorage.getItem("theme-mode");
-    let isDark = false;
-    if (dark === "dark") {
-        isDark = true;
-    } else {
-        isDark = false;
-    }
-
-    // Import useNavigate
     const navigate = useNavigate();
 
     // Fungsi Logout
@@ -25,43 +13,49 @@ export default function Sidebar() {
             alert(result.message);
             localStorage.removeItem("authToken");
             navigate("/login");
-            window.location.reload();
         } catch (err) {
             alert(err.message || "Something went wrong");
         }
     };
 
+    // Fungsi Dark Mode dan Ligth Mode Menggunakan Bootstrap
+    const [isDark, setIsDark] = useState(localStorage.getItem("theme-mode") === "dark");
     // Fungsi untuk menangani perubahan pada switch
     const handleSwitchChange = () => {
-        if (dark === "dark") {
-            localStorage.setItem("theme-mode", "light");
-        } else {
-            localStorage.setItem("theme-mode", "dark");
-        }
-        window.location.reload();
+        const newTheme = isDark ? "light" : "dark";
+        localStorage.setItem("theme-mode", newTheme);
+        setIsDark(!isDark);
     };
+    // Update 'data-bs-theme' jadi dark atau light
+    useEffect(() => {
+        const htmlElement = document.documentElement;
+        if (isDark) {
+            htmlElement.setAttribute("data-bs-theme", "dark");
+        } else {
+            htmlElement.setAttribute("data-bs-theme", "light");
+        }
+    }, [isDark]);
 
     return (
         <div>
             <div className="row mb-4">
                 <div className="col-12">
-                    <h2 className="cs-brand mb-2">Charging Points</h2>
+                    <h2 className="cs-brand mb-2" style={{ fontSize: '25px', marginBottom: '0px' }}>Charging Points</h2>
                 </div>
                 <div className="col-12">
                     <div className="d-flex align-items-center">
-                        <i className="bi bi-lightbulb me-3 cs-icon"></i>
-                        <div className="form-check form-switch">
-                            <input
-                                className="form-check-input"
-                                style={{ transform: 'scale(1.3)' }}
-                                type="checkbox"
-                                role="switch"
-                                id="switchModeTheme"
-                                checked={isDark}
-                                onChange={handleSwitchChange}
-                            />
+                        <i className="bi bi-lightbulb cs-icon"></i>
+                        <div className="switch-checkbox">
+                            <label className="switch">
+                                <input 
+                                    type="checkbox" 
+                                    onChange={handleSwitchChange} 
+                                    checked={isDark} 
+                                />
+                                <span className="slider round"></span>
+                            </label>
                         </div>
-                        <i className="bi bi-lightbulb-off ms-2 cs-icon"></i>
+                        <i className="bi bi-lightbulb-off cs-icon"></i>
                     </div>
                 </div>
             </div>
@@ -89,7 +83,7 @@ export default function Sidebar() {
                         </li>
                         <li className="nav-item dropdown">
                             <a className="nav-link text-start cs-text-1 m-1 rounded w-100" data-bs-toggle="collapse" href="#dropdown1" role="button" aria-expanded="false" aria-controls="dropdown1">
-                             <i className="bi bi-gear" style={{paddingRight: "10px"}}></i> More Action <i className="bi bi-arrow-down-short" style={{ float: 'right'}}></i>
+                                <i className="bi bi-gear" style={{paddingRight: "10px"}}></i> More Action <i className="bi bi-arrow-down-short" style={{ float: 'right'}}></i>
                             </a>
                             <div className="collapse" id="dropdown1" style={{ padding: '10px 10px 10px 30px'}}>
                                 <ul className="nav flex-column">

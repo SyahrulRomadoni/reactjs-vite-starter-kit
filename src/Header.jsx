@@ -15,17 +15,17 @@ export default function Header() {
                             <div className="col-6">
                                 <ul className="nav justify-content-end">
                                     <li className="nav-item">
-                                        <a className="nav-link cs-text" href="#">Menu 1</a>
+                                        <a className="nav-link cs-text-1" href="#">Menu 1</a>
                                     </li>
                                     <li className="nav-item">
-                                        <a className="nav-link cs-text" href="#">Menu 2</a>
+                                        <a className="nav-link cs-text-1" href="#">Menu 2</a>
                                     </li>
                                     <li className="nav-item dropdown">
-                                        <a className="nav-link cs-text dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Menu 3</a>
+                                        <a className="nav-link cs-text-1 dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Menu 3</a>
                                         <ul className="dropdown-menu">
-                                            <li><a className="dropdown-item" href="#">Menu 3.1</a></li>
-                                            <li><a className="dropdown-item" href="#">Menu 3.2</a></li>
-                                            <li><a className="dropdown-item" href="#">Menu 3.3</a></li>
+                                            <li><a className="dropdown-item cs-text-1" href="#">Menu 3.1</a></li>
+                                            <li><a className="dropdown-item cs-text-1" href="#">Menu 3.2</a></li>
+                                            <li><a className="dropdown-item cs-text-1" href="#">Menu 3.3</a></li>
                                         </ul>
                                     </li>
                                 </ul>

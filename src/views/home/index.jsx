@@ -5,8 +5,8 @@ export default function Home() {
         <div>
             <div className="m-5 p-5 mb-4 cs-bg-1 rounded-3 shadow">
                 <div className="container-fluid py-5">
-                    <h1 className="fw-bold cs-text">REACT JS</h1>
-                    <p className="col-md-8 cs-text">HOME</p>
+                    <h1 className="fw-bold">REACT JS</h1>
+                    <p className="col-md-8">HOME</p>
                 </div>
             </div>
         </div>

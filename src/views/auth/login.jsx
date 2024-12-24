@@ -58,13 +58,13 @@ export default function Login() {
         <div className="row justify-content-end align-items-center" style={{ height: '100vh' }}>
             {/* <div className="col-6 d-flex justify-content-center"></div> */}
             <div className="col-12 d-flex justify-content-center">
-                <div className="card cs-card" style={{ width: '100%', maxWidth: '40%' }}>
+                <div className="card" style={{ width: '100%', maxWidth: '40%' }}>
                     <div className="card-body">
-                        <h1 className="fw-bold text-center cs-text">Login</h1>
+                        <h1 className="fw-bold text-center">Login</h1>
                         <form onSubmit={handleLogin}>
                             {error && <div className="alert alert-danger">{error}</div>}
                             <div className="mb-3">
-                                <label className="cs-text">Email</label>
+                                <label>Email</label>
                                 <input
                                     id="email"
                                     name="email"
@@ -76,7 +76,7 @@ export default function Login() {
                                 />
                             </div>
                             <div className="mb-3">
-                                <label className="cs-text">Password</label>
+                                <label>Password</label>
                                 <input
                                     id="password"
                                     name="password"
