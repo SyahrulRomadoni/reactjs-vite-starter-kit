@@ -11,8 +11,15 @@ npm install
 ```plaintext
 npm install react-router-dom
 ```
+OPTIONAL
 ```plaintext
 npm install dotenv
+```
+```plaintext
+npm install bootstrap
+```
+```plaintext
+npm install bootstrap-icons
 ```
 
 ## Structure Base ##
@@ -21,12 +28,16 @@ Project/
   ├── public/
   ├── src/
   │   ├── assets/
+  │   │   └── cutome-style.css
   │   ├── routes/
   │   │   └── index.jsx
-  │   ├── services/
-  │   │   ├── authGuard.jsx
-  │   │   ├── authService.js
-  │   │   └── authService.js
+  │   ├── controller/
+  │   │   ├── authController.js
+  │   │   └── userController.js
+  │   ├── middleware/
+  │   │   └── routeMiddleware.jsx
+  │   ├── route/
+  │   │   └── index.jsx
   │   ├── views/
   │   │   ├── auth
   │   │   │   ├── login.jsx
@@ -39,8 +50,11 @@ Project/
   │   │       └── index.jsx
   │   ├── App.css
   │   ├── App.jsx
+  │   ├── Footer.jsx
+  │   ├── Header.jsx
   │   ├── index.css
-  │   └── main.jsx
+  │   ├── main.jsx
+  │   └── Sidebar.jsx
   ├── .env.example
   └── package.json
   ```

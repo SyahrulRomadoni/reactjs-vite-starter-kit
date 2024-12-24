@@ -5,18 +5,24 @@ npm run dev
 npm install
 npm install react-router-dom
 npm install dotenv
+npm install bootstrap
+npm install bootstrap-icons
 
 ## Structure Base ##
 Project/
   ├── public/
   ├── src/
   │   ├── assets/
+  │   │   └── cutome-style.css
   │   ├── routes/
   │   │   └── index.jsx
-  │   ├── services/
-  │   │   ├── authGuard.jsx
-  │   │   ├── authService.js
-  │   │   └── authService.js
+  │   ├── controller/
+  │   │   ├── authController.js
+  │   │   └── userController.js
+  │   ├── middleware/
+  │   │   └── routeMiddleware.jsx
+  │   ├── route/
+  │   │   └── index.jsx
   │   ├── views/
   │   │   ├── auth
   │   │   │   ├── login.jsx
@@ -29,8 +35,11 @@ Project/
   │   │       └── index.jsx
   │   ├── App.css
   │   ├── App.jsx
+  │   ├── Footer.jsx
+  │   ├── Header.jsx
   │   ├── index.css
-  │   └── main.jsx
+  │   ├── main.jsx
+  │   └── Sidebar.jsx
   ├── .env.example
   └── package.json
 
@@ -41,3 +50,5 @@ npm create vite@latest
 npm install
 npm install react-router-dom
 npm install dotenv
+npm install bootstrap
+npm install bootstrap-icons

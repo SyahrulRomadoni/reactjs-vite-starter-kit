@@ -7,6 +7,14 @@
     font-size: 15px;
 }
 
+[data-bs-theme=dark] .cs-text-1 {
+    color: #ffffff;
+}
+
+[data-bs-theme=light] .cs-text-1 {
+    color: #000000;
+}
+
 .cs-text-1.cs-active {
     color: #ffffff;
     background-color: #435ebe;

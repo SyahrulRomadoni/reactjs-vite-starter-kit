@@ -1,31 +1,20 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
-import { logout } from "./controller/authController";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
-export default function Sidebar() {
+export default function Sidebar({ handleLogout }) {
+    // Untuk mengatur lokasi path urlnya
     const location = useLocation();
-    const navigate = useNavigate();
 
-    // Fungsi Logout
-    const handleLogout = async () => {
-        try {
-            const result = await logout();
-            alert(result.message);
-            localStorage.removeItem("authToken");
-            navigate("/login");
-        } catch (err) {
-            alert(err.message || "Something went wrong");
-        }
-    };
-
-    // Fungsi Dark Mode dan Ligth Mode Menggunakan Bootstrap
-    const [isDark, setIsDark] = useState(localStorage.getItem("theme-mode") === "dark");
-    // Fungsi untuk menangani perubahan pada switch
+    // Fungsi untuk trigger theme-mode jadi light atau dark pakai switch button
     const handleSwitchChange = () => {
         const newTheme = isDark ? "light" : "dark";
         localStorage.setItem("theme-mode", newTheme);
         setIsDark(!isDark);
     };
+    
+    // Untuk merubah automatis thema yang ada di bawa dan bisa di trigger pakai handleSwitchChange
+    // Fungsi Dark Mode dan Light Mode Menggunakan Bootstrap
+    const [isDark, setIsDark] = useState(localStorage.getItem("theme-mode") === "dark");
     // Update 'data-bs-theme' jadi dark atau light
     useEffect(() => {
         const htmlElement = document.documentElement;
