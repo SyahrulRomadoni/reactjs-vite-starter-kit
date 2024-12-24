@@ -39,7 +39,7 @@ export default function App() {
         <div className="container-fluid">
             <div className="row" style={{ height: '100vh' }}>
                 {token ? (
-                    <div>
+                    <>
                         {/* Sidebar */}
                         <div className="col-2 p-4 bg-sidebar shadow">
                             <Sidebar handleLogout={handleLogout} />
@@ -56,12 +56,12 @@ export default function App() {
                             {/* Footer */}
                             <Footer />
                         </div>
-                    </div>
+                    </>
                 ) : (
-                    <div>
+                    <>
                         {/* Content jika token tidak ada */}
                         <AppRoutes />
-                    </div>
+                    </>
                 )}
             </div>
         </div>
