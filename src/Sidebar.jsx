@@ -29,7 +29,7 @@ export default function Sidebar({ handleLogout }) {
         <div>
             <div className="row mb-4">
                 <div className="col-12">
-                    <h2 className="cs-brand mb-2" style={{ fontSize: '25px', marginBottom: '0px' }}>Charging Points</h2>
+                    <h2 className="cs-brand mb-2" style={{ fontSize: '25px', marginBottom: '0px' }}>ReactJs Vite</h2>
                 </div>
                 <div className="col-12">
                     <div className="d-flex align-items-center">

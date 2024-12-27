@@ -12,11 +12,14 @@ export const CurrentUser = async () => {
         if (!token) throw new Error("No token found");
 
         // Kirim request ke API
-        const response = await axios.get(`${API_URL}/users/current`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        });
+        const response = await axios.get(
+            `${API_URL}/users/current`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
 
         // Tampilkan data response
         return response.data;
@@ -33,13 +36,124 @@ export const AllUsers = async (page = 1, limit = 10) => {
         if (!token) throw new Error("No token found");
 
         // Kirim request ke API
-        const response = await axios.get(`${API_URL}/users?page=${page}&limit=${limit}`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        });
+        const response = await axios.get(
+            `${API_URL}/users?page=${page}&limit=${limit}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
 
         // Tampilkan data response
+        return response.data;
+    } catch (error) {
+        throw error.response ? error.response.data : error;
+    }
+};
+
+export const Create = async (name, email, password) => {
+    try {
+        // Ambil token dari localStorage
+        const token = localStorage.getItem("authToken");
+        // Jika token tidak ada, lempar error
+        if (!token) throw new Error("No token found");
+
+        // Static uuid_role
+        const uuid_role = "108f8d4f-cbda-4f1f-8216-a3dd764c5e5d";
+
+        // Kirim request ke API
+        const response = await axios.post(
+            `${API_URL}/users`,
+            { uuid_role, name, email, password },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
+        
+        return response.data;
+    } catch (error) {
+        throw error.response ? error.response.data : error;
+    }
+};
+
+export const Read = async (uuid) => {
+    try {
+        // Ambil token dari localStorage
+        const token = localStorage.getItem("authToken");
+        // Jika token tidak ada, lempar error
+        if (!token) throw new Error("No token found");
+
+        // Jika uuid tidak ada, lempar error
+        if (!uuid) throw new Error("No uuid found");
+        
+        // Kirim request ke API
+        const response = await axios.get(
+            `${API_URL}/users/${uuid}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
+
+        return response.data;
+    } catch (error) {
+        throw error.response ? error.response.data : error;
+    }
+};
+
+export const Update = async (uuid, name, email, password) => {
+    try {
+        // Ambil token dari localStorage
+        const token = localStorage.getItem("authToken");
+        // Jika token tidak ada, lempar error
+        if (!token) throw new Error("No token found");
+
+        // Jika uuid tidak ada, lempar error
+        if (!uuid) throw new Error("No uuid found");
+        // Static uuid_role
+        const uuid_role = "108f8d4f-cbda-4f1f-8216-a3dd764c5e5d";
+
+        // Kirim request ke API
+        const response = await axios.put(
+            `${API_URL}/users/${uuid}`, 
+            { uuid_role, name, email, password },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+            }
+        );
+
+        return response.data;
+    } catch (error) {
+        throw error.response ? error.response.data : error;
+    }
+};
+
+export const Delete = async (uuid) => {
+    try {
+        // Ambil token dari localStorage
+        const token = localStorage.getItem("authToken");
+        // Jika token tidak ada, lempar error
+        if (!token) throw new Error("No token found");
+
+        // Jika uuid tidak ada, lempar error
+        if (!uuid) throw new Error("No uuid found");
+
+        // Kirim request ke API
+        const response = await axios.delete(
+            `${API_URL}/users/${uuid}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
+
         return response.data;
     } catch (error) {
         throw error.response ? error.response.data : error;
