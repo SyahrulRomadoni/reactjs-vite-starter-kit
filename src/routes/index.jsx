@@ -6,7 +6,8 @@ import Home from "../views/home/index.jsx";
 import Register from "../views/auth/register.jsx";
 import Login from "../views/auth/login.jsx";
 import Dashboard from "../views/dashboard/index.jsx";
-import Profile from "../views/user/index.jsx";
+import Profile from "../views/user/profile.jsx";
+import Users from "../views/user/index.jsx";
 
 export default function AppRoutes() {
     return (
@@ -30,6 +31,8 @@ export default function AppRoutes() {
                 <Route path="/dashboard" element={<Dashboard />} />
                 {/* Route "/profile" */}
                 <Route path="/profile" element={<Profile />} />
+                {/* Route "/user" */}
+                <Route path="/users" element={<Users />} />
             </Route>
             
         </Routes>

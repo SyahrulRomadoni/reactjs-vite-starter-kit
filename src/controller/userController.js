@@ -24,3 +24,24 @@ export const CurrentUser = async () => {
         throw error.response ? error.response.data : error;
     }
 };
+
+export const AllUsers = async () => {
+    try {
+        // Ambil token dari localStorage
+        const token = localStorage.getItem("authToken");
+        // Jika token tidak ada, lempar error
+        if (!token) throw new Error("No token found");
+
+        // Kirim request ke API
+        const response = await axios.get(`${API_URL}//users?page=1&limit=10`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        // Tampilkan data response
+        return response.data;
+    } catch (error) {
+        throw error.response ? error.response.data : error;
+    }
+};

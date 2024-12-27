@@ -70,6 +70,15 @@ export default function Sidebar({ handleLogout }) {
                                 <i className="bi bi-person cs-icon" style={{paddingRight: "10px"}}></i> Profile
                             </Link>
                         </li>
+                        <li className="nav-item">
+                            <Link
+                                to="/users"
+                                className={`nav-link text-start cs-text-1 m-1 rounded w-100 ${location.pathname === "/users" ? "cs-active" : ""}`}
+                                aria-current="page"
+                            >
+                                <i className="bi bi-people cs-icon" style={{paddingRight: "10px"}}></i> User
+                            </Link>
+                        </li>
                         <li className="nav-item dropdown">
                             <a className="nav-link text-start cs-text-1 m-1 rounded w-100" data-bs-toggle="collapse" href="#dropdown1" role="button" aria-expanded="false" aria-controls="dropdown1">
                                 <i className="bi bi-gear" style={{paddingRight: "10px"}}></i> More Action <i className="bi bi-arrow-down-short" style={{ float: 'right'}}></i>
