@@ -1,14 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { AllUsers, Create, Read, Update, Delete } from "../../controller/userController";
-import { Modal, Button, Form } from 'react-bootstrap';
+import { toast } from 'react-hot-toast';
 
-export default function Profile() {
+export default function Index() {
     const [users, setUsers] = useState([]);
+    const [error, setError] = useState("");
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
     const [modalType, setModalType] = useState(null);
     const [selectedUser, setSelectedUser] = useState(null);
-    const [formData, setFormData] = useState({ name: '', email: '', password: '' });
+
+    // Formdata
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        password: ''
+    });
 
     // Fungsi untuk mengambil data users
     useEffect(() => {
@@ -26,14 +33,12 @@ export default function Profile() {
         fetchUsers();
     }, []);
 
-    // Fungsi untuk membuka modal Create
     const openCreateModal = () => {
         setModalType('create');
         setShowModal(true);
         setFormData({ name: '', email: '', password: '' });
     };
 
-    // Fungsi untuk membuka modal Read
     const openReadModal = async (uuid) => {
         setModalType('read');
         setSelectedUser(uuid);
@@ -46,7 +51,6 @@ export default function Profile() {
         }
     };
 
-    // Fungsi untuk membuka modal Update
     const openUpdateModal = async (uuid) => {
         setModalType('update');
         setSelectedUser(uuid);
@@ -59,46 +63,69 @@ export default function Profile() {
         }
     };
 
-    // Fungsi untuk membuka modal Delete
     const openDeleteModal = (uuid) => {
         setModalType('delete');
         setSelectedUser(uuid);
         setShowModal(true);
     };
 
-    // Fungsi untuk menutup modal
     const closeModal = () => {
         setShowModal(false);
         setSelectedUser(null);
         setFormData({ name: '', email: '', password: '' });
     };
 
-    // Fungsi untuk menangani perubahan form data
+    // Handle perubahan input form
     const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
     };
 
-    // Fungsi untuk meng-handle Create
     const handleCreate = async () => {
+        // Validasi individual
+        const errorMessages = {
+            name: "Name tidak boleh kosong.",
+            email: "Email tidak boleh kosong.",
+            password: "Password tidak boleh kosong.",
+        };
+        for (const [key, message] of Object.entries(errorMessages)) {
+            if (!formData[key]) {
+                setError(message);
+                toast.error(message);
+                return;
+            }
+        }
+
         try {
             await Create(formData.name, formData.email, formData.password);
-            alert("User created successfully");
+            toast.success("User created successfully");
             closeModal();
-            // Refresh the users list
             const response = await AllUsers();
             setUsers(response.data.data);
         } catch (error) {
+            toast.error("Error creating user.");
             console.error("Error creating user:", error);
         }
     };
 
-    // Fungsi untuk meng-handle Update
     const handleUpdate = async () => {
+        // Validasi individual
+        const errorMessages = {
+            name: "Name tidak boleh kosong.",
+            email: "Email tidak boleh kosong.",
+        };
+        for (const [key, message] of Object.entries(errorMessages)) {
+            if (!formData[key]) {
+                setError(message);
+                toast.error(message);
+                return;
+            }
+        }
+
         try {
             await Update(selectedUser, formData.name, formData.email, formData.password);
-            alert("User updated successfully");
+            toast.success("User updated successfully");
             closeModal();
-            // Refresh the users list
             const response = await AllUsers();
             setUsers(response.data.data);
         } catch (error) {
@@ -106,13 +133,11 @@ export default function Profile() {
         }
     };
 
-    // Fungsi untuk meng-handle Delete
     const handleDelete = async () => {
         try {
             await Delete(selectedUser);
-            alert("User deleted successfully");
+            toast.success("User deleted successfully");
             closeModal();
-            // Refresh the users list
             const response = await AllUsers();
             setUsers(response.data.data);
         } catch (error) {
@@ -124,16 +149,14 @@ export default function Profile() {
         <div>
             <nav aria-label="breadcrumb text-white">
                 <ol className="breadcrumb">
-                    <li className="breadcrumb-item cs-breadcrumb">TEST</li>
-                    <li className="breadcrumb-item cs-breadcrumb">TEST</li>
-                    <li className="breadcrumb-item cs-breadcrumb">TEST</li>
+                    <li className="breadcrumb-item cs-breadcrumb">Users</li>
                 </ol>
             </nav>
 
             <div className="card shadow">
                 <div className="card-body">
                     <h1 className="fw-bold mb-4">Users</h1>
-                    <Button variant="primary" onClick={openCreateModal}>Create User</Button>
+                    <button className="btn btn-primary" onClick={openCreateModal}>Create User</button>
 
                     {loading ? (
                         <p>Loading...</p>
@@ -157,9 +180,9 @@ export default function Profile() {
                                                     <td>{user.email}</td>
                                                     <td>{user.roles.name}</td>
                                                     <td className="text-end">
-                                                        <Button className="m-1" variant="info" onClick={() => openReadModal(user.uuid)}>Read</Button>
-                                                        <Button className="m-1" variant="warning" onClick={() => openUpdateModal(user.uuid)}>Update</Button>
-                                                        <Button className="m-1" variant="danger" onClick={() => openDeleteModal(user.uuid)}>Delete</Button>
+                                                        <button className="btn btn-info m-1" onClick={() => openReadModal(user.uuid)}>Read</button>
+                                                        <button className="btn btn-warning m-1" onClick={() => openUpdateModal(user.uuid)}>Update</button>
+                                                        <button className="btn btn-danger m-1" onClick={() => openDeleteModal(user.uuid)}>Delete</button>
                                                     </td>
                                                 </tr>
                                             ))}
@@ -173,67 +196,83 @@ export default function Profile() {
             </div>
 
             {/* Modal */}
-            <Modal show={showModal} onHide={closeModal}>
-                <Modal.Header closeButton>
-                    <Modal.Title>{modalType === 'create' ? 'Create User' : modalType === 'update' ? 'Update User' : modalType === 'read' ? 'View User' : 'Delete User'}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    {modalType !== 'delete' ? (
-                        <Form>
-                            <Form.Group controlId="name">
-                                <Form.Label>Name</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    name="name"
-                                    value={formData.name}
-                                    onChange={handleChange}
-                                    disabled={modalType === 'read'}
-                                />
-                            </Form.Group>
-                            <Form.Group controlId="email">
-                                <Form.Label>Email</Form.Label>
-                                <Form.Control
-                                    type="email"
-                                    name="email"
-                                    value={formData.email}
-                                    onChange={handleChange}
-                                    disabled={modalType === 'read'}
-                                />
-                            </Form.Group>
-                            {/* Menyembunyikan input password pada mode 'read' */}
-                            {modalType !== 'read' && (
-                                <Form.Group controlId="password">
-                                    <Form.Label>Password</Form.Label>
-                                    <Form.Control
-                                        type="password"
-                                        name="password"
-                                        value={formData.password}
-                                        onChange={handleChange}
-                                        disabled={modalType === 'read'}
-                                    />
-                                </Form.Group>
-                            )}
-                        </Form>
-                    ) : (
-                        <p>Are you sure you want to delete this user?</p>
-                    )}
-                </Modal.Body>
-                <Modal.Footer>
-                    {modalType !== 'delete' ? (
-                        <>
-                            <Button variant="secondary" onClick={closeModal}>Close</Button>
-                            <Button variant="primary" onClick={modalType === 'create' ? handleCreate : handleUpdate}>
-                                {modalType === 'create' ? 'Create' : 'Update'}
-                            </Button>
-                        </>
-                    ) : (
-                        <>
-                            <Button variant="secondary" onClick={closeModal}>No</Button>
-                            <Button variant="danger" onClick={handleDelete}>Yes</Button>
-                        </>
-                    )}
-                </Modal.Footer>
-            </Modal>
+            {showModal && (
+                <div className="modal show" tabIndex="-1" style={{ display: 'block' }} aria-hidden="true">
+                    <div className="modal-dialog">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title">{modalType === 'create' ? 'Create User' : modalType === 'update' ? 'Update User' : modalType === 'read' ? 'View User' : 'Delete User'}</h5>
+                                <button type="button" className="btn-close" onClick={closeModal}></button>
+                            </div>
+                            <div className="modal-body">
+                                {modalType !== 'delete' ? (
+                                    <form>
+                                        {error && <div className="alert alert-danger">{error}</div>}
+                                        <div className="mb-3">
+                                            <label htmlFor="name" className="form-label">Name</label>
+                                            <input
+                                                type="text"
+                                                name="name"
+                                                className="form-control"
+                                                value={formData.name}
+                                                onChange={handleChange}
+                                                disabled={modalType === 'read'}
+                                                required
+                                            />
+                                        </div>
+                                        <div className="mb-3">
+                                            <label htmlFor="email" className="form-label">Email</label>
+                                            <input
+                                                type="email"
+                                                name="email"
+                                                className="form-control"
+                                                value={formData.email}
+                                                onChange={handleChange}
+                                                disabled={modalType === 'read'}
+                                                required
+                                            />
+                                        </div>
+                                        {modalType !== 'read' && (
+                                            <div className="mb-3">
+                                                <label htmlFor="password" className="form-label">Password</label>
+                                                <input
+                                                    type="password"
+                                                    name="password"
+                                                    className="form-control"
+                                                    value={formData.password}
+                                                    onChange={handleChange}
+                                                    disabled={modalType === 'read'}
+                                                />
+                                            </div>
+                                        )}
+                                    </form>
+                                ) : (
+                                    <p>Are you sure you want to delete this user?</p>
+                                )}
+                            </div>
+                            <div className="modal-footer">
+                                {modalType !== 'delete' ? (
+                                    <>
+                                        <button type="button" className="btn btn-secondary" onClick={closeModal}>Close</button>
+                                        <button
+                                            type="button"
+                                            className="btn btn-primary"
+                                            onClick={modalType === 'create' ? handleCreate : handleUpdate}
+                                        >
+                                            {modalType === 'create' ? 'Create' : 'Update'}
+                                        </button>
+                                    </>
+                                ) : (
+                                    <>
+                                        <button type="button" className="btn btn-secondary" onClick={closeModal}>No</button>
+                                        <button type="button" className="btn btn-danger" onClick={handleDelete}>Yes</button>
+                                    </>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

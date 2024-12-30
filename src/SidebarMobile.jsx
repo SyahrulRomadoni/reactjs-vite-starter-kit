@@ -26,12 +26,12 @@ export default function SidebarMobile({ handleLogout }) {
     }, [isDark]);
 
     return (
-        <div class="offcanvas offcanvas-start w-75" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
-            <div class="offcanvas-header">
-                {/* <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">ReactJs Vite</h5> */}
-                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <div className="offcanvas offcanvas-start w-75" data-bs-scroll="true" tabIndex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+            <div className="offcanvas-header">
+                {/* <h5 className="offcanvas-title" id="offcanvasWithBothOptionsLabel">ReactJs Vite</h5> */}
+                <button type="button" className="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
-            <div class="offcanvas-body">
+            <div className="offcanvas-body">
 
                 <div className="row mb-4">
                     <div className="col-12">

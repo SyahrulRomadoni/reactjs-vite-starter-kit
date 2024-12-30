@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { register } from "../../controller/authController";
+import { toast } from 'react-hot-toast'
 
 export default function Register() {
     // Gunakan hook useNavigate untuk navigasi
@@ -18,6 +19,7 @@ export default function Register() {
         password: "",
         confirmPassword: "",
     });
+
     // Handle perubahan input form
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -38,13 +40,15 @@ export default function Register() {
         for (const [key, message] of Object.entries(errorMessages)) {
             if (!formData[key]) {
                 setError(message);
+                toast.error(message);
                 return;
             }
         }
 
         // Validasi password konfirmasi
         if (formData.password !== formData.confirmPassword) {
-            setError("Password and Confirm Password must match.");
+            setError("Password and Confirm Password must match");
+            toast.error("Password and Confirm Password must match");
             return;
         }
 
@@ -58,6 +62,7 @@ export default function Register() {
             navigate("/login");
         } catch (err) {
             setError(err.message || "Something went wrong");
+            toast.error(err.message || "Something went wrong");
         } finally {
             setLoading(false);
         }

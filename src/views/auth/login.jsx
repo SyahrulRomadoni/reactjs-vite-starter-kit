@@ -17,12 +17,14 @@ export default function Login() {
         email: "",
         password: "",
     });
+
     // Handle perubahan input form
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
 
+    // Handle Login
     const handleLogin = async (e) => {
         e.preventDefault();
 
@@ -34,6 +36,7 @@ export default function Login() {
         for (const [key, message] of Object.entries(errorMessages)) {
             if (!formData[key]) {
                 setError(message);
+                toast.error(message);
                 return;
             }
         }
@@ -54,6 +57,7 @@ export default function Login() {
             window.location.reload();
         } catch (err) {
             setError(err.message || "Something went wrong");
+            toast.error(err.message || "Something went wrong");
         } finally {
             setLoading(false);
         }

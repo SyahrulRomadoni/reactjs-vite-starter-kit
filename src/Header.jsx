@@ -11,7 +11,7 @@ export default function Header() {
 
                             <div className="col-xxl-0 col-xl-0 col-lg-0 col-md-0 col-sm-3 col-3">
                                 <a
-                                    style={{ display: "none" }}
+                                    style={{ display: "none", float: "left" }}
                                     className="btn cs-btn-side-mobile"
                                     type="button"
                                     data-bs-toggle="offcanvas"

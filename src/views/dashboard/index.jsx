@@ -7,9 +7,8 @@ export default function Dashboard() {
         <div>
             <nav aria-label="breadcrumb">
                 <ol className="breadcrumb">
-                    <li className="breadcrumb-item cs-breadcrumb">TEST</li>
-                    <li className="breadcrumb-item cs-breadcrumb">TEST</li>
-                    <li className="breadcrumb-item cs-breadcrumb">TEST</li>
+                    <li className="breadcrumb-item cs-breadcrumb">Dashboard</li>
+                    <li className="breadcrumb-item cs-breadcrumb"></li>
                 </ol>
             </nav>
             
