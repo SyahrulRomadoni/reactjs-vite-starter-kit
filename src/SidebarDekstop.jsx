@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
-export default function Sidebar({ handleLogout }) {
+export default function SidebarDekstop({ handleLogout }) {
     // Untuk mengatur lokasi path urlnya
     const location = useLocation();
 

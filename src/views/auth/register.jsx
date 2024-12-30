@@ -65,10 +65,10 @@ export default function Register() {
 
     return (
 
-        <div className="row justify-content-end align-items-center" style={{ height: '100vh' }}>
+        <div className="row justify-content-end align-items-center">
             {/* <div className="col-6 d-flex justify-content-center"></div> */}
             <div className="col-12 d-flex justify-content-center">
-                <div className="card" style={{ width: '100%', maxWidth: '40%' }}>
+                <div className="card shadow">
                     <div className="card-body">
                     <h1 className="fw-bold text-center">Register</h1>
                     {error && <div className="alert alert-danger">{error}</div>}

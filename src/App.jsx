@@ -9,7 +9,8 @@ import { toast } from 'react-hot-toast'
 
 import AppRoutes from './routes';
 import Header from './Header.jsx';
-import Sidebar from './Sidebar.jsx';
+import SidebarDekstop from './SidebarDekstop.jsx';
+import SidebarMobile from './SidebarMobile.jsx';
 import Footer from './Footer.jsx';
 
 export default function App() {
@@ -45,13 +46,16 @@ export default function App() {
             <div className="row" style={{ height: '100vh' }}>
                 {token ? (
                     <>
-                        {/* Sidebar */}
-                        <div className="col-2 p-4 bg-sidebar shadow">
-                            <Sidebar handleLogout={handleLogout} />
+                        {/* Sidebar Dekstop*/}
+                        <div className="col-xl-2 col-lg-3 col-md-4 d-sm-block d-none p-4 bg-sidebar shadow">
+                            <SidebarDekstop handleLogout={handleLogout} />
                         </div>
 
+                        {/* Sidebar Mobile */}
+                        <SidebarMobile handleLogout={handleLogout}/>
+
                         {/* Header & Content & Footer */}
-                        <div className="col-10 p-3">
+                        <div className="col-xl-10 col-lg-9 col-md-8 col-sm-12 p-3">
                             {/* Header */}
                             <Header />
 

@@ -60,10 +60,10 @@ export default function Login() {
     };
 
     return (
-        <div className="row justify-content-end align-items-center" style={{ height: '100vh' }}>
+        <div className="row justify-content-end align-items-center">
             {/* <div className="col-6 d-flex justify-content-center"></div> */}
             <div className="col-12 d-flex justify-content-center">
-                <div className="card" style={{ width: '100%', maxWidth: '40%' }}>
+                <div className="card shadow">
                     <div className="card-body">
                         <h1 className="fw-bold text-center">Login</h1>
                         <form onSubmit={handleLogin}>

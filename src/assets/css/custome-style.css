@@ -113,3 +113,16 @@ input:checked + .slider:before {
 .switch-checkbox {
     padding: 10px;
 }
+
+@media (max-width: 760px) {
+    /* Untuk menghilangkan side bar kalo masuk ke tampilan mobile */
+    [data-bs-theme="light"] .bg-sidebar,
+    [data-bs-theme="dark"] .bg-sidebar {
+        display: none !important;
+    }
+    
+    [data-bs-theme="light"] .cs-btn-side-mobile,
+    [data-bs-theme="dark"] .cs-btn-side-mobile {
+        display: block !important;
+    }
+}
