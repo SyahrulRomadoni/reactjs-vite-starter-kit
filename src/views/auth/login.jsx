@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../controller/authController";
+import { toast } from 'react-hot-toast'
 
 export default function Login() {
     // Gunakan hook useNavigate untuk navigasi
@@ -43,10 +44,13 @@ export default function Login() {
             // Kirim request login
             const result = await login(formData.email, formData.password);
             // Menampilkan pesan
-            alert(result.message);
+            // alert(result.message);
+            toast.success(result.message, {
+                duration: 3000,
+            });
             // Arahkan ke halaman dashboard
             navigate("/dashboard");
-            window.location.reload();
+            // window.location.reload();
         } catch (err) {
             setError(err.message || "Something went wrong");
         } finally {

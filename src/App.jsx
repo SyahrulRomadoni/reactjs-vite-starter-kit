@@ -5,6 +5,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 import { useEffect, useState } from "react";
 import { logout } from "./controller/authController";
+import { toast } from 'react-hot-toast'
 
 import AppRoutes from './routes';
 import Header from './Header.jsx';
@@ -18,7 +19,10 @@ export default function App() {
     // Fungsi untuk logout dan menghapus token
     const handleLogout = async () => {
         const result = await logout();
-        alert(result.message);
+        // alert(result.message);
+        toast.success(result.message, {
+            duration: 3000,
+        })
         localStorage.removeItem("authToken");
         setToken(null);
     };

@@ -138,30 +138,36 @@ export default function Profile() {
                     {loading ? (
                         <p>Loading...</p>
                     ) : (
-                        <table className="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Role</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {users.map((user) => (
-                                    <tr key={user.uuid}>
-                                        <td>{user.name}</td>
-                                        <td>{user.email}</td>
-                                        <td>{user.roles.name}</td>
-                                        <td className="text-end">
-                                            <Button className="m-1" variant="info" onClick={() => openReadModal(user.uuid)}>Read</Button>
-                                            <Button className="m-1" variant="warning" onClick={() => openUpdateModal(user.uuid)}>Update</Button>
-                                            <Button className="m-1" variant="danger" onClick={() => openDeleteModal(user.uuid)}>Delete</Button>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                        <div className="card mt-3">
+                            <div className="card-body">
+                                <div className="table-responsive">
+                                    <table className="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Email</th>
+                                                <th>Role</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {users.map((user) => (
+                                                <tr key={user.uuid}>
+                                                    <td>{user.name}</td>
+                                                    <td>{user.email}</td>
+                                                    <td>{user.roles.name}</td>
+                                                    <td className="text-end">
+                                                        <Button className="m-1" variant="info" onClick={() => openReadModal(user.uuid)}>Read</Button>
+                                                        <Button className="m-1" variant="warning" onClick={() => openUpdateModal(user.uuid)}>Update</Button>
+                                                        <Button className="m-1" variant="danger" onClick={() => openDeleteModal(user.uuid)}>Delete</Button>
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                     )}
                 </div>
             </div>
