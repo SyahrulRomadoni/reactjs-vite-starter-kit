@@ -13,10 +13,10 @@ export default function Dashboard() {
                 </ol>
             </nav>
             
-            <div className="p-5 mb-4 cs-bg-1 rounded-3 shadow">
-                <div className="container-fluid py-5">
-                    <h1 className="fw-bold">HALAMAN DASHBOARD</h1>
-                    <p className="col-md-8">Dashboard</p>
+            <div className="card shadow">
+                <div className="card-body">
+                    <h1 className="fw-bold">Dashboard</h1>
+                    <p className="col-md-8">Welcome to Dashboard</p>
                 </div>
             </div>
         </div>

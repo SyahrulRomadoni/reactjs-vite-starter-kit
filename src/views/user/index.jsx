@@ -130,8 +130,8 @@ export default function Profile() {
                 </ol>
             </nav>
 
-            <div className="mb-4 cs-bg-1 rounded-3 shadow">
-                <div className="container-fluid py-5">
+            <div className="card shadow">
+                <div className="card-body">
                     <h1 className="fw-bold mb-4">Users</h1>
                     <Button variant="primary" onClick={openCreateModal}>Create User</Button>
 

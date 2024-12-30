@@ -7,6 +7,14 @@
     font-size: 15px;
 }
 
+[data-bs-theme=light] .bg-sidebar {
+    border-right: 1px solid #d2d2d2;
+}
+
+[data-bs-theme=dark] .bg-sidebar {
+    border-right: 1px solid #424549;
+}
+
 [data-bs-theme=dark] .cs-text-1 {
     color: #ffffff;
 }

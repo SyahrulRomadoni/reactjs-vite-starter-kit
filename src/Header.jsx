@@ -5,9 +5,8 @@ export default function Header() {
         <div className="row mb-3">
             <div className="col-12">
 
-                <div className="p-3 cs-bg-1 rounded-3 shadow">
-                    <div className="container-fluid">
-
+                <div className="card shadow">
+                    <div className="card-body">
                         <div className="row">
                             <div className="col-6">
                                 {/* <h4>Header</h4> */}
@@ -31,10 +30,9 @@ export default function Header() {
                                 </ul>
                             </div>
                         </div>
-                        
                     </div>
                 </div>
-
+                
             </div>
         </div>
     );

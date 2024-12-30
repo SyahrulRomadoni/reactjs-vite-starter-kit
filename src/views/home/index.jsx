@@ -3,8 +3,8 @@
 export default function Home() {
     return (
         <div>
-            <div className="m-5 p-5 mb-4 cs-bg-1 rounded-3 shadow">
-                <div className="container-fluid py-5">
+            <div className="card shadow mt-3">
+                <div className="card-body">
                     <h1 className="fw-bold">REACT JS</h1>
                     <p className="col-md-8">HOME</p>
                 </div>

@@ -46,8 +46,8 @@ export default function Profile() {
                 </ol>
             </nav>
 
-            <div className="p-5 mb-4 cs-bg-1 rounded-3 shadow">
-                <div className="container-fluid py-5">
+            <div className="card shadow">
+                <div className="card-body">
                     <h1 className="fw-bold">Profile</h1>
                     <p className="col-md-8">Nama: {userData.data.name}</p>
                     <p className="col-md-8">Email: {userData.data.email}</p>
