@@ -50,7 +50,8 @@ export default function Login() {
             });
             // Arahkan ke halaman dashboard
             navigate("/dashboard");
-            // window.location.reload();
+            // Reload halaman untuk merender Sidebar, Header dan Footer
+            window.location.reload();
         } catch (err) {
             setError(err.message || "Something went wrong");
         } finally {
