@@ -194,6 +194,7 @@ export default function Index() {
             <nav aria-label="breadcrumb text-white">
                 <ol className="breadcrumb">
                     <li className="breadcrumb-item cs-breadcrumb">Users</li>
+                    <li className="breadcrumb-item cs-breadcrumb"></li>
                 </ol>
             </nav>
 
