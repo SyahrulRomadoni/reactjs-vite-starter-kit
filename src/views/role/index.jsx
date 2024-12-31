@@ -1,11 +1,11 @@
-// src/views/user/index.jsx
+// src/views/role/index.jsx
 
 import { useEffect, useState } from "react";
-import { All, Create, Read, Update, Delete } from "../../controller/userController";
+import { All, Create, Read, Update, Delete } from "../../controller/roleController";
 import { toast } from 'react-hot-toast';
 
 export default function Index() {
-    const [users, setUsers] = useState([]);
+    const [roles, setRoles] = useState([]);
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
@@ -14,9 +14,7 @@ export default function Index() {
 
     // Formdata
     const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        password: ''
+        name: ''
     });
 
     // Fungsi untuk mengambil data atau tampilan yang mau dirender
@@ -25,11 +23,11 @@ export default function Index() {
             try {
                 setLoading(true);
                 const response = await All();
-                setUsers(response.data.data);
+                setRoles(response.data.data);
             } catch (error) {
                 setError(error.message);
                 toast.error(error.message);
-                console.error("Error fetching users : " + error);
+                console.error("Error fetching roles : " + error);
             } finally {
                 setLoading(false);
             }
@@ -39,14 +37,14 @@ export default function Index() {
         fetchData();
     }, []);
 
-    // Jika ada kendala di UseEffect kalo data user terjadi kendala
+    // Jika ada kendala di UseEffect kalo data role terjadi kendala
     // if (error) {
     //     // Tampilkan error jika ada
     //     return <div>Error: {error}</div>;
     // }
 
     // Bisa memnbuat animasi loading kalo data masih belum dapat
-    // if (!users) {
+    // if (!roles) {
     //     // Tampilkan loading saat data belum ada
     //     // return <div>Loading...</div>;
     //     return;
@@ -56,7 +54,7 @@ export default function Index() {
     const openCreateModal = () => {
         setModalType('create');
         setShowModal(true);
-        setFormData({ name: '', email: '', password: '' });
+        setFormData({ name: '' });
     };
 
     const openReadModal = async (uuid) => {
@@ -65,9 +63,9 @@ export default function Index() {
         setShowModal(true);
         try {
             const response = await Read(uuid);
-            setFormData({ name: response.data.name, email: response.data.email, password: '' });
+            setFormData({ name: response.data.name });
         } catch (error) {
-            console.error("Error fetching user data:", error);
+            console.error("Error fetching role data:", error);
         }
     };
 
@@ -77,9 +75,9 @@ export default function Index() {
         setShowModal(true);
         try {
             const response = await Read(uuid);
-            setFormData({ name: response.data.name, email: response.data.email, password: '' });
+            setFormData({ name: response.data.name });
         } catch (error) {
-            console.error("Error fetching user data:", error);
+            console.error("Error fetching role data:", error);
         }
     };
 
@@ -92,7 +90,7 @@ export default function Index() {
     const closeModal = () => {
         setShowModal(false);
         setSelectedData(null);
-        setFormData({ name: '', email: '', password: '' });
+        setFormData({ name: '' });
     };
 
     // Handle perubahan input form
@@ -106,9 +104,7 @@ export default function Index() {
 
         // Validasi individual
         const errorMessages = {
-            name: "Name tidak boleh kosong.",
-            email: "Email tidak boleh kosong.",
-            password: "Password tidak boleh kosong.",
+            name: "Name tidak boleh kosong."
         };
         for (const [key, message] of Object.entries(errorMessages)) {
             if (!formData[key]) {
@@ -119,17 +115,17 @@ export default function Index() {
         }
 
         try {
-            const result = await Create(formData.name, formData.email, formData.password);
+            const result = await Create(formData.name);
             toast.success(result.message, {
                 duration: 3000,
             });
-            const response = await AllUsers();
-            setUsers(response.data.data);
+            const response = await All();
+            setRoles(response.data.data);
             closeModal();
         } catch (error) {
             setError(error.message);
             toast.error(error.message);
-            // console.error("Error create user : " + error.message);
+            // console.error("Error create role : " + error.message);
         }
     };
 
@@ -138,8 +134,7 @@ export default function Index() {
 
         // Validasi individual
         const errorMessages = {
-            name: "Name tidak boleh kosong.",
-            email: "Email tidak boleh kosong.",
+            name: "Name tidak boleh kosong."
         };
         for (const [key, message] of Object.entries(errorMessages)) {
             if (!formData[key]) {
@@ -150,17 +145,17 @@ export default function Index() {
         }
 
         try {
-            const result = await Update(selectedData, formData.name, formData.email, formData.password);
+            const result = await Update(selectedData, formData.name);
             toast.success(result.message, {
                 duration: 3000,
             });
-            const response = await AllUsers();
-            setUsers(response.data.data);
+            const response = await All();
+            setRoles(response.data.data);
             closeModal();
         } catch (error) {
             setError(error.message);
             toast.error(error.message);
-            // console.error("Error update user : " + error.message);
+            // console.error("Error update role : " + error.message);
         }
     };
 
@@ -172,12 +167,12 @@ export default function Index() {
             toast.success(result.message, {
                 duration: 3000,
             });
-            const response = await AllUsers();
-            setUsers(response.data.data);
+            const response = await All();
+            setRoles(response.data.data);
             closeModal();
         } catch (error) {
             toast.error(error.message);
-            // console.error("Error deleting user:" + error.message);
+            // console.error("Error deleting role:" + error.message);
         }
     };
 
@@ -185,14 +180,14 @@ export default function Index() {
         <div>
             <nav aria-label="breadcrumb text-white">
                 <ol className="breadcrumb">
-                    <li className="breadcrumb-item cs-breadcrumb">Users</li>
+                    <li className="breadcrumb-item cs-breadcrumb">Roles</li>
                 </ol>
             </nav>
 
             <div className="card shadow">
                 <div className="card-body">
-                    <h1 className="fw-bold mb-4">Users</h1>
-                    <button className="btn btn-primary" onClick={openCreateModal}>Create User</button>
+                    <h1 className="fw-bold mb-4">Roles</h1>
+                    <button className="btn btn-primary" onClick={openCreateModal}>Create Role</button>
 
                     {loading ? (
                         // Bisa di ganti skeleten atau animasi loading
@@ -205,22 +200,18 @@ export default function Index() {
                                         <thead>
                                             <tr>
                                                 <th>Name</th>
-                                                <th>Email</th>
-                                                <th>Role</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <>
-                                                {users.map((user) => (
-                                                    <tr key={user.uuid}>
-                                                        <td>{user.name}</td>
-                                                        <td>{user.email}</td>
-                                                        <td>{user.roles.name}</td>
+                                                {roles.map((role) => (
+                                                    <tr key={role.uuid}>
+                                                        <td>{role.name}</td>
                                                         <td className="text-end">
-                                                            <button className="btn btn-info m-1" onClick={() => openReadModal(user.uuid)}>Read</button>
-                                                            <button className="btn btn-warning m-1" onClick={() => openUpdateModal(user.uuid)}>Update</button>
-                                                            <button className="btn btn-danger m-1" onClick={() => openDeleteModal(user.uuid)}>Delete</button>
+                                                            <button className="btn btn-info m-1" onClick={() => openReadModal(role.uuid)}>Read</button>
+                                                            <button className="btn btn-warning m-1" onClick={() => openUpdateModal(role.uuid)}>Update</button>
+                                                            <button className="btn btn-danger m-1" onClick={() => openDeleteModal(role.uuid)}>Delete</button>
                                                         </td>
                                                     </tr>
                                                 ))}
@@ -241,7 +232,7 @@ export default function Index() {
                     <div className="modal-dialog">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title">{modalType === 'create' ? 'Create User' : modalType === 'update' ? 'Update User' : modalType === 'read' ? 'View User' : 'Delete User'}</h5>
+                                <h5 className="modal-title">{modalType === 'create' ? 'Create Role' : modalType === 'update' ? 'Update Role' : modalType === 'read' ? 'View Role' : 'Delete Role'}</h5>
                                 <button type="button" className="btn-close" onClick={closeModal}></button>
                             </div>
                             <div className="modal-body">
@@ -261,36 +252,9 @@ export default function Index() {
                                                 required
                                             />
                                         </div>
-                                        <div className="mb-3">
-                                            <label htmlFor="email" className="form-label">Email</label>
-                                            <input
-                                                id="email"
-                                                name="email"
-                                                type="email"
-                                                className="form-control"
-                                                value={formData.email}
-                                                onChange={handleChange}
-                                                disabled={modalType === 'read'}
-                                                required
-                                            />
-                                        </div>
-                                        {modalType !== 'read' && (
-                                            <div className="mb-3">
-                                                <label htmlFor="password" className="form-label">Password</label>
-                                                <input
-                                                    id="password"
-                                                    name="password"
-                                                    type="password"
-                                                    className="form-control"
-                                                    value={formData.password}
-                                                    onChange={handleChange}
-                                                    disabled={modalType === 'read'}
-                                                />
-                                            </div>
-                                        )}
                                     </form>
                                 ) : (
-                                    <p>Are you sure you want to delete this user?</p>
+                                    <p>Are you sure you want to delete this role?</p>
                                 )}
                             </div>
                             <div className="modal-footer">
