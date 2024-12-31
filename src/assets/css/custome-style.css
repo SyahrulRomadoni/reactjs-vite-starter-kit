@@ -1,18 +1,21 @@
+/* Brand */
 .cs-brand {
     font-size: 25px;
     margin-bottom: 0px;
 }
 
-.cs-text-1 {
-    font-size: 15px;
-}
-
+/* Sidebar */
 [data-bs-theme=light] .bg-sidebar {
     border-right: 1px solid #d2d2d2;
 }
 
 [data-bs-theme=dark] .bg-sidebar {
     border-right: 1px solid #424549;
+}
+
+/* Text */
+.cs-text-1 {
+    font-size: 15px;
 }
 
 [data-bs-theme=dark] .cs-text-1 {
@@ -28,10 +31,12 @@
     background-color: #435ebe;
 }
 
+/* Breadcrumb */
 .cs-breadcrumb {
     font-size: 17px;
 }
 
+/* Icon */
 .cs-icon {
     font-size: 20px;
 }
@@ -102,7 +107,6 @@ input:checked + .slider:before {
     transform: translateX(26px);
 }
 
-/* Rounded sliders */
 .slider.round {
     border-radius: 34px;
 }
@@ -114,6 +118,7 @@ input:checked + .slider:before {
     padding: 10px;
 }
 
+/* Width Responsive */
 @media (max-width: 760px) {
     /* Untuk menghilangkan side bar kalo masuk ke tampilan mobile */
     [data-bs-theme="light"] .bg-sidebar,
