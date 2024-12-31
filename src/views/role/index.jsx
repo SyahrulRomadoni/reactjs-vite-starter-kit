@@ -209,9 +209,9 @@ export default function Index() {
                                                     <tr key={role.uuid}>
                                                         <td>{role.name}</td>
                                                         <td className="text-end">
-                                                            <button className="btn btn-info m-1" onClick={() => openReadModal(role.uuid)}>Read</button>
-                                                            <button className="btn btn-warning m-1" onClick={() => openUpdateModal(role.uuid)}>Update</button>
-                                                            <button className="btn btn-danger m-1" onClick={() => openDeleteModal(role.uuid)}>Delete</button>
+                                                            <button className="btn btn-sm btn-info m-1" onClick={() => openReadModal(role.uuid)}>Read</button>
+                                                            <button className="btn btn-sm btn-warning m-1" onClick={() => openUpdateModal(role.uuid)}>Update</button>
+                                                            <button className="btn btn-sm btn-danger m-1" onClick={() => openDeleteModal(role.uuid)}>Delete</button>
                                                         </td>
                                                     </tr>
                                                 ))}
@@ -258,22 +258,15 @@ export default function Index() {
                                 )}
                             </div>
                             <div className="modal-footer">
-                                {modalType !== 'delete' ? (
-                                    <>
-                                        <button type="button" className="btn btn-secondary" onClick={closeModal}>Close</button>
-                                        <button
-                                            type="button"
-                                            className="btn btn-primary"
-                                            onClick={modalType === 'create' ? handleCreate : handleUpdate}
-                                        >
-                                            {modalType === 'create' ? 'Create' : 'Update'}
-                                        </button>
-                                    </>
-                                ) : (
-                                    <>
-                                        <button type="button" className="btn btn-secondary" onClick={closeModal}>No</button>
-                                        <button type="button" className="btn btn-danger" onClick={handleDelete}>Yes</button>
-                                    </>
+                                <button type="button" className="btn btn-secondary" onClick={closeModal}>Close</button>
+                                {modalType === 'create' && (
+                                    <button type="button" className="btn btn-primary" onClick={handleCreate}>Create</button>
+                                )}
+                                {modalType === 'update' && (
+                                    <button type="button" className="btn btn-primary" onClick={handleUpdate}>Update</button>
+                                )}
+                                {modalType === 'delete' && (
+                                    <button type="button" className="btn btn-danger" onClick={handleDelete}>Yes</button>
                                 )}
                             </div>
                         </div>

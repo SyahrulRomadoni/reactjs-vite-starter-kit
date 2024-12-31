@@ -52,7 +52,7 @@ export const All = async (page = 1, limit = 10) => {
     }
 };
 
-export const Create = async (name, email, password) => {
+export const Create = async (role, name, email, password) => {
     try {
         // Ambil token dari localStorage
         const token = localStorage.getItem("authToken");
@@ -60,7 +60,8 @@ export const Create = async (name, email, password) => {
         if (!token) throw new Error("No token found");
 
         // Static uuid_role
-        const uuid_role = "108f8d4f-cbda-4f1f-8216-a3dd764c5e5d";
+        // const uuid_role = "108f8d4f-cbda-4f1f-8216-a3dd764c5e5d";
+        const uuid_role = role;
 
         // Kirim request ke API
         const response = await axios.post(
@@ -105,7 +106,7 @@ export const Read = async (uuid) => {
     }
 };
 
-export const Update = async (uuid, name, email, password) => {
+export const Update = async (uuid, role, name, email, password) => {
     try {
         // Ambil token dari localStorage
         const token = localStorage.getItem("authToken");
@@ -115,7 +116,8 @@ export const Update = async (uuid, name, email, password) => {
         // Jika uuid tidak ada, lempar error
         if (!uuid) throw new Error("No uuid found");
         // Static uuid_role
-        const uuid_role = "108f8d4f-cbda-4f1f-8216-a3dd764c5e5d";
+        // const uuid_role = "108f8d4f-cbda-4f1f-8216-a3dd764c5e5d";
+        const uuid_role = role;
 
         // Kirim request ke API
         const response = await axios.put(

@@ -1,11 +1,13 @@
 // src/views/user/index.jsx
 
 import { useEffect, useState } from "react";
-import { All, Create, Read, Update, Delete } from "../../controller/userController";
+import * as userController from "../../controller/userController";
+import * as roleController from "../../controller/roleController";
 import { toast } from 'react-hot-toast';
 
 export default function Index() {
     const [users, setUsers] = useState([]);
+    const [roles, setRoles] = useState([]);
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
@@ -14,6 +16,7 @@ export default function Index() {
 
     // Formdata
     const [formData, setFormData] = useState({
+        role: '',
         name: '',
         email: '',
         password: ''
@@ -24,8 +27,13 @@ export default function Index() {
         const fetchData = async () => {
             try {
                 setLoading(true);
-                const response = await All();
+                // All User Data
+                const response = await userController.All();
                 setUsers(response.data.data);
+
+                // All Role Data
+                const roleResponse = await roleController.All();
+                setRoles(roleResponse.data.data);
             } catch (error) {
                 setError(error.message);
                 toast.error(error.message);
@@ -64,8 +72,8 @@ export default function Index() {
         setSelectedData(uuid);
         setShowModal(true);
         try {
-            const response = await Read(uuid);
-            setFormData({ name: response.data.name, email: response.data.email, password: '' });
+            const response = await userController.Read(uuid);
+            setFormData({ role: response.data.uuid_role, name: response.data.name, email: response.data.email, password: '' });
         } catch (error) {
             console.error("Error fetching user data:", error);
         }
@@ -76,8 +84,8 @@ export default function Index() {
         setSelectedData(uuid);
         setShowModal(true);
         try {
-            const response = await Read(uuid);
-            setFormData({ name: response.data.name, email: response.data.email, password: '' });
+            const response = await userController.Read(uuid);
+            setFormData({ role: response.data.uuid_role, name: response.data.name, email: response.data.email, password: '' });
         } catch (error) {
             console.error("Error fetching user data:", error);
         }
@@ -119,11 +127,11 @@ export default function Index() {
         }
 
         try {
-            const result = await Create(formData.name, formData.email, formData.password);
+            const result = await userController.Create(formData.role, formData.name, formData.email, formData.password);
             toast.success(result.message, {
                 duration: 3000,
             });
-            const response = await AllUsers();
+            const response = await userController.All();
             setUsers(response.data.data);
             closeModal();
         } catch (error) {
@@ -150,11 +158,11 @@ export default function Index() {
         }
 
         try {
-            const result = await Update(selectedData, formData.name, formData.email, formData.password);
+            const result = await userController.Update(selectedData, formData.role, formData.name, formData.email, formData.password);
             toast.success(result.message, {
                 duration: 3000,
             });
-            const response = await AllUsers();
+            const response = await userController.All();
             setUsers(response.data.data);
             closeModal();
         } catch (error) {
@@ -168,11 +176,11 @@ export default function Index() {
         e.preventDefault();
 
         try {
-            const result = await Delete(selectedData);
+            const result = await userController.Delete(selectedData);
             toast.success(result.message, {
                 duration: 3000,
             });
-            const response = await AllUsers();
+            const response = await userController.All();
             setUsers(response.data.data);
             closeModal();
         } catch (error) {
@@ -218,9 +226,9 @@ export default function Index() {
                                                         <td>{user.email}</td>
                                                         <td>{user.roles.name}</td>
                                                         <td className="text-end">
-                                                            <button className="btn btn-info m-1" onClick={() => openReadModal(user.uuid)}>Read</button>
-                                                            <button className="btn btn-warning m-1" onClick={() => openUpdateModal(user.uuid)}>Update</button>
-                                                            <button className="btn btn-danger m-1" onClick={() => openDeleteModal(user.uuid)}>Delete</button>
+                                                            <button className="btn btn-sm btn-info m-1" onClick={() => openReadModal(user.uuid)}>Read</button>
+                                                            <button className="btn btn-sm btn-warning m-1" onClick={() => openUpdateModal(user.uuid)}>Update</button>
+                                                            <button className="btn btn-sm btn-danger m-1" onClick={() => openDeleteModal(user.uuid)}>Delete</button>
                                                         </td>
                                                     </tr>
                                                 ))}
@@ -248,6 +256,23 @@ export default function Index() {
                                 {modalType !== 'delete' ? (
                                     <form>
                                         {error && <div className="alert alert-danger">{error}</div>}
+                                        <div className="mb-3">
+                                            <label htmlFor="role" className="form-label">Role</label>
+                                            <select
+                                                id="role"
+                                                name="role"
+                                                className="form-control"
+                                                value={formData.role}
+                                                onChange={handleChange}
+                                                disabled={modalType === 'read'}
+                                                required
+                                            >
+                                                <option value="">Select Role</option>
+                                                {roles.map((role) => (
+                                                    <option key={role.uuid} value={role.uuid}>{role.name}</option>
+                                                ))}
+                                            </select>
+                                        </div>
                                         <div className="mb-3">
                                             <label htmlFor="name" className="form-label">Name</label>
                                             <input
@@ -294,22 +319,15 @@ export default function Index() {
                                 )}
                             </div>
                             <div className="modal-footer">
-                                {modalType !== 'delete' ? (
-                                    <>
-                                        <button type="button" className="btn btn-secondary" onClick={closeModal}>Close</button>
-                                        <button
-                                            type="button"
-                                            className="btn btn-primary"
-                                            onClick={modalType === 'create' ? handleCreate : handleUpdate}
-                                        >
-                                            {modalType === 'create' ? 'Create' : 'Update'}
-                                        </button>
-                                    </>
-                                ) : (
-                                    <>
-                                        <button type="button" className="btn btn-secondary" onClick={closeModal}>No</button>
-                                        <button type="button" className="btn btn-danger" onClick={handleDelete}>Yes</button>
-                                    </>
+                            <button type="button" className="btn btn-secondary" onClick={closeModal}>Close</button>
+                                {modalType === 'create' && (
+                                    <button type="button" className="btn btn-primary" onClick={handleCreate}>Create</button>
+                                )}
+                                {modalType === 'update' && (
+                                    <button type="button" className="btn btn-primary" onClick={handleUpdate}>Update</button>
+                                )}
+                                {modalType === 'delete' && (
+                                    <button type="button" className="btn btn-danger" onClick={handleDelete}>Yes</button>
                                 )}
                             </div>
                         </div>
