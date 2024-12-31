@@ -26,9 +26,17 @@
     color: #000000;
 }
 
-.cs-text-1.cs-active {
+/* Active Buttom Sidebar */
+[data-bs-theme=light] .cs-text-1.cs-active {
     color: #ffffff;
-    background-color: #435ebe;
+    /* background-color: #435ebe; */
+    background-color: #000000;
+}
+
+[data-bs-theme=dark] .cs-text-1.cs-active {
+    color: #000000;
+    /* background-color: #435ebe; */
+    background-color: #ffffff;
 }
 
 /* Breadcrumb */
