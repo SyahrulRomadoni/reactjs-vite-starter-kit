@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from "react";
+// src/views/user/index.jsx
+
+import { useEffect, useState } from "react";
 import { AllUsers, Create, Read, Update, Delete } from "../../controller/userController";
 import { toast } from 'react-hot-toast';
 
@@ -17,22 +19,40 @@ export default function Index() {
         password: ''
     });
 
-    // Fungsi untuk mengambil data users
+    // Fungsi untuk mengambil data atau tampilan yang mau dirender
     useEffect(() => {
-        const fetchUsers = async () => {
+        const fetchUserData = async () => {
             try {
+                setLoading(true);
                 const response = await AllUsers();
                 setUsers(response.data.data);
             } catch (error) {
-                console.error("Error fetching users:", error);
+                setError(error.message);
+                toast.error(error.message);
+                console.error("Error fetching users : " + error);
             } finally {
                 setLoading(false);
             }
         };
 
-        fetchUsers();
+        // Panggil fungsi ini untuk data yang mau dirender
+        fetchUserData();
     }, []);
 
+    // Jika ada kendala di UseEffect kalo data user terjadi kendala
+    // if (error) {
+    //     // Tampilkan error jika ada
+    //     return <div>Error: {error}</div>;
+    // }
+
+    // Bisa memnbuat animasi loading kalo data masih belum dapat
+    // if (!users) {
+    //     // Tampilkan loading saat data belum ada
+    //     // return <div>Loading...</div>;
+    //     return;
+    // }
+
+    // Modal kondisi
     const openCreateModal = () => {
         setModalType('create');
         setShowModal(true);
@@ -81,7 +101,9 @@ export default function Index() {
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleCreate = async () => {
+    const handleCreate = async (e) => {
+        e.preventDefault();
+
         // Validasi individual
         const errorMessages = {
             name: "Name tidak boleh kosong.",
@@ -103,12 +125,15 @@ export default function Index() {
             const response = await AllUsers();
             setUsers(response.data.data);
         } catch (error) {
-            toast.error("Error creating user.");
-            console.error("Error creating user:", error);
+            setError(error.message);
+            toast.error(error.message);
+            // console.error("Error create user : " + error.message);
         }
     };
 
-    const handleUpdate = async () => {
+    const handleUpdate = async (e) => {
+        e.preventDefault();
+
         // Validasi individual
         const errorMessages = {
             name: "Name tidak boleh kosong.",
@@ -123,17 +148,23 @@ export default function Index() {
         }
 
         try {
-            await Update(selectedUser, formData.name, formData.email, formData.password);
-            toast.success("User updated successfully");
+            const result = await Update(selectedUser, formData.name, formData.email, formData.password);
+            toast.success(result.message, {
+                duration: 3000,
+            });
             closeModal();
             const response = await AllUsers();
             setUsers(response.data.data);
         } catch (error) {
-            console.error("Error updating user:", error);
+            setError(error.message);
+            toast.error(error.message);
+            // console.error("Error update user : " + error.message);
         }
     };
 
-    const handleDelete = async () => {
+    const handleDelete = async (e) => {
+        e.preventDefault();
+
         try {
             await Delete(selectedUser);
             toast.success("User deleted successfully");
@@ -141,7 +172,8 @@ export default function Index() {
             const response = await AllUsers();
             setUsers(response.data.data);
         } catch (error) {
-            console.error("Error deleting user:", error);
+            toast.error(error.message);
+            // console.error("Error deleting user:" + error.message);
         }
     };
 
@@ -159,6 +191,7 @@ export default function Index() {
                     <button className="btn btn-primary" onClick={openCreateModal}>Create User</button>
 
                     {loading ? (
+                        // Bisa di ganti skeleten atau animasi loading
                         <p>Loading...</p>
                     ) : (
                         <div className="card mt-3">
@@ -174,24 +207,27 @@ export default function Index() {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {users.map((user) => (
-                                                <tr key={user.uuid}>
-                                                    <td>{user.name}</td>
-                                                    <td>{user.email}</td>
-                                                    <td>{user.roles.name}</td>
-                                                    <td className="text-end">
-                                                        <button className="btn btn-info m-1" onClick={() => openReadModal(user.uuid)}>Read</button>
-                                                        <button className="btn btn-warning m-1" onClick={() => openUpdateModal(user.uuid)}>Update</button>
-                                                        <button className="btn btn-danger m-1" onClick={() => openDeleteModal(user.uuid)}>Delete</button>
-                                                    </td>
-                                                </tr>
-                                            ))}
+                                            <>
+                                                {users.map((user) => (
+                                                    <tr key={user.uuid}>
+                                                        <td>{user.name}</td>
+                                                        <td>{user.email}</td>
+                                                        <td>{user.roles.name}</td>
+                                                        <td className="text-end">
+                                                            <button className="btn btn-info m-1" onClick={() => openReadModal(user.uuid)}>Read</button>
+                                                            <button className="btn btn-warning m-1" onClick={() => openUpdateModal(user.uuid)}>Update</button>
+                                                            <button className="btn btn-danger m-1" onClick={() => openDeleteModal(user.uuid)}>Delete</button>
+                                                        </td>
+                                                    </tr>
+                                                ))}
+                                            </>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
                     )}
+
                 </div>
             </div>
 
@@ -211,8 +247,9 @@ export default function Index() {
                                         <div className="mb-3">
                                             <label htmlFor="name" className="form-label">Name</label>
                                             <input
-                                                type="text"
+                                                id="name"
                                                 name="name"
+                                                type="text"
                                                 className="form-control"
                                                 value={formData.name}
                                                 onChange={handleChange}
@@ -223,8 +260,9 @@ export default function Index() {
                                         <div className="mb-3">
                                             <label htmlFor="email" className="form-label">Email</label>
                                             <input
-                                                type="email"
+                                                id="email"
                                                 name="email"
+                                                type="email"
                                                 className="form-control"
                                                 value={formData.email}
                                                 onChange={handleChange}
@@ -236,8 +274,9 @@ export default function Index() {
                                             <div className="mb-3">
                                                 <label htmlFor="password" className="form-label">Password</label>
                                                 <input
-                                                    type="password"
+                                                    id="password"
                                                     name="password"
+                                                    type="password"
                                                     className="form-control"
                                                     value={formData.password}
                                                     onChange={handleChange}

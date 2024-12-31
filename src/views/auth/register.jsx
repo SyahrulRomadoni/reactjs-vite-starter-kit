@@ -1,14 +1,12 @@
 // src/views/auth/register.jsx
 
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { register } from "../../controller/authController";
 import { toast } from 'react-hot-toast'
 
 export default function Register() {
-    // Gunakan hook useNavigate untuk navigasi
     const navigate = useNavigate();
-    // State untuk menyimpan error jika ada dan loading text
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
     
@@ -126,9 +124,16 @@ export default function Register() {
                                 required
                             />
                         </div>
-                        <button type="submit" className="btn btn-primary" disabled={loading}>
-                            {loading ? "Registering..." : "Register"}
-                        </button>
+                        <div className="row">
+                            <div className="col-6">
+                                <Link to="/" aria-current="page" className="btn btn-secondary w-100">Back</Link>
+                            </div>
+                            <div className="col-6">
+                                <button type="submit" className="btn btn-primary w-100" disabled={loading}>
+                                    {loading ? "Registering..." : "Register"}
+                                </button>
+                            </div>
+                        </div> 
                     </form>
                     </div>
                 </div>

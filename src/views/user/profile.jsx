@@ -2,54 +2,66 @@
 
 import React, { useEffect, useState } from "react";
 import { CurrentUser } from "../../controller/userController";
+import { toast } from 'react-hot-toast';
 
 export default function Profile() {
-    // State untuk menyimpan data user
-    const [userData, setUserData] = useState(null);
-    // State untuk menyimpan error jika ada
+    const [users, setUsers] = useState(null);
     const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(true);
 
+    // Fungsi untuk mengambil data atau tampilan yang mau dirender
     useEffect(() => {
-        const fetchUserData = async () => {
+        const fetchUsersData = async () => {
             try {
-                // Panggil API
-                const data = await CurrentUser();
-                // Simpan data ke state
-                setUserData(data);
-            } catch (err) {
-                setError(err.message || "Failed to fetch user data.");
+                setLoading(true);
+                const response = await CurrentUser();
+                setUsers(response);
+            } catch (error) {
+                setError(error.message);
+                toast.error(error.message);
+            } finally {
+                setLoading(false);
             }
         };
 
-        // Panggil fungsi saat komponen dirender
-        fetchUserData();
+        // Panggil fungsi ini untuk data yang mau dirender
+        fetchUsersData();
     }, []);
 
-    if (error) {
-        // Tampilkan error jika ada
-        return <div>Error: {error}</div>;
-    }
+    // Jika ada kendala di UseEffect kalo data user terjadi kendala
+    // if (error) {
+    //     // Tampilkan error jika ada
+    //     return <div>Error: {error}</div>;
+    // }
 
-    if (!userData) {
-        // Tampilkan loading saat data belum ada
-        // return <div>Loading...</div>;
-        return;
-    }
+    // Bisa memnbuat animasi loading kalo data masih belum dapat
+    // if (!users) {
+    //     // Tampilkan loading saat data belum ada
+    //     // return <div>Loading...</div>;
+    //     return;
+    // }
 
     return (
         <div>
             <nav aria-label="breadcrumb text-white">
                 <ol className="breadcrumb">
-                <li className="breadcrumb-item cs-breadcrumb">Profile</li>
-                <li className="breadcrumb-item cs-breadcrumb"></li>
+                    <li className="breadcrumb-item cs-breadcrumb">Profile</li>
+                    <li className="breadcrumb-item cs-breadcrumb"></li>
                 </ol>
             </nav>
 
             <div className="card shadow">
                 <div className="card-body">
                     <h1 className="fw-bold">Profile</h1>
-                    <p className="col-md-8">Nama: {userData.data.name}</p>
-                    <p className="col-md-8">Email: {userData.data.email}</p>
+                    {loading ? (
+                        // Bisa di ganti skeleten atau animasi loading
+                        <p>Loading...</p>
+                    ) : (
+                        <>
+                            <p className="col-md-8">Nama: {users.data.name}</p>
+                            <p className="col-md-8">Email: {users.data.email}</p>
+                        </>
+                    )}
                 </div>
             </div>
         </div>

@@ -2,13 +2,12 @@
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { login } from "../../controller/authController";
 import { toast } from 'react-hot-toast'
 
 export default function Login() {
-    // Gunakan hook useNavigate untuk navigasi
     const navigate = useNavigate();
-    // State untuk menyimpan error jika ada dan loading text
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
 
@@ -53,7 +52,7 @@ export default function Login() {
             });
             // Arahkan ke halaman dashboard
             navigate("/dashboard");
-            // Reload halaman untuk merender Sidebar, Header dan Footer
+            // Reload halaman untuk rendering Sidebar, Header dan Footer
             window.location.reload();
         } catch (err) {
             setError(err.message || "Something went wrong");
@@ -96,9 +95,16 @@ export default function Login() {
                                     required
                                 />
                             </div>
-                            <button type="submit" className="btn btn-primary" disabled={loading}>
-                                {loading ? "Login..." : "Login"}
-                            </button>
+                            <div className="row">
+                                <div className="col-6">
+                                    <Link to="/" aria-current="page" className="btn btn-secondary w-100">Back</Link>
+                                </div>
+                                <div className="col-6">
+                                    <button type="submit" className="btn btn-primary w-100" disabled={loading}>
+                                        {loading ? "Login..." : "Login"}
+                                    </button>
+                                </div>
+                            </div> 
                         </form>
                     </div>
                 </div>
