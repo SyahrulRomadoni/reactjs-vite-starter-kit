@@ -43,16 +43,11 @@ export default function Login() {
         try {
             setLoading(true);
             setError("");
-            // Kirim request login
             const result = await login(formData.email, formData.password);
-            // Menampilkan pesan
-            // alert(result.message);
             toast.success(result.message, {
                 duration: 3000,
             });
-            // Arahkan ke halaman dashboard
             navigate("/dashboard");
-            // Reload halaman untuk rendering Sidebar, Header dan Footer
             window.location.reload();
         } catch (err) {
             setError(err.message || "Something went wrong");

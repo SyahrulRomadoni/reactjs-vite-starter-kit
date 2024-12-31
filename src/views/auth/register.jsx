@@ -53,14 +53,14 @@ export default function Register() {
         try {
             setLoading(true);
             setError("");
-            // Kirim request login
             const result = await register(formData.name, formData.email, formData.password);
-            // Menampilkan pesan
-            alert(result.message);
+            toast.success(result.message, {
+                duration: 3000,
+            });
             navigate("/login");
         } catch (err) {
-            setError(err.message || "Something went wrong");
-            toast.error(err.message || "Something went wrong");
+            setError(err.message);
+            toast.error(err.message);
         } finally {
             setLoading(false);
         }

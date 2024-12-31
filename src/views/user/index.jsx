@@ -119,11 +119,13 @@ export default function Index() {
         }
 
         try {
-            await Create(formData.name, formData.email, formData.password);
-            toast.success("User created successfully");
-            closeModal();
+            const result = await Create(formData.name, formData.email, formData.password);
+            toast.success(result.message, {
+                duration: 3000,
+            });
             const response = await AllUsers();
             setUsers(response.data.data);
+            closeModal();
         } catch (error) {
             setError(error.message);
             toast.error(error.message);
@@ -152,9 +154,9 @@ export default function Index() {
             toast.success(result.message, {
                 duration: 3000,
             });
-            closeModal();
             const response = await AllUsers();
             setUsers(response.data.data);
+            closeModal();
         } catch (error) {
             setError(error.message);
             toast.error(error.message);
@@ -166,11 +168,13 @@ export default function Index() {
         e.preventDefault();
 
         try {
-            await Delete(selectedUser);
-            toast.success("User deleted successfully");
-            closeModal();
+            const result = await Delete(selectedUser);
+            toast.success(result.message, {
+                duration: 3000,
+            });
             const response = await AllUsers();
             setUsers(response.data.data);
+            closeModal();
         } catch (error) {
             toast.error(error.message);
             // console.error("Error deleting user:" + error.message);
