@@ -17,11 +17,13 @@ export default function AppRoutes() {
 
             {/* Rote Bebas Pakai */}
             {/* Route "/" */}
-            <Route path="/" element={<Home />} />
+            {/* <Route path="/" element={<Home />} /> */}
 
             {/* Route yang dilindungi */}
             {/* Menggunakan RoutesMiddleware untuk route yang tidak dilindungi */}
             <Route element={<GuestRoutesMiddleware />}>
+                {/* Route "/" */}
+                <Route path="/" element={<Home />} />
                 {/* Route "/register" */}
                 <Route path="/register" element={<Register />} />
                 {/* Route "/login" */}
