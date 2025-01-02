@@ -247,7 +247,7 @@ export default function Index() {
             {/* Modal */}
             {showModal && (
                 <div className="modal show" tabIndex="-1" style={{ display: 'block' }} aria-hidden="true">
-                    <div className="modal-dialog">
+                    <div className="modal-dialog modal-dialog-centered">
                         <div className="modal-content">
                             <div className="modal-header">
                                 <h5 className="modal-title">{modalType === 'create' ? 'Create User' : modalType === 'update' ? 'Update User' : modalType === 'read' ? 'View User' : 'Delete User'}</h5>

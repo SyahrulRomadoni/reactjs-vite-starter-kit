@@ -230,7 +230,7 @@ export default function Index() {
             {/* Modal */}
             {showModal && (
                 <div className="modal show" tabIndex="-1" style={{ display: 'block' }} aria-hidden="true">
-                    <div className="modal-dialog">
+                    <div className="modal-dialog modal-dialog-centered">
                         <div className="modal-content">
                             <div className="modal-header">
                                 <h5 className="modal-title">{modalType === 'create' ? 'Create Role' : modalType === 'update' ? 'Update Role' : modalType === 'read' ? 'View Role' : 'Delete Role'}</h5>
