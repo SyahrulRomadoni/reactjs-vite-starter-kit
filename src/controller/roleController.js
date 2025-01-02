@@ -4,7 +4,7 @@ import axios from "axios";
 
 const API_URL = import.meta.env.VITE_API_URL_ENDPOINT || "http://localhost:3001/api";
 
-export const All = async (page = 1, limit = 10) => {
+export const All = async (page = 1, limit = 100) => {
     try {
         // Ambil token dari localStorage
         const token = localStorage.getItem("authToken");

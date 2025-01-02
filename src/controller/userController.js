@@ -28,7 +28,7 @@ export const CurrentUser = async () => {
     }
 };
 
-export const All = async (page = 1, limit = 10) => {
+export const All = async (page = 1, limit = 100) => {
     try {
         // Ambil token dari localStorage
         const token = localStorage.getItem("authToken");
