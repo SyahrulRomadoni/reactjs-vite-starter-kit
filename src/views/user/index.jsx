@@ -216,7 +216,7 @@ export default function Index() {
                                                 <th>Name</th>
                                                 <th>Email</th>
                                                 <th>Role</th>
-                                                <th>Actions</th>
+                                                <th className="text-end">Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody>
