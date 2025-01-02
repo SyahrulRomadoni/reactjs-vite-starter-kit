@@ -18,6 +18,7 @@ export default function AppRoutes() {
             {/* Route "/" */}
             <Route path="/" element={<Home />} />
 
+            {/* Route yang dilindungi */}
             {/* Menggunakan RoutesMiddleware untuk route yang tidak dilindungi */}
             <Route element={<GuestRoutesMiddleware />}>
                 {/* Route "/register" */}

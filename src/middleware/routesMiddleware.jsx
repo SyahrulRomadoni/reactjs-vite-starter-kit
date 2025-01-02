@@ -5,9 +5,10 @@ import { Navigate, Outlet } from "react-router-dom";
 const API_URL = import.meta.env.VITE_API_URL_ENDPOINT || "http://localhost:3001/api";
 
 export const GuestRoutesMiddleware = () => {
+    // Ambil token dari localStorage
     const token = localStorage.getItem("authToken");
 
-    // Jika token ada, arahkan ke halaman dashboard
+    // Jika token ada, arahkan ke halaman dashboard dan kalo gak ada token maka tampilkan halaman login/register/.
     return token ? <Navigate to="/dashboard" /> : <Outlet />;
 };
 
@@ -29,7 +30,7 @@ export const AdminRoutesMiddleware = () => {
                     // Simpan token ke localStorage
                     localStorage.setItem("authToken", token);
                 
-                    // Set authorization state berdasarkan response dari API
+                    // Jika success, di anggap authorized
                     setIsAuthorized(true);
                 } else {
                     // Hapus token dari localStorage
@@ -39,7 +40,6 @@ export const AdminRoutesMiddleware = () => {
                     setIsAuthorized(false);
                 }
             } catch (error) {
-                // Log the error to see what happened
                 // console.error("API Error:", error);
 
                 // Hapus token dari localStorage
