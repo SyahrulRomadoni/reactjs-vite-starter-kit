@@ -22,10 +22,17 @@ export const AdminRoutesMiddleware = () => {
                 // Ambil token dari localStorage
                 const token = localStorage.getItem("authToken");
 
+                // Jika token tidak ada, langsung return false
+                if (!token) {
+                    // Jika terjadi error, anggap tidak authorized
+                    setIsAuthorized(false);
+                }
+
                 // Check token ke backend API ada atau tidak
                 const response = await axios.post(`${API_URL}/auth/check-token`, { token });
                 // console.log("API Response:", response.data);
 
+                // Jika status success, maka authorized true jika tidak, authorized false
                 if (response.data.status === "success") {
                     // Simpan token ke localStorage
                     localStorage.setItem("authToken", token);
