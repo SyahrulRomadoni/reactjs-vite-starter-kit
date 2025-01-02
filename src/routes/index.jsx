@@ -9,6 +9,7 @@ import Dashboard from "../views/dashboard/index.jsx";
 import Profile from "../views/user/profile.jsx";
 import Users from "../views/user/index.jsx";
 import Roles from "../views/role/index.jsx";
+import NotFound from "../../src/NotFound.jsx";
 
 export default function AppRoutes() {
     return (
@@ -38,7 +39,10 @@ export default function AppRoutes() {
                 {/* Route "/role" */}
                 <Route path="/roles" element={<Roles />} />
             </Route>
-            
+
+            {/* Menangani route yang tidak ditemukan */}
+            <Route path="*" element={<NotFound />} />
+
         </Routes>
     );
 }
