@@ -151,3 +151,33 @@ input:checked + .slider:before {
         display: block !important;
     }
 }
+
+/* Ant Desin / Tables */
+.transparent-table .ant-table-thead > tr > th {
+    /* background-color: transparent !important; */
+}
+
+.transparent-table .ant-table-thead > tr > th:first-child {
+    /* Menambahkan sudut kiri atas */
+    border-top-left-radius: 6px !important;
+    border-bottom-left-radius: 6px !important;
+}
+
+.transparent-table .ant-table-thead > tr > th:last-child {
+    border-top-right-radius: 6px !important;
+    border-bottom-right-radius: 6px !important;
+}
+
+/* Menambahkan gaya untuk kolom header Actions agar berada di kanan */
+.ant-table-thead > tr > th:last-child {
+    /* Menempatkan judul kolom ke kanan */
+    text-align: right !important;
+}
+
+.transparent-table .ant-table-tbody > tr > td {
+    background-color: transparent !important;
+}
+
+.transparent-table .ant-table {
+    background-color: transparent !important;
+}

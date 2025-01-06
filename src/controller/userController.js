@@ -28,7 +28,7 @@ export const CurrentUser = async () => {
     }
 };
 
-export const All = async (page = 1, limit = 100) => {
+export const All = async (limit = 100) => {
     try {
         // Ambil token dari localStorage
         const token = localStorage.getItem("authToken");
@@ -37,7 +37,8 @@ export const All = async (page = 1, limit = 100) => {
 
         // Kirim request ke API
         const response = await axios.get(
-            `${API_URL}/users?page=${page}&limit=${limit}`,
+            // `${API_URL}/users?page=${page}&limit=${limit}`,
+            `${API_URL}/users?limit=${limit}`,
             {
                 headers: {
                     Authorization: `Bearer ${token}`,
