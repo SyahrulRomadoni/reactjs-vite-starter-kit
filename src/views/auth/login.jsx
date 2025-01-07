@@ -44,11 +44,17 @@ export default function Login() {
             setLoading(true);
             setError("");
             const result = await login(formData.email, formData.password);
-            toast.success(result.message, {
-                duration: 3000,
-            });
-            navigate("/dashboard");
-            window.location.reload();
+            if (result.status === "success") {
+                toast.success(result.message, {
+                    duration: 3000,
+                });
+                navigate("/dashboard");
+                window.location.reload();
+            } else {
+                setError(result.message);
+                toast.error(result.message);
+                setLoading(false);
+            }
         } catch (err) {
             setError(err.message || "Something went wrong");
             toast.error(err.message || "Something went wrong");

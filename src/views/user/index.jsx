@@ -105,12 +105,17 @@ export default function Index() {
 
         try {
             const result = await userController.Create(formData.role, formData.name, formData.email, formData.password);
-            toast.success(result.message, {
-                duration: 3000,
-            });
-            const response = await userController.All();
-            setUsers(response.data.data);
-            closeModal();
+            if (result.status === "success") {
+                toast.success(result.message, {
+                    duration: 3000,
+                });
+                const response = await userController.All();
+                setUsers(response.data.data);
+                closeModal();
+            } else {
+                setError(result.message);
+                toast.error(result.message);
+            }
         } catch (error) {
             setError(error.message);
             toast.error(error.message);
@@ -133,12 +138,17 @@ export default function Index() {
 
         try {
             const result = await userController.Update(selectedData, formData.role, formData.name, formData.email, formData.password);
-            toast.success(result.message, {
-                duration: 3000,
-            });
-            const response = await userController.All();
-            setUsers(response.data.data);
-            closeModal();
+            if (result.status === "success") {
+                toast.success(result.message, {
+                    duration: 3000,
+                });
+                const response = await userController.All();
+                setUsers(response.data.data);
+                closeModal();
+            } else {
+                setError(result.message);
+                toast.error(result.message);
+            }
         } catch (error) {
             setError(error.message);
             toast.error(error.message);
@@ -150,12 +160,17 @@ export default function Index() {
 
         try {
             const result = await userController.Delete(selectedData);
-            toast.success(result.message, {
-                duration: 3000,
-            });
-            const response = await userController.All();
-            setUsers(response.data.data);
-            closeModal();
+            if (result.status === "success") {
+                toast.success(result.message, {
+                    duration: 3000,
+                });
+                const response = await userController.All();
+                setUsers(response.data.data);
+                closeModal();
+            } else {
+                setError(result.message);
+                toast.error(result.message);
+            }
         } catch (error) {
             toast.error(error.message);
         }

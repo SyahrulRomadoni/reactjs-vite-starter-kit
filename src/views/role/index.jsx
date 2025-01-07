@@ -116,12 +116,17 @@ export default function Index() {
 
         try {
             const result = await Create(formData.name);
-            toast.success(result.message, {
-                duration: 3000,
-            });
-            const response = await All();
-            setRoles(response.data.data);
-            closeModal();
+            if (result.status === "success") {
+                toast.success(result.message, {
+                    duration: 3000,
+                });
+                const response = await All();
+                setRoles(response.data.data);
+                closeModal();
+            } else {
+                setError(result.message);
+                toast.error(result.message);
+            }
         } catch (error) {
             setError(error.message);
             toast.error(error.message);
@@ -146,12 +151,17 @@ export default function Index() {
 
         try {
             const result = await Update(selectedData, formData.name);
-            toast.success(result.message, {
-                duration: 3000,
-            });
-            const response = await All();
-            setRoles(response.data.data);
-            closeModal();
+            if (result.status === "success") {
+                toast.success(result.message, {
+                    duration: 3000,
+                });
+                const response = await All();
+                setRoles(response.data.data);
+                closeModal();
+            } else {
+                setError(result.message);
+                toast.error(result.message);
+            }
         } catch (error) {
             setError(error.message);
             toast.error(error.message);
@@ -164,12 +174,17 @@ export default function Index() {
 
         try {
             const result = await Delete(selectedData);
-            toast.success(result.message, {
-                duration: 3000,
-            });
-            const response = await All();
-            setRoles(response.data.data);
-            closeModal();
+            if (result.status === "success") {
+                toast.success(result.message, {
+                    duration: 3000,
+                });
+                const response = await All();
+                setRoles(response.data.data);
+                closeModal();
+            } else {
+                setError(result.message);
+                toast.error(result.message);
+            }
         } catch (error) {
             toast.error(error.message);
             // console.error("Error deleting role:" + error.message);

@@ -54,10 +54,16 @@ export default function Register() {
             setLoading(true);
             setError("");
             const result = await register(formData.name, formData.email, formData.password);
-            toast.success(result.message, {
-                duration: 3000,
-            });
-            navigate("/login");
+            if (result.status === "success") {
+                toast.success(result.message, {
+                    duration: 3000,
+                });
+                navigate("/login");
+            } else {
+                setError(result.message);
+                toast.error(result.message);
+                setLoading(false);
+            }
         } catch (err) {
             setError(err.message);
             toast.error(err.message);
