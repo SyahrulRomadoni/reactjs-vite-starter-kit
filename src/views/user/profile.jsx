@@ -15,7 +15,12 @@ export default function Profile() {
             try {
                 setLoading(true);
                 const response = await CurrentUser();
-                setUsers(response);
+                if (response.status === "success") {
+                    setUsers(response.data);
+                } else {
+                    setError(response.message);
+                    toast.error(response.message);
+                }
             } catch (error) {
                 setError(error.message);
                 toast.error(error.message);
@@ -58,8 +63,8 @@ export default function Profile() {
                         <p>Loading...</p>
                     ) : (
                         <>
-                            <p className="col-md-8">Nama: {users.data.name}</p>
-                            <p className="col-md-8">Email: {users.data.email}</p>
+                            <p className="col-md-8">Nama: {users.name}</p>
+                            <p className="col-md-8">Email: {users.email}</p>
                         </>
                     )}
                 </div>
