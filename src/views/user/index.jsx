@@ -228,16 +228,17 @@ export default function Index() {
                     <h1 className="fw-bold mb-4">Users</h1>
 
                     <div className="row">
-                        <div className="col-6">
+                        <div className="col-7 col-sm-7 col-md-6 col-lg-8 col-xl-9">
                             <Button type="primary" onClick={openCreateModal}>Create User</Button>
                         </div>
-                        <div className="col-6 text-end">
+                        <div className="col-5 col-sm-5 col-md-6 col-lg-4 col-xl-3 text-end">
                             <Input
                                 placeholder="Search"
+                                className="mb-3"
                                 value={searchText}
                                 onChange={e => setSearchText(e.target.value)}
                                 prefix={<SearchOutlined />}
-                                style={{ width: 200, margin: '10px 0' }}
+                                style={{ width: '100%' }}
                             />
                         </div>
                     </div>
@@ -245,21 +246,23 @@ export default function Index() {
                     {loading ? (
                         <p>Loading...</p>
                     ) : (
-                        <Table
-                            className="transparent-table"
-                            columns={columns}
-                            dataSource={filteredUsers}
-                            rowKey="uuid"
-                            pagination={{
-                                // pageSize: 5,
-                                showSizeChanger: true,
-                                pageSizeOptions: ['5', '10', '25', '50', '100'],
-                                showQuickJumper: true,
-                                // onShowSizeChange: (current, size) => {
-                                //     console.log(current, size);
-                                // },
-                            }}
-                        />
+                        <div className="table-responsive">
+                            <Table
+                                className="table transparent-table"
+                                columns={columns}
+                                dataSource={filteredUsers}
+                                rowKey="uuid"
+                                pagination={{
+                                    // pageSize: 5,
+                                    showSizeChanger: true,
+                                    pageSizeOptions: ['5', '10', '25', '50', '100'],
+                                    showQuickJumper: true,
+                                    // onShowSizeChange: (current, size) => {
+                                    //     console.log(current, size);
+                                    // },
+                                }}
+                            />
+                        </div>
                     )}
                 </div>
             </div>
