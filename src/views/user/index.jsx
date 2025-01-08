@@ -256,40 +256,42 @@ export default function Index() {
                 <div className="card-body">
                     <h1 className="fw-bold mb-4">Users</h1>
 
-                    <div className="row">
-                        <div className="col-7 col-sm-7 col-md-6 col-lg-8 col-xl-9">
-                            <Button type="primary" onClick={openCreateModal}>Create User</Button>
-                        </div>
-                        <div className="col-5 col-sm-5 col-md-6 col-lg-4 col-xl-3 text-end">
-                            <Input
-                                placeholder="Search"
-                                className="mb-3"
-                                value={searchText}
-                                onChange={e => setSearchText(e.target.value)}
-                                prefix={<SearchOutlined />}
-                                style={{ width: '100%' }}
-                            />
-                        </div>
-                    </div>
-
                     {loading ? (
                         <Skeleton height={20} count={10} />
                     ) : error ? (
                         <h3 className="text-danger text-center p-5">{error}</h3>
                     ) : (
-                        <div className="table-responsive">
-                            <Table
-                                className="table transparent-table"
-                                columns={columns}
-                                dataSource={filteredUsers}
-                                rowKey="uuid"
-                                pagination={{
-                                    showSizeChanger: true,
-                                    pageSizeOptions: ['5', '10', '25', '50', '100'],
-                                    showQuickJumper: true,
-                                }}
-                            />
-                        </div>
+                        <>
+                            <div className="row">
+                                <div className="col-7 col-sm-7 col-md-6 col-lg-8 col-xl-9">
+                                    <Button type="primary" onClick={openCreateModal}>Create User</Button>
+                                </div>
+                                <div className="col-5 col-sm-5 col-md-6 col-lg-4 col-xl-3 text-end">
+                                    <Input
+                                        placeholder="Search"
+                                        className="mb-3"
+                                        value={searchText}
+                                        onChange={e => setSearchText(e.target.value)}
+                                        prefix={<SearchOutlined />}
+                                        style={{ width: '100%' }}
+                                    />
+                                </div>
+                            </div>
+                            
+                            <div className="table-responsive">
+                                <Table
+                                    className="table transparent-table"
+                                    columns={columns}
+                                    dataSource={filteredUsers}
+                                    rowKey="uuid"
+                                    pagination={{
+                                        showSizeChanger: true,
+                                        pageSizeOptions: ['5', '10', '25', '50', '100'],
+                                        showQuickJumper: true,
+                                    }}
+                                />
+                            </div>
+                        </>
                     )}
                 </div>
             </div>

@@ -196,41 +196,44 @@ export default function Index() {
             <div className="card shadow">
                 <div className="card-body">
                     <h1 className="fw-bold mb-4">Roles</h1>
-                    <button className="btn btn-primary" onClick={openCreateModal}>Create Role</button>
 
                     {loading ? (
                         <Skeleton height={20} count={10} />
                     ) : error ? (
                         <h3 className="text-danger text-center p-5">{error}</h3>
                     ) : (
-                        <div className="card mt-3">
-                            <div className="card-body">
-                                <div className="table-responsive">
-                                    <table className="table table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th className="text-end">Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <>
-                                                {roles.map((role) => (
-                                                    <tr key={role.uuid}>
-                                                        <td>{role.name}</td>
-                                                        <td className="text-end">
-                                                            <button className="btn btn-sm btn-info m-1" onClick={() => openReadModal(role.uuid)}>Read</button>
-                                                            <button className="btn btn-sm btn-warning m-1" onClick={() => openUpdateModal(role.uuid)}>Update</button>
-                                                            <button className="btn btn-sm btn-danger m-1" onClick={() => openDeleteModal(role.uuid)}>Delete</button>
-                                                        </td>
-                                                    </tr>
-                                                ))}
-                                            </>
-                                        </tbody>
-                                    </table>
+                        <>
+                            <button className="btn btn-primary" onClick={openCreateModal}>Create Role</button>
+                        
+                            <div className="card mt-3">
+                                <div className="card-body">
+                                    <div className="table-responsive">
+                                        <table className="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th className="text-end">Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <>
+                                                    {roles.map((role) => (
+                                                        <tr key={role.uuid}>
+                                                            <td>{role.name}</td>
+                                                            <td className="text-end">
+                                                                <button className="btn btn-sm btn-info m-1" onClick={() => openReadModal(role.uuid)}>Read</button>
+                                                                <button className="btn btn-sm btn-warning m-1" onClick={() => openUpdateModal(role.uuid)}>Update</button>
+                                                                <button className="btn btn-sm btn-danger m-1" onClick={() => openDeleteModal(role.uuid)}>Delete</button>
+                                                            </td>
+                                                        </tr>
+                                                    ))}
+                                                </>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </>
                     )}
 
                 </div>
