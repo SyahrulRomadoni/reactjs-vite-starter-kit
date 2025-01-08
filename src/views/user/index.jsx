@@ -52,9 +52,12 @@ export default function Index() {
                 setLoading(false);
             }
         };
+        
+        // Panggil fungsi ini untuk data yang mau dirender
         fetchData();
     }, []);
 
+    // kondisi Modal
     const openCreateModal = () => {
         setModalType('create');
         setShowModal(true);
@@ -191,19 +194,19 @@ export default function Index() {
     };
 
     // Table
-    const [searchText, setSearchText] = useState("");
-    const [filteredUsers, setFilteredUsers] = useState([]);
+    const [searchData, setSearchData] = useState("");
+    const [filteredData, setFilteredData] = useState([]);
 
     useEffect(() => {
-        if (searchText) {
-            setFilteredUsers(users.filter(user =>
-                user.name.toLowerCase().includes(searchText.toLowerCase()) ||
-                user.email.toLowerCase().includes(searchText.toLowerCase())
+        if (searchData) {
+            setFilteredData(users.filter(data =>
+                data.name.toLowerCase().includes(searchData.toLowerCase()) ||
+                data.email.toLowerCase().includes(searchData.toLowerCase())
             ));
         } else {
-            setFilteredUsers(users);
+            setFilteredData(users);
         }
-    }, [searchText, users]);
+    }, [searchData, users]);
 
     const columns = [
         {
@@ -264,14 +267,14 @@ export default function Index() {
                         <>
                             <div className="row">
                                 <div className="col-7 col-sm-7 col-md-6 col-lg-8 col-xl-9">
-                                    <Button type="primary" onClick={openCreateModal}>Create User</Button>
+                                    <Button type="primary" onClick={openCreateModal}>Create</Button>
                                 </div>
                                 <div className="col-5 col-sm-5 col-md-6 col-lg-4 col-xl-3 text-end">
                                     <Input
                                         placeholder="Search"
                                         className="mb-3"
-                                        value={searchText}
-                                        onChange={e => setSearchText(e.target.value)}
+                                        value={searchData}
+                                        onChange={e => setSearchData(e.target.value)}
                                         prefix={<SearchOutlined />}
                                         style={{ width: '100%' }}
                                     />
@@ -282,7 +285,7 @@ export default function Index() {
                                 <Table
                                     className="table transparent-table"
                                     columns={columns}
-                                    dataSource={filteredUsers}
+                                    dataSource={filteredData}
                                     rowKey="uuid"
                                     pagination={{
                                         showSizeChanger: true,
@@ -302,7 +305,7 @@ export default function Index() {
                     <div className="modal-dialog modal-dialog-centered">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title">{modalType === 'create' ? 'Create User' : modalType === 'update' ? 'Update User' : modalType === 'read' ? 'View User' : 'Delete User'}</h5>
+                                <h5 className="modal-title">{modalType === 'create' ? 'Create Data' : modalType === 'update' ? 'Update Data' : modalType === 'read' ? 'View Data' : 'Delete Data'}</h5>
                                 <button type="button" className="btn-close" onClick={closeModal}></button>
                             </div>
                             <div className="modal-body">

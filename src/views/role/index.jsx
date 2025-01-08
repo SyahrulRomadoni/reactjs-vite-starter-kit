@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import { All, Create, Read, Update, Delete } from "../../controller/roleController";
 import { toast } from 'react-hot-toast';
+import { Table, Button, Input } from 'antd';
+import { SearchOutlined } from '@ant-design/icons';
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
@@ -45,7 +47,7 @@ export default function Index() {
         fetchData();
     }, []);
 
-    // Modal kondisi
+    // kondisi Modal
     const openCreateModal = () => {
         setModalType('create');
         setShowModal(true);
@@ -180,9 +182,44 @@ export default function Index() {
             }
         } catch (error) {
             toast.error(error.message);
-            // console.error("Error deleting role:" + error.message);
         }
     };
+
+    // Table
+    const [searchData, setSearchData] = useState("");
+    const [filteredData, setFilteredData] = useState([]);
+
+    useEffect(() => {
+        if (searchData) {
+            setFilteredData(roles.filter(data =>
+                data.name.toLowerCase().includes(searchData.toLowerCase())
+            ));
+        } else {
+            setFilteredData(roles);
+        }
+    }, [searchData, roles]);
+
+    const columns = [
+        {
+            title: 'Name',
+            dataIndex: 'name',
+            key: 'name',
+            render: (text, record) => (
+                <p className="m-0 cs-text-1">{record.name}</p>
+            ),
+        },
+        {
+            title: 'Actions',
+            key: 'actions',
+            render: (text, record) => (
+                <div className="text-end">
+                    <Button className="btn btn-sm btn-info m-1" onClick={() => openReadModal(record.uuid)}>Read</Button>
+                    <Button className="btn btn-sm btn-warning m-1" onClick={() => openUpdateModal(record.uuid)}>Update</Button>
+                    <Button className="btn btn-sm btn-danger m-1" onClick={() => openDeleteModal(record.uuid)}>Delete</Button>
+                </div>
+            ),
+        },
+    ];
 
     return (
         <div>
@@ -203,35 +240,34 @@ export default function Index() {
                         <h3 className="text-danger text-center p-5">{error}</h3>
                     ) : (
                         <>
-                            <button className="btn btn-primary" onClick={openCreateModal}>Create Role</button>
-                        
-                            <div className="card mt-3">
-                                <div className="card-body">
-                                    <div className="table-responsive">
-                                        <table className="table table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>Name</th>
-                                                    <th className="text-end">Actions</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <>
-                                                    {roles.map((role) => (
-                                                        <tr key={role.uuid}>
-                                                            <td>{role.name}</td>
-                                                            <td className="text-end">
-                                                                <button className="btn btn-sm btn-info m-1" onClick={() => openReadModal(role.uuid)}>Read</button>
-                                                                <button className="btn btn-sm btn-warning m-1" onClick={() => openUpdateModal(role.uuid)}>Update</button>
-                                                                <button className="btn btn-sm btn-danger m-1" onClick={() => openDeleteModal(role.uuid)}>Delete</button>
-                                                            </td>
-                                                        </tr>
-                                                    ))}
-                                                </>
-                                            </tbody>
-                                        </table>
-                                    </div>
+                            <div className="row">
+                                <div className="col-7 col-sm-7 col-md-6 col-lg-8 col-xl-9">
+                                    <Button type="primary" onClick={openCreateModal}>Create</Button>
                                 </div>
+                                <div className="col-5 col-sm-5 col-md-6 col-lg-4 col-xl-3 text-end">
+                                    <Input
+                                        placeholder="Search"
+                                        className="mb-3"
+                                        value={searchData}
+                                        onChange={e => setSearchData(e.target.value)}
+                                        prefix={<SearchOutlined />}
+                                        style={{ width: '100%' }}
+                                    />
+                                </div>
+                            </div>
+                            
+                            <div className="table-responsive">
+                                <Table
+                                    className="table transparent-table"
+                                    columns={columns}
+                                    dataSource={filteredData}
+                                    rowKey="uuid"
+                                    pagination={{
+                                        showSizeChanger: true,
+                                        pageSizeOptions: ['5', '10', '25', '50', '100'],
+                                        showQuickJumper: true,
+                                    }}
+                                />
                             </div>
                         </>
                     )}
@@ -245,7 +281,7 @@ export default function Index() {
                     <div className="modal-dialog modal-dialog-centered">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title">{modalType === 'create' ? 'Create Role' : modalType === 'update' ? 'Update Role' : modalType === 'read' ? 'View Role' : 'Delete Role'}</h5>
+                                <h5 className="modal-title">{modalType === 'create' ? 'Create Data' : modalType === 'update' ? 'Update Data' : modalType === 'read' ? 'View Data' : 'Delete Data'}</h5>
                                 <button type="button" className="btn-close" onClick={closeModal}></button>
                             </div>
                             <div className="modal-body">
