@@ -12,8 +12,9 @@ export default function Index() {
     const [users, setUsers] = useState([]);
     const [roles, setRoles] = useState([]);
 
-    // state untuk error dan loading
+    // state untuk error, errorFetch dan loading
     const [error, setError] = useState("");
+    const [errorFetch, setErrorFetch] = useState("");
     const [loading, setLoading] = useState(true);
 
     // state untuk modal
@@ -26,7 +27,8 @@ export default function Index() {
         role: '',
         name: '',
         email: '',
-        password: ''
+        password: '',
+        confirmPassword: '',
     });
 
     // Fetch data untuk load data pertama kali
@@ -39,7 +41,7 @@ export default function Index() {
                 if (response.status === "success") {
                     setUsers(response.data.data);
                 } else {
-                    setError(response.message);
+                    setErrorFetch(response.message);
                     toast.error(response.message);
                 }
                 // Roles
@@ -47,11 +49,11 @@ export default function Index() {
                 if (roleResponse.status === "success") {
                     setRoles(roleResponse.data.data);
                 } else {
-                    setError(roleResponse.message);
+                    setErrorFetch(roleResponse.message);
                     toast.error(roleResponse.message);
                 }
             } catch (error) {
-                setError(error.message);
+                setErrorFetch(error.message);
                 toast.error(error.message);
             } finally {
                 setLoading(false);
@@ -114,6 +116,8 @@ export default function Index() {
     // Create, Update, Delete
     const handleCreate = async (e) => {
         e.preventDefault();
+
+        // Validasi individual
         const errorMessages = {
             name: "Name tidak boleh kosong.",
             email: "Email tidak boleh kosong.",
@@ -125,6 +129,13 @@ export default function Index() {
                 toast.error(message);
                 return;
             }
+        }
+
+        // Validasi password konfirmasi
+        if (formData.password !== formData.confirmPassword) {
+            setError("Password dan Confirm Password tidak sama");
+            toast.error("Password dan Confirm Password tidak sama");
+            return;
         }
 
         try {
@@ -254,7 +265,7 @@ export default function Index() {
     ];
 
     return (
-        <div>
+        <>
             <nav aria-label="breadcrumb text-white">
                 <ol className="breadcrumb">
                     <li className="breadcrumb-item cs-breadcrumb">Users</li>
@@ -268,8 +279,8 @@ export default function Index() {
 
                     {loading ? (
                         <Skeleton height={20} count={10} />
-                    ) : error ? (
-                        <h3 className="text-danger text-center p-5">{error}</h3>
+                    ) : errorFetch ? (
+                        <h3 className="text-danger text-center p-5">{errorFetch}</h3>
                     ) : (
                         <>
                             <div className="row">
@@ -363,18 +374,32 @@ export default function Index() {
                                             />
                                         </div>
                                         {modalType !== 'read' && (
-                                            <div className="mb-3">
-                                                <label htmlFor="password" className="form-label">Password</label>
-                                                <input
-                                                    id="password"
-                                                    name="password"
-                                                    type="password"
-                                                    className="form-control"
-                                                    value={formData.password}
-                                                    onChange={handleChange}
-                                                    disabled={modalType === 'read'}
-                                                />
-                                            </div>
+                                            <>
+                                                <div className="mb-3">
+                                                    <label htmlFor="password" className="form-label">Password</label>
+                                                    <input
+                                                        id="password"
+                                                        name="password"
+                                                        type="password"
+                                                        className="form-control"
+                                                        value={formData.password}
+                                                        onChange={handleChange}
+                                                        disabled={modalType === 'read'}
+                                                    />
+                                                </div>
+                                                <div className="mb-3">
+                                                    <label htmlFor="confirmPassword" className="form-label">Confirm Password</label>
+                                                    <input
+                                                        id="confirmPassword"
+                                                        name="confirmPassword"
+                                                        type="password"
+                                                        className="form-control"
+                                                        value={formData.confirmPassword}
+                                                        onChange={handleChange}
+                                                        disabled={modalType === 'read'}
+                                                    />
+                                                </div>
+                                            </>
                                         )}
                                     </form>
                                 ) : (
@@ -397,6 +422,6 @@ export default function Index() {
                     </div>
                 </div>
             )}
-        </div>
+        </>
     );
 }

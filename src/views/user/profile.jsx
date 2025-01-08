@@ -39,7 +39,7 @@ export default function Profile() {
     }, []);
 
     return (
-        <div>
+        <>
             <nav aria-label="breadcrumb text-white">
                 <ol className="breadcrumb">
                     <li className="breadcrumb-item cs-breadcrumb">Profile</li>
@@ -64,6 +64,6 @@ export default function Profile() {
 
                 </div>
             </div>
-        </div>
+        </>
     );
 }

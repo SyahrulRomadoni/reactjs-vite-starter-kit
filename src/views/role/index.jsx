@@ -12,8 +12,9 @@ export default function Index() {
     // state untuk data roles
     const [roles, setRoles] = useState([]);
 
-    // state untuk error dan loading
+    // state untuk error, errorFetch dan loading
     const [error, setError] = useState("");
+    const [errorFetch, setErrorFetch] = useState("");
     const [loading, setLoading] = useState(true);
 
     // state untuk modal
@@ -35,11 +36,11 @@ export default function Index() {
                 if (response.status === "success") {
                     setRoles(response.data.data);
                 } else {
-                    setError(response.message);
+                    setErrorFetch(response.message);
                     toast.error(response.message);
                 }
             } catch (error) {
-                setError(error.message);
+                setErrorFetch(error.message);
                 toast.error(error.message);
             } finally {
                 setLoading(false);
@@ -226,7 +227,7 @@ export default function Index() {
     ];
 
     return (
-        <div>
+        <>
             <nav aria-label="breadcrumb text-white">
                 <ol className="breadcrumb">
                     <li className="breadcrumb-item cs-breadcrumb">Roles</li>
@@ -240,8 +241,8 @@ export default function Index() {
 
                     {loading ? (
                         <Skeleton height={20} count={10} />
-                    ) : error ? (
-                        <h3 className="text-danger text-center p-5">{error}</h3>
+                    ) : errorFetch ? (
+                        <h3 className="text-danger text-center p-5">{errorFetch}</h3>
                     ) : (
                         <>
                             <div className="row">
@@ -326,6 +327,6 @@ export default function Index() {
                     </div>
                 </div>
             )}
-        </div>
+        </>
     );
 }

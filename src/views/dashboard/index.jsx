@@ -4,7 +4,7 @@ import React from "react";
 
 export default function Dashboard() {
     return (
-        <div>
+        <>
             <nav aria-label="breadcrumb">
                 <ol className="breadcrumb">
                     <li className="breadcrumb-item cs-breadcrumb">Dashboard</li>
@@ -18,6 +18,6 @@ export default function Dashboard() {
                     <p className="col-md-8">Welcome to Dashboard</p>
                 </div>
             </div>
-        </div>
+        </>
     );
 }

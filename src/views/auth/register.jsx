@@ -45,8 +45,8 @@ export default function Register() {
 
         // Validasi password konfirmasi
         if (formData.password !== formData.confirmPassword) {
-            setError("Password and Confirm Password must match");
-            toast.error("Password and Confirm Password must match");
+            setError("Password dan Confirm Password tidak sama");
+            toast.error("Password dan Confirm Password tidak sama");
             return;
         }
 
