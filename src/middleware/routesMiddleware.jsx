@@ -4,6 +4,31 @@ import { Navigate, Outlet } from "react-router-dom";
 
 const API_URL = import.meta.env.VITE_API_URL_ENDPOINT || "http://localhost:3001/api";
 
+// Fungsi untuk check token valid atau tidak
+export const CheckToken = async () => {
+    try {
+        // Ambil token dari localStorage
+        const token = localStorage.getItem("authToken");
+
+        // Jika token tidak ada, langsung return false
+        if (!token) {
+            return false;
+        }
+
+        // Check token ke backend API ada atau tidak
+        const response = await axios.post(`${API_URL}/auth/check-token`, { token });
+
+        // Return true jika status success, jika tidak return false
+        return response.data.status === "success";
+    } catch (error) {
+        // console.error("Error during token validation:", error);
+        
+        // Jika ada error, anggap token tidak valid
+        return false;
+    }
+};
+
+// Middleware untuk route guest (belum login)
 export const GuestRoutesMiddleware = () => {
     // Ambil token dari localStorage
     const token = localStorage.getItem("authToken");
@@ -12,6 +37,7 @@ export const GuestRoutesMiddleware = () => {
     return token ? <Navigate to="/dashboard" /> : <Outlet />;
 };
 
+// Middleware untuk route user (sudah login)
 export const AdminRoutesMiddleware = () => {
     // `null` untuk status awal (belum diketahui)
     const [isAuthorized, setIsAuthorized] = useState(null);
@@ -26,9 +52,6 @@ export const AdminRoutesMiddleware = () => {
                 if (!token) {
                     // Jika terjadi error, anggap tidak authorized
                     setIsAuthorized(false);
-
-                    // Redirect ke halaman home
-                    window.location.href = "/";
                 }
 
                 // Check token ke backend API ada atau tidak
@@ -37,9 +60,6 @@ export const AdminRoutesMiddleware = () => {
 
                 // Jika status success, maka authorized true jika tidak, authorized false
                 if (response.data.status === "success") {
-                    // Simpan token ke localStorage
-                    localStorage.setItem("authToken", token);
-                
                     // Jika success, di anggap authorized
                     setIsAuthorized(true);
                 } else {
@@ -48,9 +68,6 @@ export const AdminRoutesMiddleware = () => {
 
                     // Hapus token dari localStorage
                     localStorage.removeItem("authToken", "");
-
-                    // Redirect ke halaman home
-                    window.location.href = "/";
                 }
             } catch (error) {
                 // console.error("API Error:", error);
@@ -60,9 +77,6 @@ export const AdminRoutesMiddleware = () => {
 
                 // Hapus token dari localStorage
                 localStorage.removeItem("authToken", "");
-
-                // Redirect ke halaman home
-                window.location.href = "/";
             }
         };
 

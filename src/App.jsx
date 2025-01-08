@@ -4,6 +4,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'antd/dist/reset.css';
 
+import { CheckToken } from './middleware/routesMiddleware.jsx';
 import { useEffect, useState } from "react";
 import { logout } from "./controller/authController";
 import { toast } from 'react-hot-toast'
@@ -15,8 +16,29 @@ import SidebarMobile from './SidebarMobile.jsx';
 import Footer from './Footer.jsx';
 
 export default function App() {
-    // Mengambil token dari localStorage saat pertama kali load
-    const [token, setToken] = useState(localStorage.getItem("authToken"));
+    // State untuk menyimpan token
+    const [token, setToken] = useState("");
+    // State untuk menyimpan mode dark atau light
+    const [isDark, setIsDark] = useState(localStorage.getItem("theme-mode") === "dark");
+
+    // Validasi token saat pertama kali load
+    useEffect(() => {
+        const validasiToken = async () => {
+            const response = await CheckToken();
+            setToken(response);
+        };
+        validasiToken();
+    }, []);
+
+    // Fungsi Dark Mode dan Light Mode Menggunakan Bootstrap
+    useEffect(() => {
+        const htmlElement = document.documentElement;
+        if (isDark) {
+            htmlElement.setAttribute("data-bs-theme", "dark");
+        } else {
+            htmlElement.setAttribute("data-bs-theme", "light");
+        }
+    }, [isDark]);
 
     // Fungsi untuk logout dan menghapus token
     const handleLogout = async () => {
@@ -28,19 +50,6 @@ export default function App() {
         localStorage.removeItem("authToken");
         setToken(null);
     };
-
-    // Untuk merubah automatis thema yang ada di bawa tapi tidak bisa di trigger
-    // Fungsi Dark Mode dan Light Mode Menggunakan Bootstrap
-    const [isDark, setIsDark] = useState(localStorage.getItem("theme-mode") === "dark");
-    // Update 'data-bs-theme' jadi dark atau light
-    useEffect(() => {
-        const htmlElement = document.documentElement;
-        if (isDark) {
-            htmlElement.setAttribute("data-bs-theme", "dark");
-        } else {
-            htmlElement.setAttribute("data-bs-theme", "light");
-        }
-    }, [isDark]);
 
     return (
         <div className="container-fluid">
