@@ -26,6 +26,9 @@ export const AdminRoutesMiddleware = () => {
                 if (!token) {
                     // Jika terjadi error, anggap tidak authorized
                     setIsAuthorized(false);
+
+                    // Redirect ke halaman home
+                    window.location.href = "/";
                 }
 
                 // Check token ke backend API ada atau tidak
@@ -34,6 +37,9 @@ export const AdminRoutesMiddleware = () => {
 
                 // Jika status success, maka authorized true jika tidak, authorized false
                 if (response.data.status === "success") {
+                    // Simpan token ke localStorage
+                    localStorage.setItem("authToken", token);
+                
                     // Jika success, di anggap authorized
                     setIsAuthorized(true);
                 } else {
@@ -42,6 +48,9 @@ export const AdminRoutesMiddleware = () => {
 
                     // Hapus token dari localStorage
                     localStorage.removeItem("authToken", "");
+
+                    // Redirect ke halaman home
+                    window.location.href = "/";
                 }
             } catch (error) {
                 // console.error("API Error:", error);
@@ -51,6 +60,9 @@ export const AdminRoutesMiddleware = () => {
 
                 // Hapus token dari localStorage
                 localStorage.removeItem("authToken", "");
+
+                // Redirect ke halaman home
+                window.location.href = "/";
             }
         };
 
