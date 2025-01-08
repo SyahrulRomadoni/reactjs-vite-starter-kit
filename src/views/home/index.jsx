@@ -12,7 +12,7 @@ export default function Home() {
                         <h1 className="fw-bold">Starter Kit</h1>
                         <br />
                         <Link className="btn btn-primary m-1" to="/login" aria-current="page">Login</Link>
-                        <Link className="btn btn-primary m-1" to="/register" aria-current="page">Register</Link>
+                        <Link className="btn btn-secondary m-1" to="/register" aria-current="page">Register</Link>
                     </div>
                 </div>
             </div>

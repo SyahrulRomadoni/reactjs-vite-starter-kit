@@ -6,9 +6,16 @@ import { register } from "../../controller/authController";
 import { toast } from 'react-hot-toast'
 
 export default function Register() {
+    // Hook untuk berpindah halaman
     const navigate = useNavigate();
+
+    // State untuk error dan loading
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
+
+    // State untuk mengatur visibility password dan confirm password
+    const [passwordVisible, setPasswordVisible] = useState(false);
+    const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
     
     // Formdata
     const [formData, setFormData] = useState({
@@ -106,29 +113,55 @@ export default function Register() {
                                 required
                             />
                         </div>
-                        <div className="mb-3">
-                            <label htmlFor="password" className="form-label">Password</label>
-                            <input
-                                id="password"
-                                name="password"
-                                type="password"
-                                className="form-control"
-                                value={formData.password}
-                                onChange={handleChange}
-                                required
-                            />
+                        <div className="mb-3 position-relative">
+                            <label>Password</label>
+                            <div className="input-group">
+                                <input
+                                    id="password"
+                                    name="password"
+                                    type={passwordVisible ? "text" : "password"}
+                                    className="form-control"
+                                    value={formData.password}
+                                    onChange={handleChange}
+                                    required
+                                />
+                                <button
+                                    type="button"
+                                    className="btn btn-outline-secondary"
+                                    onClick={() => setPasswordVisible(!passwordVisible)}
+                                >
+                                    {passwordVisible ? (
+                                        <i className="bi bi-eye-slash"></i>
+                                    ) : (
+                                        <i className="bi bi-eye"></i>
+                                    )}
+                                </button>
+                            </div>
                         </div>
-                        <div className="mb-3">
-                            <label htmlFor="confirmPassword" className="form-label">Confirm Password</label>
-                            <input
-                                id="confirmPassword"
-                                name="confirmPassword"
-                                type="password"
-                                className="form-control"
-                                value={formData.confirmPassword}
-                                onChange={handleChange}
-                                required
-                            />
+                        <div className="mb-3 position-relative">
+                            <label>Confirm Password</label>
+                            <div className="input-group">
+                                <input
+                                    id="confirmPassword"
+                                    name="confirmPassword"
+                                    type={confirmPasswordVisible ? "text" : "password"}
+                                    className="form-control"
+                                    value={formData.confirmPassword}
+                                    onChange={handleChange}
+                                    required
+                                />
+                                <button
+                                    type="button"
+                                    className="btn btn-outline-secondary"
+                                    onClick={() => setConfirmPasswordVisible(!confirmPasswordVisible)}
+                                >
+                                    {confirmPasswordVisible ? (
+                                        <i className="bi bi-eye-slash"></i>
+                                    ) : (
+                                        <i className="bi bi-eye"></i>
+                                    )}
+                                </button>
+                            </div>
                         </div>
                         <div className="row">
                             <div className="col-6">

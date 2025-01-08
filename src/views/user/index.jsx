@@ -22,6 +22,10 @@ export default function Index() {
     const [modalType, setModalType] = useState(null);
     const [selectedData, setSelectedData] = useState(null);
 
+    // State untuk mengatur visibility password dan confirm password
+    const [passwordVisible, setPasswordVisible] = useState(false);
+    const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
+
     // state untuk form data
     const [formData, setFormData] = useState({
         role: '',
@@ -375,29 +379,55 @@ export default function Index() {
                                         </div>
                                         {modalType !== 'read' && (
                                             <>
-                                                <div className="mb-3">
-                                                    <label htmlFor="password" className="form-label">Password</label>
-                                                    <input
-                                                        id="password"
-                                                        name="password"
-                                                        type="password"
-                                                        className="form-control"
-                                                        value={formData.password}
-                                                        onChange={handleChange}
-                                                        disabled={modalType === 'read'}
-                                                    />
+                                                <div className="mb-3 position-relative">
+                                                    <label>Password</label>
+                                                    <div className="input-group">
+                                                        <input
+                                                            id="password"
+                                                            name="password"
+                                                            type={passwordVisible ? "text" : "password"}
+                                                            className="form-control"
+                                                            value={formData.password}
+                                                            onChange={handleChange}
+                                                            required
+                                                        />
+                                                        <button
+                                                            type="button"
+                                                            className="btn btn-outline-secondary"
+                                                            onClick={() => setPasswordVisible(!passwordVisible)}
+                                                        >
+                                                            {passwordVisible ? (
+                                                                <i className="bi bi-eye-slash"></i>
+                                                            ) : (
+                                                                <i className="bi bi-eye"></i>
+                                                            )}
+                                                        </button>
+                                                    </div>
                                                 </div>
-                                                <div className="mb-3">
-                                                    <label htmlFor="confirmPassword" className="form-label">Confirm Password</label>
-                                                    <input
-                                                        id="confirmPassword"
-                                                        name="confirmPassword"
-                                                        type="password"
-                                                        className="form-control"
-                                                        value={formData.confirmPassword}
-                                                        onChange={handleChange}
-                                                        disabled={modalType === 'read'}
-                                                    />
+                                                <div className="mb-3 position-relative">
+                                                    <label>Confirm Password</label>
+                                                    <div className="input-group">
+                                                        <input
+                                                            id="confirmPassword"
+                                                            name="confirmPassword"
+                                                            type={confirmPasswordVisible ? "text" : "password"}
+                                                            className="form-control"
+                                                            value={formData.confirmPassword}
+                                                            onChange={handleChange}
+                                                            required
+                                                        />
+                                                        <button
+                                                            type="button"
+                                                            className="btn btn-outline-secondary"
+                                                            onClick={() => setConfirmPasswordVisible(!confirmPasswordVisible)}
+                                                        >
+                                                            {confirmPasswordVisible ? (
+                                                                <i className="bi bi-eye-slash"></i>
+                                                            ) : (
+                                                                <i className="bi bi-eye"></i>
+                                                            )}
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </>
                                         )}

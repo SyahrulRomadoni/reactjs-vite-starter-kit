@@ -7,9 +7,15 @@ import { login } from "../../controller/authController";
 import { toast } from 'react-hot-toast'
 
 export default function Login() {
+    // Hook untuk berpindah halaman
     const navigate = useNavigate();
+
+    // State untuk error dan loading
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
+
+    // State untuk mengatur visibility password
+    const [passwordVisible, setPasswordVisible] = useState(false);
 
     // Formdata
     const [formData, setFormData] = useState({
@@ -84,17 +90,30 @@ export default function Login() {
                                     required
                                 />
                             </div>
-                            <div className="mb-3">
+                            <div className="mb-3 position-relative">
                                 <label>Password</label>
-                                <input
-                                    id="password"
-                                    name="password"
-                                    type="password"
-                                    className="form-control"
-                                    value={formData.password}
-                                    onChange={handleChange}
-                                    required
-                                />
+                                <div className="input-group">
+                                    <input
+                                        id="password"
+                                        name="password"
+                                        type={passwordVisible ? "text" : "password"}
+                                        className="form-control"
+                                        value={formData.password}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                    <button
+                                        type="button"
+                                        className="btn btn-outline-secondary"
+                                        onClick={() => setPasswordVisible(!passwordVisible)}
+                                    >
+                                        {passwordVisible ? (
+                                            <i className="bi bi-eye-slash"></i>
+                                        ) : (
+                                            <i className="bi bi-eye"></i>
+                                        )}
+                                    </button>
+                                </div>
                             </div>
                             <div className="row">
                                 <div className="col-6">
