@@ -4,6 +4,8 @@ import * as roleController from "../../controller/roleController";
 import { toast } from 'react-hot-toast';
 import { Table, Button, Input } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 export default function Index() {
     const [users, setUsers] = useState([]);
@@ -27,10 +29,22 @@ export default function Index() {
         const fetchData = async () => {
             try {
                 setLoading(true);
+                // Users
                 const response = await userController.All();
-                setUsers(response.data.data);
+                if (response.status === "success") {
+                    setUsers(response.data.data);
+                } else {
+                    setError(response.message);
+                    toast.error(response.message);
+                }
+                // Roles
                 const roleResponse = await roleController.All();
-                setRoles(roleResponse.data.data);
+                if (roleResponse.status === "success") {
+                    setRoles(roleResponse.data.data);
+                } else {
+                    setError(roleResponse.message);
+                    toast.error(roleResponse.message);
+                }
             } catch (error) {
                 setError(error.message);
                 toast.error(error.message);
@@ -259,7 +273,9 @@ export default function Index() {
                     </div>
 
                     {loading ? (
-                        <p>Loading...</p>
+                        <Skeleton height={20} count={10} />
+                    ) : error ? (
+                        <h3 className="text-danger text-center p-5">{error}</h3>
                     ) : (
                         <div className="table-responsive">
                             <Table
@@ -268,13 +284,9 @@ export default function Index() {
                                 dataSource={filteredUsers}
                                 rowKey="uuid"
                                 pagination={{
-                                    // pageSize: 5,
                                     showSizeChanger: true,
                                     pageSizeOptions: ['5', '10', '25', '50', '100'],
                                     showQuickJumper: true,
-                                    // onShowSizeChange: (current, size) => {
-                                    //     console.log(current, size);
-                                    // },
                                 }}
                             />
                         </div>

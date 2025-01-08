@@ -3,11 +3,15 @@
 import { useEffect, useState } from "react";
 import { All, Create, Read, Update, Delete } from "../../controller/roleController";
 import { toast } from 'react-hot-toast';
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 export default function Index() {
     const [roles, setRoles] = useState([]);
+
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(true);
+
     const [showModal, setShowModal] = useState(false);
     const [modalType, setModalType] = useState(null);
     const [selectedData, setSelectedData] = useState(null);
@@ -23,11 +27,15 @@ export default function Index() {
             try {
                 setLoading(true);
                 const response = await All();
-                setRoles(response.data.data);
+                if (response.status === "success") {
+                    setRoles(response.data.data);
+                } else {
+                    setError(response.message);
+                    toast.error(response.message);
+                }
             } catch (error) {
                 setError(error.message);
                 toast.error(error.message);
-                console.error("Error fetching roles : " + error);
             } finally {
                 setLoading(false);
             }
@@ -36,19 +44,6 @@ export default function Index() {
         // Panggil fungsi ini untuk data yang mau dirender
         fetchData();
     }, []);
-
-    // Jika ada kendala di UseEffect kalo data role terjadi kendala
-    // if (error) {
-    //     // Tampilkan error jika ada
-    //     return <div>Error: {error}</div>;
-    // }
-
-    // Bisa memnbuat animasi loading kalo data masih belum dapat
-    // if (!roles) {
-    //     // Tampilkan loading saat data belum ada
-    //     // return <div>Loading...</div>;
-    //     return;
-    // }
 
     // Modal kondisi
     const openCreateModal = () => {
@@ -130,7 +125,6 @@ export default function Index() {
         } catch (error) {
             setError(error.message);
             toast.error(error.message);
-            // console.error("Error create role : " + error.message);
         }
     };
 
@@ -165,7 +159,6 @@ export default function Index() {
         } catch (error) {
             setError(error.message);
             toast.error(error.message);
-            // console.error("Error update role : " + error.message);
         }
     };
 
@@ -206,8 +199,9 @@ export default function Index() {
                     <button className="btn btn-primary" onClick={openCreateModal}>Create Role</button>
 
                     {loading ? (
-                        // Bisa di ganti skeleten atau animasi loading
-                        <p>Loading...</p>
+                        <Skeleton height={20} count={10} />
+                    ) : error ? (
+                        <h3 className="text-danger text-center p-5">{error}</h3>
                     ) : (
                         <div className="card mt-3">
                             <div className="card-body">

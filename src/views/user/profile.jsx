@@ -3,9 +3,12 @@
 import React, { useEffect, useState } from "react";
 import { CurrentUser } from "../../controller/userController";
 import { toast } from 'react-hot-toast';
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 export default function Profile() {
     const [users, setUsers] = useState(null);
+    
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
 
@@ -33,19 +36,6 @@ export default function Profile() {
         fetchUsersData();
     }, []);
 
-    // Jika ada kendala di UseEffect kalo data user terjadi kendala
-    // if (error) {
-    //     // Tampilkan error jika ada
-    //     return <div>Error: {error}</div>;
-    // }
-
-    // Bisa memnbuat animasi loading kalo data masih belum dapat
-    // if (!users) {
-    //     // Tampilkan loading saat data belum ada
-    //     // return <div>Loading...</div>;
-    //     return;
-    // }
-
     return (
         <div>
             <nav aria-label="breadcrumb text-white">
@@ -58,15 +48,18 @@ export default function Profile() {
             <div className="card shadow">
                 <div className="card-body">
                     <h1 className="fw-bold">Profile</h1>
+
                     {loading ? (
-                        // Bisa di ganti skeleten atau animasi loading
-                        <p>Loading...</p>
+                        <Skeleton height={20} count={2} />
+                    ) : error ? (
+                        <h3 className="text-danger text-center p-5">{error}</h3>
                     ) : (
                         <>
-                            <p className="col-md-8">Nama: {users.name}</p>
-                            <p className="col-md-8">Email: {users.email}</p>
+                            <p className="col-md-8">Nama: {users?.name || "xxxxxxxxxxxxx"}</p>
+                            <p className="col-md-8">Email: {users?.email || "xxxxxxxxxxxxx"}</p>
                         </>
                     )}
+
                 </div>
             </div>
         </div>
