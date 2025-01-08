@@ -7,12 +7,14 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
 export default function Profile() {
+    // State untuk data user
     const [users, setUsers] = useState(null);
     
+    // State untuk loading dan error
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    // Fungsi untuk mengambil data atau tampilan yang mau dirender
+    // Fetch data untuk load data pertama kali
     useEffect(() => {
         const fetchUsersData = async () => {
             try {

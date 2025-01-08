@@ -9,21 +9,24 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
 export default function Index() {
+    // state untuk data roles
     const [roles, setRoles] = useState([]);
 
+    // state untuk error dan loading
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(true);
 
+    // state untuk modal
     const [showModal, setShowModal] = useState(false);
     const [modalType, setModalType] = useState(null);
     const [selectedData, setSelectedData] = useState(null);
 
-    // Formdata
+    // state untuk form data
     const [formData, setFormData] = useState({
         name: ''
     });
 
-    // Fungsi untuk mengambil data atau tampilan yang mau dirender
+    // Fetch data untuk load data pertama kali
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -96,6 +99,7 @@ export default function Index() {
         setFormData({ ...formData, [name]: value });
     };
 
+    // Handle Create, Update, Delete
     const handleCreate = async (e) => {
         e.preventDefault();
 

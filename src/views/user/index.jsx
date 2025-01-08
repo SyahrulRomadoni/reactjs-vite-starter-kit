@@ -8,16 +8,20 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
 export default function Index() {
+    // state untuk data users dan data roles
     const [users, setUsers] = useState([]);
     const [roles, setRoles] = useState([]);
 
+    // state untuk error dan loading
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(true);
 
+    // state untuk modal
     const [showModal, setShowModal] = useState(false);
     const [modalType, setModalType] = useState(null);
     const [selectedData, setSelectedData] = useState(null);
 
+    // state untuk form data
     const [formData, setFormData] = useState({
         role: '',
         name: '',
@@ -25,6 +29,7 @@ export default function Index() {
         password: ''
     });
 
+    // Fetch data untuk load data pertama kali
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -52,7 +57,7 @@ export default function Index() {
                 setLoading(false);
             }
         };
-        
+
         // Panggil fungsi ini untuk data yang mau dirender
         fetchData();
     }, []);
@@ -100,11 +105,13 @@ export default function Index() {
         setFormData({ name: '', email: '', password: '' });
     };
 
+    // Handle perubahan input form
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
 
+    // Create, Update, Delete
     const handleCreate = async (e) => {
         e.preventDefault();
         const errorMessages = {
