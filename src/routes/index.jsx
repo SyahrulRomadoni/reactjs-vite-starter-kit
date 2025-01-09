@@ -9,7 +9,7 @@ import Dashboard from "../views/dashboard/index.jsx";
 import Profile from "../views/user/profile.jsx";
 import Users from "../views/user/index.jsx";
 import Roles from "../views/role/index.jsx";
-import NotFound from "../../src/NotFound.jsx";
+import NotFound from "../views/NotFound.jsx";
 
 export default function AppRoutes() {
     return (

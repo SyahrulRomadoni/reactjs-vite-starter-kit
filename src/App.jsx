@@ -10,10 +10,10 @@ import { logout } from "./controller/authController";
 import { toast } from 'react-hot-toast'
 
 import AppRoutes from './routes';
-import Header from './Header.jsx';
-import SidebarDekstop from './SidebarDekstop.jsx';
-import SidebarMobile from './SidebarMobile.jsx';
-import Footer from './Footer.jsx';
+import Header from './views/Header.jsx';
+import SidebarDekstop from './views/SidebarDekstop.jsx';
+import SidebarMobile from './views/SidebarMobile.jsx';
+import Footer from './views/Footer.jsx';
 
 export default function App() {
     // State untuk menyimpan token
