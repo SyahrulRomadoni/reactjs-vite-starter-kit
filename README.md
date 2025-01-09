@@ -1,5 +1,5 @@
 # ReactJs Vite Starter Kit
-ReactJs Vite Starter Kit is suitable for those of you who want to quickly use React JS which is already integrated with JWT Auth, and is still open to be customized as you wish.
+ReactJs Vite Starter Kit is suitable for those of you who want to quickly use React JS which is already integrated with JWT Auth, and is very suitable for developers who have used the Laravel Framework and are still open to customization as desired.
 
 ## Run App ##
 npm run dev
@@ -21,6 +21,12 @@ npm install bootstrap
 ```plaintext
 npm install bootstrap-icons
 ```
+```plaintext
+npm install axios
+```
+```plaintext
+npm install antd
+```
 
 ## Structure Base ##
 ```plaintext
@@ -33,6 +39,7 @@ Project/
   │   │   └── index.jsx
   │   ├── controller/
   │   │   ├── authController.js
+  │   │   ├── roleController.js
   │   │   └── userController.js
   │   ├── middleware/
   │   │   └── routeMiddleware.jsx
@@ -46,18 +53,27 @@ Project/
   │   │   │   └── index.jsx
   │   │   ├── home
   │   │   │   └── index.jsx
-  │   │   └── user
-  │   │       └── index.jsx
+  │   │   ├── role
+  │   │   │   └── index.jsx
+  │   │   ├── user
+  │   │   │   └── index.jsx
+  │   │   ├── Footer.jsx
+  │   │   ├── Header.jsx
+  │   │   ├── NotFound.jsx
+  │   │   ├── SidebarDekstop.jsx
+  │   │   └── SidebarMobile.jsx
   │   ├── App.css
   │   ├── App.jsx
-  │   ├── Footer.jsx
-  │   ├── Header.jsx
   │   ├── index.css
-  │   ├── main.jsx
-  │   └── Sidebar.jsx
+  │   └── main.jsx
   ├── .env.example
   └── package.json
   ```
 
 ## Library ##
+- antd
+- axios
+- bootstrap
+- bootstrap-icons
 - react-router-dom
+- dotenv

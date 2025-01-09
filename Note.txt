@@ -7,6 +7,8 @@ npm install react-router-dom
 npm install dotenv
 npm install bootstrap
 npm install bootstrap-icons
+npm install axios
+npm install antd
 
 ## Structure Base ##
 Project/
@@ -18,6 +20,7 @@ Project/
   │   │   └── index.jsx
   │   ├── controller/
   │   │   ├── authController.js
+  │   │   ├── roleController.js
   │   │   └── userController.js
   │   ├── middleware/
   │   │   └── routeMiddleware.jsx
@@ -31,15 +34,19 @@ Project/
   │   │   │   └── index.jsx
   │   │   ├── home
   │   │   │   └── index.jsx
-  │   │   └── user
-  │   │       └── index.jsx
+  │   │   ├── role
+  │   │   │   └── index.jsx
+  │   │   ├── user
+  │   │   │   └── index.jsx
+  │   │   ├── Footer.jsx
+  │   │   ├── Header.jsx
+  │   │   ├── NotFound.jsx
+  │   │   ├── SidebarDekstop.jsx
+  │   │   └── SidebarMobile.jsx
   │   ├── App.css
   │   ├── App.jsx
-  │   ├── Footer.jsx
-  │   ├── Header.jsx
   │   ├── index.css
-  │   ├── main.jsx
-  │   └── Sidebar.jsx
+  │   └── main.jsx
   ├── .env.example
   └── package.json
 
@@ -52,3 +59,5 @@ npm install react-router-dom
 npm install dotenv
 npm install bootstrap
 npm install bootstrap-icons
+npm install axios
+npm install antd
