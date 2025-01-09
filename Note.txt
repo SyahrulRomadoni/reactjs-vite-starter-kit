@@ -16,8 +16,6 @@ Project/
   ├── src/
   │   ├── assets/
   │   │   └── cutome-style.css
-  │   ├── routes/
-  │   │   └── index.jsx
   │   ├── controller/
   │   │   ├── authController.js
   │   │   ├── roleController.js
