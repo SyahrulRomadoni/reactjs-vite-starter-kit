@@ -1,31 +1,14 @@
 # ReactJs Vite Starter Kit
 ReactJs Vite Starter Kit is suitable for those of you who want to quickly use React JS which is already integrated with JWT Auth, and is very suitable for developers who have used the Laravel Framework and are still open to customization as desired.
 
-## Run App ##
-npm run dev
-
 ## Install Library ##
 ```plaintext
 npm install
 ```
+
+## Run App ##
 ```plaintext
-npm install react-router-dom
-```
-OPTIONAL
-```plaintext
-npm install dotenv
-```
-```plaintext
-npm install bootstrap
-```
-```plaintext
-npm install bootstrap-icons
-```
-```plaintext
-npm install axios
-```
-```plaintext
-npm install antd
+npm run dev
 ```
 
 ## Structure Base ##
