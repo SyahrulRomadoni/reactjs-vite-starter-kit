@@ -237,7 +237,14 @@ export default function Index() {
 
             <div className="card shadow">
                 <div className="card-body">
-                    <h1 className="fw-bold mb-4">Roles</h1>
+                    <div className="row">
+                        <div className="col-6">
+                            <h3 className="fw-bold">Roles</h3>
+                        </div>
+                        <div className="col-6 text-end">
+                            <Button type="primary" onClick={openCreateModal}>Create</Button>
+                        </div>
+                    </div>
 
                     {loading ? (
                         <Skeleton height={20} count={10} />
@@ -247,7 +254,7 @@ export default function Index() {
                         <>
                             <div className="row">
                                 <div className="col-7 col-sm-7 col-md-6 col-lg-8 col-xl-9">
-                                    <Button type="primary" onClick={openCreateModal}>Create</Button>
+                                    {/* <Button type="primary" onClick={openCreateModal}>Create</Button> */}
                                 </div>
                                 <div className="col-5 col-sm-5 col-md-6 col-lg-4 col-xl-3 text-end">
                                     <Input

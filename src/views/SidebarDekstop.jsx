@@ -27,7 +27,7 @@ export default function SidebarDekstop({ handleLogout }) {
 
     return (
         <div>
-            <div className="row mb-4">
+            <div className="row mb-3">
                 <div className="col-12">
                     <h2 className="cs-brand mb-2" style={{ fontSize: '25px', marginBottom: '0px' }}>ReactJs Vite</h2>
                 </div>
