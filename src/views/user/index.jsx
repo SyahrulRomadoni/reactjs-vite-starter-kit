@@ -232,6 +232,14 @@ export default function Index() {
 
     const columns = [
         {
+            title: 'No',
+            dataIndex: 'id',
+            key: 'id',
+            render: (text, record) => (
+                <p className="m-0 cs-text-1">{record.id}</p>
+            ),
+        },
+        {
             title: 'Name',
             dataIndex: 'name',
             key: 'name',
