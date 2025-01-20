@@ -295,10 +295,9 @@ export default function Index() {
                     ) : (
                         <>
                             <div className="row">
-                                <div className="col-7 col-sm-7 col-md-6 col-lg-8 col-xl-9">
-                                    {/* <Button type="primary" onClick={openCreateModal}>Create</Button> */}
+                                <div className="col-0 col-sm-5 col-md-5 col-lg-6 col-xl-8">
                                 </div>
-                                <div className="col-5 col-sm-5 col-md-6 col-lg-4 col-xl-3 text-end">
+                                <div className="col-12 col-sm-7 col-md-7 col-lg-6 col-xl-4 text-end">
                                     <Input
                                         placeholder="Search"
                                         className="mb-3"
