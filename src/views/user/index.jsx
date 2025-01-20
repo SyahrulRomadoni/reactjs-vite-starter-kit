@@ -269,6 +269,27 @@ export default function Index() {
     ];
 
     // Child Row
+    // Kondisi untuk child row hanya muncul di mobile
+    const [isMobile, setIsMobile] = useState(false);
+    useEffect(() => {
+        const checkMobileView = () => {
+            if (window.innerWidth <= 768) {
+                setIsMobile(true);
+            } else {
+                setIsMobile(false);
+            }
+        };
+        // Cek ukuran saat pertama kali render
+        checkMobileView();
+        // Daftarkan event listener untuk resize
+        window.addEventListener('resize', checkMobileView);
+        // Hapus event listener saat komponen di-unmount
+        return () => {
+            window.removeEventListener('resize', checkMobileView);
+        };
+    }, []);
+
+    // Tampilan Child Row yang di render
     const expandable = {
         expandedRowRender: record => (
             <div>
@@ -334,7 +355,7 @@ export default function Index() {
                                         pageSizeOptions: ['5', '10', '25', '50', '100'],
                                         showQuickJumper: true,
                                     }}
-                                    expandable={expandable}
+                                    expandable={isMobile ? expandable : false}
                                 />
                             </div>
                         </>
