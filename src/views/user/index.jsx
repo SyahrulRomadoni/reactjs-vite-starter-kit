@@ -240,26 +240,26 @@ export default function Index() {
             ),
         },
         {
-            title: 'Email',
+            title: <p className="d-none d-md-table-cell">Email</p>,
             dataIndex: 'email',
             key: 'email',
             render: (text, record) => (
-                <p className="m-0 cs-text-1">{record.name}</p>
+                <p className="m-0 cs-text-1 d-none d-md-table-cell">{record.name}</p>
             ),
         },
         {
-            title: 'Role',
+            title: <p className="d-none d-md-table-cell">Role</p>,
             dataIndex: 'roles.name',
             key: 'role',
             render: (text, record) => (
-                <p className="m-0 cs-text-1">{record.name}</p>
+                <p className="m-0 cs-text-1 d-none d-md-table-cell">{record.name}</p>
             ),
         },
         {
-            title: 'Actions',
+            title: <p className="d-none d-md-table-cell">Action</p>,
             key: 'actions',
             render: (text, record) => (
-                <div className="text-end">
+                <div className="text-end d-none d-md-table-cell">
                     <Button className="btn btn-sm btn-info m-1" onClick={() => openReadModal(record.uuid)}>Read</Button>
                     <Button className="btn btn-sm btn-warning m-1" onClick={() => openUpdateModal(record.uuid)}>Update</Button>
                     <Button className="btn btn-sm btn-danger m-1" onClick={() => openDeleteModal(record.uuid)}>Delete</Button>
@@ -267,6 +267,20 @@ export default function Index() {
             ),
         },
     ];
+
+    // Child Row
+    const expandable = {
+        expandedRowRender: record => (
+            <div>
+                <p className="cs-text-1">Email {record.email}</p>
+                <p className="cs-text-1">Role {record.roles?.name}</p>
+                <Button className="btn btn-sm btn-info" onClick={() => openReadModal(record.uuid)}>Read</Button>
+                <Button className="btn btn-sm btn-warning m-1" onClick={() => openUpdateModal(record.uuid)}>Update</Button>
+                <Button className="btn btn-sm btn-danger" onClick={() => openDeleteModal(record.uuid)}>Delete</Button>
+            </div>
+        ),
+        rowExpandable: record => true,
+    };
 
     return (
         <>
@@ -320,6 +334,7 @@ export default function Index() {
                                         pageSizeOptions: ['5', '10', '25', '50', '100'],
                                         showQuickJumper: true,
                                     }}
+                                    expandable={expandable}
                                 />
                             </div>
                         </>
