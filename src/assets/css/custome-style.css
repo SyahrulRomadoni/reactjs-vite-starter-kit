@@ -39,6 +39,19 @@
     background-color: #ffffff;
 }
 
+/* Button */
+.btn.cs-btn-outline-secondary {
+    border: 1px solid #dee2e6;
+}
+
+[data-bs-theme=light] .btn.cs-btn-outline-secondary {
+    border: 1px solid #dee2e6;
+}
+
+[data-bs-theme=dark] .btn.cs-btn-outline-secondary {
+    border: 1px solid #495057;
+}
+
 /* Breadcrumb */
 .cs-breadcrumb {
     font-size: 17px;
@@ -47,6 +60,64 @@
 /* Icon */
 .cs-icon {
     font-size: 20px;
+}
+
+.cs-icon-1 {
+    color: #cccccc;
+}
+
+/* React Select */
+.react-select  {
+    color: #212529;
+}
+
+[data-bs-theme=light] .react-select [class*="react-select__control"]  {
+    background-color: #ffffff;
+    border: 1px solid #dee2e6;
+}
+[data-bs-theme=dark] .react-select [class*="react-select__control"]  {
+    background-color: #212529;
+    border: 1px solid #495057;
+}
+
+[data-bs-theme=light] .react-select [class*="react-select__single-value"]  {
+    color: #212529;
+}
+[data-bs-theme=dark] .react-select [class*="react-select__single-value"]  {
+    color: #ffffff;
+}
+
+[data-bs-theme=light] .react-select [class*="react-select__multi-value"]  {
+    background-color: #cccccc;
+    color: #212529;
+    border-radius: 5px;
+}
+[data-bs-theme=dark] .react-select [class*="react-select__multi-value"]  {
+    background-color: #ffffff;
+    color: #212529;
+    border-radius: 5px;
+}
+
+[data-bs-theme=light] .react-select [class*="react-select__control"][aria-disabled="true"] {
+    background-color: #e9ecef;
+    border: 1px solid #e9ecef;
+}
+[data-bs-theme=dark] .react-select [class*="react-select__control"][aria-disabled="true"] {
+    background-color: #343a40;
+    border: 1px solid #343a40;
+}
+
+/* Ant Desain */
+.ant-pagination-item {
+    color: #000000;
+}
+
+[data-bs-theme=light] .ant-pagination-item-link span {
+    color: #000000;
+}
+
+[data-bs-theme=dark] .ant-pagination-item-link span {
+    color: #ffffff;
 }
 
 /* Switch Dark/Light Mode */

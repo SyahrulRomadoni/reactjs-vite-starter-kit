@@ -1,20 +1,26 @@
 // src/views/role/index.jsx
 
+// Libraries
 import { useEffect, useState } from "react";
-import { All, Create, Read, Update, Delete } from "../../controller/roleController";
 import { toast } from 'react-hot-toast';
 import { Table, Button, Input } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
+// Controller
+import { All, Create, Read, Update, Delete } from "../../controller/roleController";
+
 export default function Index() {
-    // state untuk data roles
+    // ------------------- State ------------------- //
+    // state untuk menyimpan data roles
     const [roles, setRoles] = useState([]);
 
     // state untuk error, errorFetch dan loading
     const [error, setError] = useState("");
     const [errorFetch, setErrorFetch] = useState("");
+
+    // state untuk loading
     const [loading, setLoading] = useState(true);
 
     // state untuk modal
@@ -22,12 +28,16 @@ export default function Index() {
     const [modalType, setModalType] = useState(null);
     const [selectedData, setSelectedData] = useState(null);
 
+    // state untuk table
+    const [searchData, setSearchData] = useState("");
+    const [filteredData, setFilteredData] = useState([]);
+
     // state untuk form data
     const [formData, setFormData] = useState({
         name: ''
     });
 
-    // Fetch data untuk load data pertama kali
+    // ------------------- Fetch Data ------------------- //
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -51,7 +61,7 @@ export default function Index() {
         fetchData();
     }, []);
 
-    // kondisi Modal
+    // ------------------- Modal ------------------- //
     const openCreateModal = () => {
         setModalType('create');
         setShowModal(true);
@@ -94,13 +104,13 @@ export default function Index() {
         setFormData({ name: '' });
     };
 
-    // Handle perubahan input form
+    // ------------------- Handle perubahan input form ------------------- //
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
 
-    // Handle Create, Update, Delete
+    // ------------------- CRUDS ------------------- //
     const handleCreate = async (e) => {
         e.preventDefault();
 
@@ -190,10 +200,7 @@ export default function Index() {
         }
     };
 
-    // Table
-    const [searchData, setSearchData] = useState("");
-    const [filteredData, setFilteredData] = useState([]);
-
+    // ------------------- Table ------------------- //
     useEffect(() => {
         if (searchData) {
             setFilteredData(roles.filter(data =>
@@ -236,6 +243,7 @@ export default function Index() {
 
     return (
         <>
+            {/* Breadcrumb */}
             <nav aria-label="breadcrumb text-white">
                 <ol className="breadcrumb">
                     <li className="breadcrumb-item cs-breadcrumb">Roles</li>
@@ -243,6 +251,7 @@ export default function Index() {
                 </ol>
             </nav>
 
+            {/* Tabel */}
             <div className="card shadow">
                 <div className="card-body">
                     <div className="row">

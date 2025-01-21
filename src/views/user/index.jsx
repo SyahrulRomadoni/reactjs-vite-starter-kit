@@ -1,20 +1,29 @@
+// src/views/user/index.jsx
+
+// Libraries
 import { useEffect, useState } from "react";
-import * as userController from "../../controller/userController";
-import * as roleController from "../../controller/roleController";
 import { toast } from 'react-hot-toast';
 import { Table, Button, Input } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import Select from 'react-select';
+
+// Controller
+import * as userController from "../../controller/userController";
+import * as roleController from "../../controller/roleController";
 
 export default function Index() {
-    // state untuk data users dan data roles
+    // ------------------- State ------------------- //
+    // state untuk menyimpan data users dan data roles
     const [users, setUsers] = useState([]);
     const [roles, setRoles] = useState([]);
 
-    // state untuk error, errorFetch dan loading
+    // state untuk error dan errorFetch
     const [error, setError] = useState("");
     const [errorFetch, setErrorFetch] = useState("");
+
+    // state untuk loading
     const [loading, setLoading] = useState(true);
 
     // state untuk modal
@@ -22,9 +31,10 @@ export default function Index() {
     const [modalType, setModalType] = useState(null);
     const [selectedData, setSelectedData] = useState(null);
 
-    // State untuk mengatur visibility password dan confirm password
-    const [passwordVisible, setPasswordVisible] = useState(false);
-    const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
+    // state untuk table
+    const [searchData, setSearchData] = useState("");
+    const [filteredData, setFilteredData] = useState([]);
+    const [isMobile, setIsMobile] = useState(false);
 
     // state untuk form data
     const [formData, setFormData] = useState({
@@ -35,7 +45,11 @@ export default function Index() {
         confirmPassword: '',
     });
 
-    // Fetch data untuk load data pertama kali
+    // State untuk mengatur password dan confirm password
+    const [passwordVisible, setPasswordVisible] = useState(false);
+    const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
+
+    // ------------------- Fetch Data ------------------- //
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -68,32 +82,67 @@ export default function Index() {
         fetchData();
     }, []);
 
-    // kondisi Modal
+    // ------------------- Modal ------------------- //
     const openCreateModal = () => {
         setModalType('create');
         setShowModal(true);
-        setFormData({ name: '', email: '', password: '' });
+        setFormData({
+            role: '',
+            name: '',
+            email: '',
+            password: ''
+        });
     };
 
     const openReadModal = async (uuid) => {
         setModalType('read');
         setSelectedData(uuid);
         setShowModal(true);
+
         try {
+            // Action ke API
             const response = await userController.Read(uuid);
-            setFormData({ role: response.data.uuid_role, name: response.data.name, email: response.data.email, password: '' });
+            // Kalo Pakai select option 1 maka comment saja baris kode ini, tapi kalo pakai select option 2 maka uncomment baris kode ini
+            const selectedRole = roles.find(role => role.uuid === response.data.uuid_role);
+            // Set data form
+            setFormData({ 
+                // Kalo Pakai select option 1
+                // role: response.data.uuid_role,
+
+                // Kalo Pakai select option 2
+                role: selectedRole ? { value: selectedRole.uuid, label: selectedRole.name } : '',
+                
+                name: response.data.name, 
+                email: response.data.email, 
+                password: '' 
+            });
         } catch (error) {
             console.error("Error fetching user data:", error);
         }
-    };
+    };    
 
     const openUpdateModal = async (uuid) => {
         setModalType('update');
         setSelectedData(uuid);
         setShowModal(true);
+
         try {
+            // Action ke API
             const response = await userController.Read(uuid);
-            setFormData({ role: response.data.uuid_role, name: response.data.name, email: response.data.email, password: '' });
+            // Kalo Pakai select option 1 maka comment saja baris kode ini, tapi kalo pakai select option 2 maka uncomment baris kode ini
+            const selectedRole = roles.find(role => role.uuid === response.data.uuid_role);
+            // Set data form
+            setFormData({
+                // Kalo Pakai select option 1
+                // role: response.data.uuid_role,
+
+                // Kalo Pakai select option 2
+                role: selectedRole ? { value: selectedRole.uuid, label: selectedRole.name } : '',
+
+                name: response.data.name,
+                email: response.data.email,
+                password: ''
+            });
         } catch (error) {
             console.error("Error fetching user data:", error);
         }
@@ -108,21 +157,36 @@ export default function Index() {
     const closeModal = () => {
         setShowModal(false);
         setSelectedData(null);
-        setFormData({ name: '', email: '', password: '' });
+        setFormData({
+            role: '',
+            name: '',
+            email: '',
+            password: ''
+        });
     };
 
-    // Handle perubahan input form
+    // ------------------- Handle perubahan input form ------------------- //
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
+        setFormData({
+            ...formData,
+            [name]: value
+        });
+    };
+    const handleSelectChange = (selectedOption) => {
+        setFormData({
+            ...formData,
+            role: selectedOption,
+        });
     };
 
-    // Create, Update, Delete
+    // ------------------- CRUDS ------------------- //
     const handleCreate = async (e) => {
         e.preventDefault();
 
         // Validasi individual
         const errorMessages = {
+            role: "Role tidak boleh kosong.",
             name: "Name tidak boleh kosong.",
             email: "Email tidak boleh kosong.",
             password: "Password tidak boleh kosong.",
@@ -143,7 +207,19 @@ export default function Index() {
         }
 
         try {
-            const result = await userController.Create(formData.role, formData.name, formData.email, formData.password);
+            // Kalo Pakai select option 1
+            // maka pakai formData.role itu tinggal pakai formData.role saja cuman tidak ada seach sama multi data jadi datanya cuman satu saja, karna dia select option biasa
+
+            // Kalo Pakai select option 2
+            // maka pakai formData.role.value itu dia berupa data object array data nya bisa lebih dari 1 jika isMulti itu true, kalo isMulti nya false maka cuman satu data saja cuman object nya array, disini saya buat isMulti aku comment karna saya butuh search saja
+
+            const result = await userController.Create(
+                formData.role.value,
+                formData.name,
+                formData.email,
+                formData.password
+            );
+
             if (result.status === "success") {
                 toast.success(result.message, {
                     duration: 3000,
@@ -176,7 +252,20 @@ export default function Index() {
         }
 
         try {
-            const result = await userController.Update(selectedData, formData.role, formData.name, formData.email, formData.password);
+            // Kalo Pakai select option 1
+            // maka pakai formData.role itu tinggal pakai formData.role saja cuman tidak ada seach sama multi data jadi datanya cuman satu saja, karna dia select option biasa
+
+            // Kalo Pakai select option 2
+            // maka pakai formData.role.value itu dia berupa data object array data nya bisa lebih dari 1 jika isMulti itu true, kalo isMulti nya false maka cuman satu data saja cuman object nya array, disini saya buat isMulti aku comment karna saya butuh search saja
+
+            const result = await userController.Update(
+                selectedData,
+                formData.role.value,
+                formData.name,
+                formData.email,
+                formData.password
+            );
+
             if (result.status === "success") {
                 toast.success(result.message, {
                     duration: 3000,
@@ -215,10 +304,7 @@ export default function Index() {
         }
     };
 
-    // Table
-    const [searchData, setSearchData] = useState("");
-    const [filteredData, setFilteredData] = useState([]);
-
+    // ------------------- Table ------------------- //
     useEffect(() => {
         if (searchData) {
             setFilteredData(users.filter(data =>
@@ -252,7 +338,7 @@ export default function Index() {
             dataIndex: 'email',
             key: 'email',
             render: (text, record) => (
-                <p className="m-0 cs-text-1 d-none d-md-table-cell">{record.name}</p>
+                <p className="m-0 cs-text-1 d-none d-md-table-cell">{record.email}</p>
             ),
         },
         {
@@ -260,7 +346,7 @@ export default function Index() {
             dataIndex: 'roles.name',
             key: 'role',
             render: (text, record) => (
-                <p className="m-0 cs-text-1 d-none d-md-table-cell">{record.name}</p>
+                <p className="m-0 cs-text-1 d-none d-md-table-cell">{record.roles}</p>
             ),
         },
         {
@@ -276,9 +362,8 @@ export default function Index() {
         },
     ];
 
-    // Child Row
+    // ------------------- Child Row Table ------------------- //
     // Kondisi untuk child row hanya muncul di mobile
-    const [isMobile, setIsMobile] = useState(false);
     useEffect(() => {
         const checkMobileView = () => {
             if (window.innerWidth <= 768) {
@@ -301,8 +386,8 @@ export default function Index() {
     const expandable = {
         expandedRowRender: record => (
             <div>
-                <p className="cs-text-1">Email {record.email}</p>
-                <p className="cs-text-1">Role {record.roles?.name}</p>
+                <p className="cs-text-1">Email : {record.email}</p>
+                <p className="cs-text-1">Role : {record.roles}</p>
                 <Button className="btn btn-sm btn-info" onClick={() => openReadModal(record.uuid)}>Read</Button>
                 <Button className="btn btn-sm btn-warning m-1" onClick={() => openUpdateModal(record.uuid)}>Update</Button>
                 <Button className="btn btn-sm btn-danger" onClick={() => openDeleteModal(record.uuid)}>Delete</Button>
@@ -313,6 +398,7 @@ export default function Index() {
 
     return (
         <>
+            {/* Breadcrumb */}
             <nav aria-label="breadcrumb text-white">
                 <ol className="breadcrumb">
                     <li className="breadcrumb-item cs-breadcrumb">Users</li>
@@ -320,6 +406,7 @@ export default function Index() {
                 </ol>
             </nav>
 
+            {/* Table */}
             <div className="card shadow">
                 <div className="card-body">
                     <div className="row">
@@ -386,7 +473,8 @@ export default function Index() {
                                         {error && <div className="alert alert-danger">{error}</div>}
                                         <div className="mb-3">
                                             <label htmlFor="role" className="form-label">Role</label>
-                                            <select
+                                            {/* Select Option 1 */}
+                                            {/* <select
                                                 id="role"
                                                 name="role"
                                                 className="form-control"
@@ -399,7 +487,22 @@ export default function Index() {
                                                 {roles.map((role) => (
                                                     <option key={role.uuid} value={role.uuid}>{role.name}</option>
                                                 ))}
-                                            </select>
+                                            </select> */}
+
+                                            {/* Select Option 2 */}
+                                            <Select
+                                                id="role"
+                                                name="role"
+                                                // isMulti
+                                                value={formData.role}
+                                                onChange={handleSelectChange}
+                                                isDisabled={modalType === 'read'}
+                                                required
+                                                className="react-select"
+                                                classNamePrefix="react-select"
+                                                placeholder="-- Pilih --"
+                                                options={roles.map((role) => ({ value: role.uuid, label: role.name })) || []}
+                                            />
                                         </div>
                                         <div className="mb-3">
                                             <label htmlFor="name" className="form-label">Name</label>
@@ -443,13 +546,13 @@ export default function Index() {
                                                         />
                                                         <button
                                                             type="button"
-                                                            className="btn btn-outline-secondary"
+                                                            className="btn cs-btn-outline-secondary"
                                                             onClick={() => setPasswordVisible(!passwordVisible)}
                                                         >
                                                             {passwordVisible ? (
-                                                                <i className="bi bi-eye-slash"></i>
+                                                                <i className="cs-icon-1 bi bi-eye-slash"></i>
                                                             ) : (
-                                                                <i className="bi bi-eye"></i>
+                                                                <i className="cs-icon-1 bi bi-eye"></i>
                                                             )}
                                                         </button>
                                                     </div>
@@ -468,13 +571,13 @@ export default function Index() {
                                                         />
                                                         <button
                                                             type="button"
-                                                            className="btn btn-outline-secondary"
+                                                            className="btn cs-btn-outline-secondary"
                                                             onClick={() => setConfirmPasswordVisible(!confirmPasswordVisible)}
                                                         >
                                                             {confirmPasswordVisible ? (
-                                                                <i className="bi bi-eye-slash"></i>
+                                                                <i className="cs-icon-1 bi bi-eye-slash"></i>
                                                             ) : (
-                                                                <i className="bi bi-eye"></i>
+                                                                <i className="cs-icon-1 bi bi-eye"></i>
                                                             )}
                                                         </button>
                                                     </div>
