@@ -107,19 +107,6 @@
     border: 1px solid #343a40;
 }
 
-/* Ant Desain */
-.ant-pagination-item {
-    color: #000000;
-}
-
-[data-bs-theme=light] .ant-pagination-item-link span {
-    color: #000000;
-}
-
-[data-bs-theme=dark] .ant-pagination-item-link span {
-    color: #ffffff;
-}
-
 /* Switch Dark/Light Mode */
 .switch {
     position: relative;
@@ -224,6 +211,18 @@ input:checked + .slider:before {
 }
 
 /* Ant Desin / Tables */
+.ant-pagination-item {
+    color: #000000;
+}
+
+[data-bs-theme=light] .ant-pagination-item-link span {
+    color: #000000;
+}
+
+[data-bs-theme=dark] .ant-pagination-item-link span {
+    color: #ffffff;
+}
+
 .transparent-table .ant-table-thead > tr > th {
     /* background-color: transparent !important; */
 }
