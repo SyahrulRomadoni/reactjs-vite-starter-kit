@@ -321,6 +321,7 @@ export default function Index() {
             title: 'No',
             dataIndex: 'id',
             key: 'id',
+            sorter: (a, b) => a.id - b.id,
             render: (text, record) => (
                 <p className="m-0 cs-text-1">{record.id}</p>
             ),
@@ -329,6 +330,7 @@ export default function Index() {
             title: 'Name',
             dataIndex: 'name',
             key: 'name',
+            sorter: (a, b) => a.name.localeCompare(b.name),
             render: (text, record) => (
                 <p className="m-0 cs-text-1">{record.name}</p>
             ),
@@ -337,6 +339,7 @@ export default function Index() {
             title: <p className="d-none d-md-table-cell">Email</p>,
             dataIndex: 'email',
             key: 'email',
+            sorter: (a, b) => a.email.localeCompare(b.email),
             render: (text, record) => (
                 <p className="m-0 cs-text-1 d-none d-md-table-cell">{record.email}</p>
             ),
@@ -345,15 +348,16 @@ export default function Index() {
             title: <p className="d-none d-md-table-cell">Role</p>,
             dataIndex: 'roles.name',
             key: 'role',
+            sorter: (a, b) => (a.roles || '').localeCompare(b.roles || ''),
             render: (text, record) => (
                 <p className="m-0 cs-text-1 d-none d-md-table-cell">{record.roles}</p>
             ),
         },
         {
-            title: <p className="d-none d-md-table-cell">Action</p>,
+            title: <p className="d-none d-md-table-cell" style={{ float: 'right' }}>Action</p>,
             key: 'actions',
             render: (text, record) => (
-                <div className="text-end d-none d-md-table-cell">
+                <div className="d-none d-md-table-cell" style={{ float: 'right' }}>
                     <Button className="btn btn-sm btn-info m-1" onClick={() => openReadModal(record.uuid)}>Read</Button>
                     <Button className="btn btn-sm btn-warning m-1" onClick={() => openUpdateModal(record.uuid)}>Update</Button>
                     <Button className="btn btn-sm btn-danger m-1" onClick={() => openDeleteModal(record.uuid)}>Delete</Button>

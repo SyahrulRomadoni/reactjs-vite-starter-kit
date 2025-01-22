@@ -216,6 +216,7 @@ export default function Index() {
             title: 'No',
             dataIndex: 'id',
             key: 'id',
+            sorter: (a, b) => a.id - b.id,
             render: (text, record) => (
                 <p className="m-0 cs-text-1">{record.id}</p>
             ),
@@ -224,12 +225,13 @@ export default function Index() {
             title: 'Name',
             dataIndex: 'name',
             key: 'name',
+            sorter: (a, b) => a.name.localeCompare(b.name),
             render: (text, record) => (
                 <p className="m-0 cs-text-1">{record.name}</p>
             ),
         },
         {
-            title: 'Actions',
+            title: <p className="text-end mb-0">Action</p>,
             key: 'actions',
             render: (text, record) => (
                 <div className="text-end">
