@@ -67,7 +67,7 @@
 }
 
 /* React Select */
-.react-select  {
+.react-select {
     color: #212529;
 }
 
@@ -78,6 +78,13 @@
 [data-bs-theme=dark] .react-select [class*="react-select__control"]  {
     background-color: #212529;
     border: 1px solid #495057;
+}
+
+[data-bs-theme=light] .react-select [class*="react-select__control"] [class*="react-select__input-container"]  {
+    color: #212529;
+}
+[data-bs-theme=dark] .react-select [class*="react-select__control"] [class*="react-select__input-container"]  {
+    color: #ffffff;
 }
 
 [data-bs-theme=light] .react-select [class*="react-select__single-value"]  {
