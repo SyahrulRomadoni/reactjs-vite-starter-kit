@@ -1,6 +1,7 @@
 // src/Header.jsx
 
 export default function Header() {
+    const currentYear = new Date().getFullYear();
     return (
         // <div className="row mb-3 fixed-bottom">
         //     <div className="col-10 offset-md-2">
@@ -10,7 +11,7 @@ export default function Header() {
                 <div className="mt-5">
                     <div className="row">
                         <div className="col-12">
-                            <p>2024 © Syahrul Romadoni</p>
+                            <p>{currentYear} © Syahrul Romadoni</p>
                         </div>
                         {/* <div className="col-6">
                             <h4 className="text-end">Text 2</h4>
