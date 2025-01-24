@@ -12,7 +12,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { All, Create, Read, Update, Delete } from "../../controller/roleController";
 
 export default function Index() {
-    // ------------------- State ------------------- //
+    // =================================================== State =================================================== //
     // state untuk menyimpan data roles
     const [roles, setRoles] = useState([]);
 
@@ -37,7 +37,7 @@ export default function Index() {
         name: ''
     });
 
-    // ------------------- Fetch Data ------------------- //
+    // =================================================== Fetch Data =================================================== //
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -61,7 +61,7 @@ export default function Index() {
         fetchData();
     }, []);
 
-    // ------------------- Modal ------------------- //
+    // =================================================== Modal =================================================== //
     const openCreateModal = () => {
         setModalType('create');
         setShowModal(true);
@@ -104,13 +104,13 @@ export default function Index() {
         setFormData({ name: '' });
     };
 
-    // ------------------- Handle perubahan input form ------------------- //
+    // =================================================== Handle =================================================== //
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
 
-    // ------------------- CRUDS ------------------- //
+    // CRUDS
     const handleCreate = async (e) => {
         e.preventDefault();
 
@@ -200,7 +200,7 @@ export default function Index() {
         }
     };
 
-    // ------------------- Table ------------------- //
+    // =================================================== Table =================================================== //
     useEffect(() => {
         if (searchData) {
             setFilteredData(roles.filter(data =>

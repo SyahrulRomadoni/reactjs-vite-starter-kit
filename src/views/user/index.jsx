@@ -14,7 +14,7 @@ import * as userController from "../../controller/userController";
 import * as roleController from "../../controller/roleController";
 
 export default function Index() {
-    // ------------------- State ------------------- //
+    // =================================================== State =================================================== //
     // state untuk menyimpan data users dan data roles
     const [users, setUsers] = useState([]);
     const [roles, setRoles] = useState([]);
@@ -49,7 +49,7 @@ export default function Index() {
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
 
-    // ------------------- Fetch Data ------------------- //
+    // =================================================== Fetch Data =================================================== //
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -82,7 +82,7 @@ export default function Index() {
         fetchData();
     }, []);
 
-    // ------------------- Modal ------------------- //
+    // =================================================== Modal =================================================== //
     const openCreateModal = () => {
         setModalType('create');
         setShowModal(true);
@@ -165,7 +165,7 @@ export default function Index() {
         });
     };
 
-    // ------------------- Handle perubahan input form ------------------- //
+    // =================================================== Handle perubahan input form =================================================== //
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({
@@ -180,7 +180,7 @@ export default function Index() {
         });
     };
 
-    // ------------------- CRUDS ------------------- //
+    // CRUDS
     const handleCreate = async (e) => {
         e.preventDefault();
 
@@ -304,7 +304,7 @@ export default function Index() {
         }
     };
 
-    // ------------------- Table ------------------- //
+    // =================================================== Table =================================================== //
     useEffect(() => {
         if (searchData) {
             setFilteredData(users.filter(data =>
@@ -366,7 +366,7 @@ export default function Index() {
         },
     ];
 
-    // ------------------- Child Row Table ------------------- //
+    // =================================================== Child Row Table =================================================== //
     // Kondisi untuk child row hanya muncul di mobile
     useEffect(() => {
         const checkMobileView = () => {
