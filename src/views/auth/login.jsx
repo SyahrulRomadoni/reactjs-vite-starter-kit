@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 import { login } from "../../controller/authController";
+import { Link } from "react-router-dom";
 import { toast } from 'react-hot-toast'
 
 export default function Login() {

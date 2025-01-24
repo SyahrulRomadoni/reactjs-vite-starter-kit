@@ -2,14 +2,14 @@
 
 import { Routes, Route } from "react-router-dom";
 import { AdminRoutesMiddleware, GuestRoutesMiddleware } from '../middleware/routesMiddleware.jsx';
-import Home from "../views/home/index.jsx";
-import Register from "../views/auth/register.jsx";
-import Login from "../views/auth/login.jsx";
 import Dashboard from "../views/dashboard/index.jsx";
-import Profile from "../views/user/profile.jsx";
-import Users from "../views/user/index.jsx";
-import Roles from "../views/role/index.jsx";
+import Home from "../views/home/index.jsx";
+import Login from "../views/auth/login.jsx";
 import NotFound from "../views/NotFound.jsx";
+import Profile from "../views/user/profile.jsx";
+import Roles from "../views/role/index.jsx";
+import Register from "../views/auth/register.jsx";
+import Users from "../views/user/index.jsx";
 
 export default function AppRoutes() {
     return (
