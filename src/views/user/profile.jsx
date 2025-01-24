@@ -1,10 +1,10 @@
 // src/views/user/index.jsx
 
+import "react-loading-skeleton/dist/skeleton.css";
 import React, { useEffect, useState } from "react";
 import { CurrentUser } from "../../controller/userController";
 import { toast } from 'react-hot-toast';
 import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
 
 export default function Profile() {
     // State untuk data user

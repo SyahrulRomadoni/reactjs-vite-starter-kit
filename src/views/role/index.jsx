@@ -1,12 +1,11 @@
 // src/views/role/index.jsx
 
-// Libraries
+import "react-loading-skeleton/dist/skeleton.css";
 import { useEffect, useState } from "react";
 import { toast } from 'react-hot-toast';
 import { Table, Button, Input } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
 
 // Controller
 import { All, Create, Read, Update, Delete } from "../../controller/roleController";

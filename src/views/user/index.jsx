@@ -1,13 +1,12 @@
 // src/views/user/index.jsx
 
-// Libraries
+import "react-loading-skeleton/dist/skeleton.css";
 import { useEffect, useState } from "react";
 import { Table, Button, Input } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import { toast } from 'react-hot-toast';
 import Skeleton from "react-loading-skeleton";
 import Select from 'react-select';
-import "react-loading-skeleton/dist/skeleton.css";
 
 // Controller
 import * as userController from "../../controller/userController";

@@ -1,9 +1,9 @@
 // src/main.jsx
 
+import { Toaster } from 'react-hot-toast'
+import App from './App.jsx'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import { Toaster } from 'react-hot-toast'
 
 //import BrowserRouter dari react router
 import { BrowserRouter } from 'react-router-dom';
