@@ -130,7 +130,7 @@ export default function Register() {
                                 />
                                 <button
                                     type="button"
-                                    className="btn btn-outline-secondary"
+                                    className="btn cs-btn-outline-secondary"
                                     onClick={() => setPasswordVisible(!passwordVisible)}
                                 >
                                     {passwordVisible ? (
@@ -155,7 +155,7 @@ export default function Register() {
                                 />
                                 <button
                                     type="button"
-                                    className="btn btn-outline-secondary"
+                                    className="btn cs-btn-outline-secondary"
                                     onClick={() => setConfirmPasswordVisible(!confirmPasswordVisible)}
                                 >
                                     {confirmPasswordVisible ? (
