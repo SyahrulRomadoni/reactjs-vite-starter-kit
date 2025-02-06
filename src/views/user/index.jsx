@@ -101,6 +101,8 @@ export default function Index() {
         try {
             // Action ke API
             const response = await userController.Read(uuid);
+            console.log(uuid);
+            console.log(response);
             // Kalo Pakai select option 1 maka comment saja baris kode ini, tapi kalo pakai select option 2 maka uncomment baris kode ini
             const selectedRole = roles.find(role => role.uuid === response.data.uuid_role);
             // Set data form
@@ -359,9 +361,9 @@ export default function Index() {
             key: 'actions',
             render: (text, record) => (
                 <div className="mb-0" style={{ float: 'right' }}>
-                    <Button className="btn btn-sm btn-info m-1" onClick={() => openReadModal(record.id)}>Read</Button>
-                    <Button className="btn btn-sm btn-warning m-1" onClick={() => openUpdateModal(record.id)}>Update</Button>
-                    <Button className="btn btn-sm btn-danger m-1" onClick={() => openDeleteModal(record.id)}>Delete</Button>
+                    <Button className="btn btn-sm btn-info m-1" onClick={() => openReadModal(record.uuid)}>Read</Button>
+                    <Button className="btn btn-sm btn-warning m-1" onClick={() => openUpdateModal(record.uuid)}>Update</Button>
+                    <Button className="btn btn-sm btn-danger m-1" onClick={() => openDeleteModal(record.uuid)}>Delete</Button>
                 </div>
             ),
             responsive: ['md'],
