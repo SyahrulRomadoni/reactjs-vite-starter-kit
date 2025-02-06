@@ -7,7 +7,7 @@ const API_URL = import.meta.env.VITE_API_URL_ENDPOINT || "http://localhost:3001/
 export const register = async (name, email, password) => {
     try {
         // Static uuid_role
-        const uuid_role = "108f8d4f-cbda-4f1f-8216-a3dd764c5e5d";
+        const uuid_role = "d992bd48-3449-4502-aa28-5a71e5d43796";
 
         // Kirim request ke API
         const response = await axios.post(`${API_URL}/auth/register`, { uuid_role, name, email, password });
