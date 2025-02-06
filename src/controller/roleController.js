@@ -13,8 +13,8 @@ export const All = async (limit = 100) => {
 
         // Kirim request ke API
         const response = await axios.get(
-            // `${API_URL}/roles?page=${page}&limit=${limit}`,
-            `${API_URL}/roles?limit=${limit}`,
+            // `${API_URL}/role?page=${page}&limit=${limit}`,
+            `${API_URL}/role?limit=${limit}`,
             {
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -38,7 +38,7 @@ export const Create = async (name, email, password) => {
 
         // Kirim request ke API
         const response = await axios.post(
-            `${API_URL}/roles`,
+            `${API_URL}/role`,
             { name },
             {
                 headers: {
@@ -65,7 +65,7 @@ export const Read = async (uuid) => {
         
         // Kirim request ke API
         const response = await axios.get(
-            `${API_URL}/roles/${uuid}`,
+            `${API_URL}/role/${uuid}`,
             {
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -91,7 +91,7 @@ export const Update = async (uuid, name) => {
 
         // Kirim request ke API
         const response = await axios.put(
-            `${API_URL}/roles/${uuid}`, 
+            `${API_URL}/role/${uuid}`, 
             { name },
             {
                 headers: {
@@ -118,7 +118,7 @@ export const Delete = async (uuid) => {
 
         // Kirim request ke API
         const response = await axios.delete(
-            `${API_URL}/roles/${uuid}`,
+            `${API_URL}/role/${uuid}`,
             {
                 headers: {
                     Authorization: `Bearer ${token}`,

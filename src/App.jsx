@@ -53,11 +53,11 @@ export default function App() {
 
     return (
         <div className="container-fluid">
-            <div className="row" style={{ height: '100vh' }}>
+            <div className="row" style={{ height: '100vh', overflow: 'hidden' }}>
                 {token ? (
                     <>
                         {/* Sidebar Dekstop*/}
-                        <div className="col-xl-2 col-lg-3 col-md-4 d-sm-block d-none p-4 bg-sidebar shadow">
+                        <div className="col-xl-2 col-lg-3 col-md-4 d-sm-block d-none p-4 bg-sidebar shadow" style={{ position: 'fixed', height: '100vh', overflowY: 'auto' }}>
                             <SidebarDekstop handleLogout={handleLogout} />
                         </div>
 
@@ -65,7 +65,7 @@ export default function App() {
                         <SidebarMobile handleLogout={handleLogout}/>
 
                         {/* Header & Content & Footer */}
-                        <div className="col-xl-10 col-lg-9 col-md-8 col-sm-12 p-3">
+                        <div className="col-xl-10 col-lg-9 col-md-8 col-sm-12 offset-xl-2 offset-lg-3 offset-md-4 p-3" style={{ height: '100vh', overflowY: 'auto' }}>
                             {/* Header */}
                             <Header />
 

@@ -317,7 +317,7 @@ export default function Index() {
 
     const columns = [
         {
-            title: 'No',
+            title: <p className="mb-0">No</p>,
             dataIndex: 'id',
             key: 'id',
             sorter: (a, b) => a.id - b.id,
@@ -326,7 +326,7 @@ export default function Index() {
             ),
         },
         {
-            title: 'Name',
+            title: <p className="mb-0">Name</p>,
             dataIndex: 'name',
             key: 'name',
             sorter: (a, b) => a.name.localeCompare(b.name),
@@ -335,33 +335,36 @@ export default function Index() {
             ),
         },
         {
-            title: <p className="d-none d-md-table-cell">Email</p>,
+            title: <p className="mb-0">Email</p>,
             dataIndex: 'email',
             key: 'email',
             sorter: (a, b) => a.email.localeCompare(b.email),
             render: (text, record) => (
-                <p className="m-0 cs-text-1 d-none d-md-table-cell">{record.email}</p>
+                <p className="m-0 cs-text-1 ">{record.email}</p>
             ),
+            responsive: ['md'],
         },
         {
-            title: <p className="d-none d-md-table-cell">Role</p>,
+            title: <p className="mb-0">Role</p>,
             dataIndex: 'roles.name',
             key: 'role',
             sorter: (a, b) => (a.roles || '').localeCompare(b.roles || ''),
             render: (text, record) => (
-                <p className="m-0 cs-text-1 d-none d-md-table-cell">{record.roles}</p>
+                <p className="m-0 cs-text-1 ">{record.roles}</p>
             ),
+            responsive: ['md'],
         },
         {
-            title: <p className="d-none d-md-table-cell" style={{ float: 'right' }}>Action</p>,
+            title: <p className="mb-0" style={{ float: 'right' }}>Action</p>,
             key: 'actions',
             render: (text, record) => (
-                <div className="d-none d-md-table-cell" style={{ float: 'right' }}>
-                    <Button className="btn btn-sm btn-info m-1" onClick={() => openReadModal(record.uuid)}>Read</Button>
-                    <Button className="btn btn-sm btn-warning m-1" onClick={() => openUpdateModal(record.uuid)}>Update</Button>
-                    <Button className="btn btn-sm btn-danger m-1" onClick={() => openDeleteModal(record.uuid)}>Delete</Button>
+                <div className="mb-0" style={{ float: 'right' }}>
+                    <Button className="btn btn-sm btn-info m-1" onClick={() => openReadModal(record.id)}>Read</Button>
+                    <Button className="btn btn-sm btn-warning m-1" onClick={() => openUpdateModal(record.id)}>Update</Button>
+                    <Button className="btn btn-sm btn-danger m-1" onClick={() => openDeleteModal(record.id)}>Delete</Button>
                 </div>
             ),
+            responsive: ['md'],
         },
     ];
 
@@ -388,13 +391,27 @@ export default function Index() {
     // Tampilan Child Row yang di render
     const expandable = {
         expandedRowRender: record => (
-            <div>
-                <p className="cs-text-1">Email : {record.email}</p>
-                <p className="cs-text-1">Role : {record.roles}</p>
-                <Button className="btn btn-sm btn-info" onClick={() => openReadModal(record.uuid)}>Read</Button>
-                <Button className="btn btn-sm btn-warning m-1" onClick={() => openUpdateModal(record.uuid)}>Update</Button>
-                <Button className="btn btn-sm btn-danger" onClick={() => openDeleteModal(record.uuid)}>Delete</Button>
-            </div>
+            <>
+                <div className="card">
+                    <div className="card-body">
+                        <p className="cs-text-1 mb-0">Email : {record.email}</p>
+                        <p className="cs-text-1 mb-0">Role : {record.roles}</p>
+                    </div>
+                    <div className="card-footer">
+                        <div className="row">
+                            <div className="col-4">
+                                <Button className="btn btn-sm w-100 btn-info" onClick={() => openReadModal(record.id)}>Read</Button>
+                            </div>
+                            <div className="col-4">
+                                <Button className="btn btn-sm w-100 btn-warning" onClick={() => openUpdateModal(record.id)}>Update</Button>
+                            </div>
+                            <div className="col-4">
+                                <Button className="btn btn-sm w-100 btn-danger" onClick={() => openDeleteModal(record.id)}>Delete</Button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </>
         ),
         rowExpandable: record => true,
     };

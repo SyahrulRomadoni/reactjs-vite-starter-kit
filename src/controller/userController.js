@@ -13,7 +13,7 @@ export const CurrentUser = async () => {
 
         // Kirim request ke API
         const response = await axios.get(
-            `${API_URL}/users/current`,
+            `${API_URL}/user/current`,
             {
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -37,8 +37,8 @@ export const All = async (limit = 100) => {
 
         // Kirim request ke API
         const response = await axios.get(
-            // `${API_URL}/users?page=${page}&limit=${limit}`,
-            `${API_URL}/users?limit=${limit}`,
+            // `${API_URL}/user?page=${page}&limit=${limit}`,
+            `${API_URL}/user?limit=${limit}`,
             {
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -66,7 +66,7 @@ export const Create = async (role, name, email, password) => {
 
         // Kirim request ke API
         const response = await axios.post(
-            `${API_URL}/users`,
+            `${API_URL}/user`,
             { uuid_role, name, email, password },
             {
                 headers: {
@@ -93,7 +93,7 @@ export const Read = async (uuid) => {
         
         // Kirim request ke API
         const response = await axios.get(
-            `${API_URL}/users/${uuid}`,
+            `${API_URL}/user/${uuid}`,
             {
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -122,7 +122,7 @@ export const Update = async (uuid, role, name, email, password) => {
 
         // Kirim request ke API
         const response = await axios.put(
-            `${API_URL}/users/${uuid}`, 
+            `${API_URL}/user/${uuid}`, 
             { uuid_role, name, email, password },
             {
                 headers: {
@@ -149,7 +149,7 @@ export const Delete = async (uuid) => {
 
         // Kirim request ke API
         const response = await axios.delete(
-            `${API_URL}/users/${uuid}`,
+            `${API_URL}/user/${uuid}`,
             {
                 headers: {
                     Authorization: `Bearer ${token}`,
