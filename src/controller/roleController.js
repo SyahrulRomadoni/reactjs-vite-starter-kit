@@ -53,19 +53,19 @@ export const Create = async (name, email, password) => {
     }
 };
 
-export const Read = async (uuid) => {
+export const Read = async (id) => {
     try {
         // Ambil token dari localStorage
         const token = localStorage.getItem("authToken");
         // Jika token tidak ada, lempar error
         if (!token) throw new Error("No token found");
 
-        // Jika uuid tidak ada, lempar error
-        if (!uuid) throw new Error("No uuid found");
+        // Jika id tidak ada, lempar error
+        if (!id) throw new Error("No id found");
         
         // Kirim request ke API
         const response = await axios.get(
-            `${API_URL}/role/${uuid}`,
+            `${API_URL}/role/${id}`,
             {
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -79,19 +79,19 @@ export const Read = async (uuid) => {
     }
 };
 
-export const Update = async (uuid, name) => {
+export const Update = async (id, name) => {
     try {
         // Ambil token dari localStorage
         const token = localStorage.getItem("authToken");
         // Jika token tidak ada, lempar error
         if (!token) throw new Error("No token found");
 
-        // Jika uuid tidak ada, lempar error
-        if (!uuid) throw new Error("No uuid found");
+        // Jika id tidak ada, lempar error
+        if (!id) throw new Error("No id found");
 
         // Kirim request ke API
         const response = await axios.put(
-            `${API_URL}/role/${uuid}`, 
+            `${API_URL}/role/${id}`, 
             { name },
             {
                 headers: {
@@ -106,19 +106,19 @@ export const Update = async (uuid, name) => {
     }
 };
 
-export const Delete = async (uuid) => {
+export const Delete = async (id) => {
     try {
         // Ambil token dari localStorage
         const token = localStorage.getItem("authToken");
         // Jika token tidak ada, lempar error
         if (!token) throw new Error("No token found");
 
-        // Jika uuid tidak ada, lempar error
-        if (!uuid) throw new Error("No uuid found");
+        // Jika id tidak ada, lempar error
+        if (!id) throw new Error("No id found");
 
         // Kirim request ke API
         const response = await axios.delete(
-            `${API_URL}/role/${uuid}`,
+            `${API_URL}/role/${id}`,
             {
                 headers: {
                     Authorization: `Bearer ${token}`,

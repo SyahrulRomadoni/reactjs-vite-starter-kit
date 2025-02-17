@@ -93,25 +93,25 @@ export default function Index() {
         });
     };
 
-    const openReadModal = async (uuid) => {
+    const openReadModal = async (id) => {
         setModalType('read');
-        setSelectedData(uuid);
+        setSelectedData(id);
         setShowModal(true);
 
         try {
             // Action ke API
-            const response = await userController.Read(uuid);
-            console.log(uuid);
+            const response = await userController.Read(id);
+            console.log(id);
             console.log(response);
             // Kalo Pakai select option 1 maka comment saja baris kode ini, tapi kalo pakai select option 2 maka uncomment baris kode ini
-            const selectedRole = roles.find(role => role.uuid === response.data.uuid_role);
+            const selectedRole = roles.find(role => role.id === response.data.id_role);
             // Set data form
             setFormData({ 
                 // Kalo Pakai select option 1
-                // role: response.data.uuid_role,
+                // role: response.data.id_role,
 
                 // Kalo Pakai select option 2
-                role: selectedRole ? { value: selectedRole.uuid, label: selectedRole.name } : '',
+                role: selectedRole ? { value: selectedRole.id, label: selectedRole.name } : '',
                 
                 name: response.data.name, 
                 email: response.data.email, 
@@ -122,23 +122,23 @@ export default function Index() {
         }
     };    
 
-    const openUpdateModal = async (uuid) => {
+    const openUpdateModal = async (id) => {
         setModalType('update');
-        setSelectedData(uuid);
+        setSelectedData(id);
         setShowModal(true);
 
         try {
             // Action ke API
-            const response = await userController.Read(uuid);
+            const response = await userController.Read(id);
             // Kalo Pakai select option 1 maka comment saja baris kode ini, tapi kalo pakai select option 2 maka uncomment baris kode ini
-            const selectedRole = roles.find(role => role.uuid === response.data.uuid_role);
+            const selectedRole = roles.find(role => role.id === response.data.id_role);
             // Set data form
             setFormData({
                 // Kalo Pakai select option 1
-                // role: response.data.uuid_role,
+                // role: response.data.id_role,
 
                 // Kalo Pakai select option 2
-                role: selectedRole ? { value: selectedRole.uuid, label: selectedRole.name } : '',
+                role: selectedRole ? { value: selectedRole.id, label: selectedRole.name } : '',
 
                 name: response.data.name,
                 email: response.data.email,
@@ -149,9 +149,9 @@ export default function Index() {
         }
     };
 
-    const openDeleteModal = (uuid) => {
+    const openDeleteModal = (id) => {
         setModalType('delete');
-        setSelectedData(uuid);
+        setSelectedData(id);
         setShowModal(true);
     };
 
@@ -361,9 +361,9 @@ export default function Index() {
             key: 'actions',
             render: (text, record) => (
                 <div className="mb-0" style={{ float: 'right' }}>
-                    <Button className="btn btn-sm btn-info m-1" onClick={() => openReadModal(record.uuid)}>Read</Button>
-                    <Button className="btn btn-sm btn-warning m-1" onClick={() => openUpdateModal(record.uuid)}>Update</Button>
-                    <Button className="btn btn-sm btn-danger m-1" onClick={() => openDeleteModal(record.uuid)}>Delete</Button>
+                    <Button className="btn btn-sm btn-info m-1" onClick={() => openReadModal(record.id)}>Read</Button>
+                    <Button className="btn btn-sm btn-warning m-1" onClick={() => openUpdateModal(record.id)}>Update</Button>
+                    <Button className="btn btn-sm btn-danger m-1" onClick={() => openDeleteModal(record.id)}>Delete</Button>
                 </div>
             ),
             responsive: ['md'],
@@ -466,7 +466,7 @@ export default function Index() {
                                     className="table transparent-table"
                                     columns={columns}
                                     dataSource={filteredData}
-                                    rowKey="uuid"
+                                    rowKey="id"
                                     pagination={{
                                         showSizeChanger: true,
                                         pageSizeOptions: ['5', '10', '25', '50', '100'],
@@ -507,7 +507,7 @@ export default function Index() {
                                             >
                                                 <option value="">Select Role</option>
                                                 {roles.map((role) => (
-                                                    <option key={role.uuid} value={role.uuid}>{role.name}</option>
+                                                    <option key={role.id} value={role.id}>{role.name}</option>
                                                 ))}
                                             </select> */}
 
@@ -523,7 +523,7 @@ export default function Index() {
                                                 className="react-select"
                                                 classNamePrefix="react-select"
                                                 placeholder="-- Pilih --"
-                                                options={roles.map((role) => ({ value: role.uuid, label: role.name })) || []}
+                                                options={roles.map((role) => ({ value: role.id, label: role.name })) || []}
                                             />
                                         </div>
                                         <div className="mb-3">

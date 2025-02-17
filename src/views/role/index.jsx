@@ -67,33 +67,33 @@ export default function Index() {
         setFormData({ name: '' });
     };
 
-    const openReadModal = async (uuid) => {
+    const openReadModal = async (id) => {
         setModalType('read');
-        setSelectedData(uuid);
+        setSelectedData(id);
         setShowModal(true);
         try {
-            const response = await Read(uuid);
+            const response = await Read(id);
             setFormData({ name: response.data.name });
         } catch (error) {
             console.error("Error fetching role data:", error);
         }
     };
 
-    const openUpdateModal = async (uuid) => {
+    const openUpdateModal = async (id) => {
         setModalType('update');
-        setSelectedData(uuid);
+        setSelectedData(id);
         setShowModal(true);
         try {
-            const response = await Read(uuid);
+            const response = await Read(id);
             setFormData({ name: response.data.name });
         } catch (error) {
             console.error("Error fetching role data:", error);
         }
     };
 
-    const openDeleteModal = (uuid) => {
+    const openDeleteModal = (id) => {
         setModalType('delete');
-        setSelectedData(uuid);
+        setSelectedData(id);
         setShowModal(true);
     };
 
@@ -234,9 +234,9 @@ export default function Index() {
             key: 'actions',
             render: (text, record) => (
                 <div className="text-end">
-                    <Button className="btn btn-sm btn-info m-1" onClick={() => openReadModal(record.uuid)}>Read</Button>
-                    <Button className="btn btn-sm btn-warning m-1" onClick={() => openUpdateModal(record.uuid)}>Update</Button>
-                    <Button className="btn btn-sm btn-danger m-1" onClick={() => openDeleteModal(record.uuid)}>Delete</Button>
+                    <Button className="btn btn-sm btn-info m-1" onClick={() => openReadModal(record.id)}>Read</Button>
+                    <Button className="btn btn-sm btn-warning m-1" onClick={() => openUpdateModal(record.id)}>Update</Button>
+                    <Button className="btn btn-sm btn-danger m-1" onClick={() => openDeleteModal(record.id)}>Delete</Button>
                 </div>
             ),
         },
@@ -290,7 +290,7 @@ export default function Index() {
                                     className="table transparent-table"
                                     columns={columns}
                                     dataSource={filteredData}
-                                    rowKey="uuid"
+                                    rowKey="id"
                                     pagination={{
                                         showSizeChanger: true,
                                         pageSizeOptions: ['5', '10', '25', '50', '100'],
