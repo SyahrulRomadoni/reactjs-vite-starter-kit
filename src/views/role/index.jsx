@@ -201,6 +201,9 @@ export default function Index() {
     };
 
     // =================================================== Table =================================================== //
+    const [currentPage, setCurrentPage] = useState(1);
+    const pageSize = 10;
+
     useEffect(() => {
         if (searchData) {
             setFilteredData(roles.filter(data =>
@@ -213,14 +216,21 @@ export default function Index() {
 
     const columns = [
         {
-            title: 'No',
-            dataIndex: 'id',
-            key: 'id',
-            sorter: (a, b) => a.id - b.id,
-            render: (text, record) => (
-                <p className="m-0 cs-text-1">{record.id}</p>
+            title: <p className="mb-0">No</p>,
+            key: "index",
+            render: (text, record, index) => (
+                <p className="m-0 cs-text-1">{(currentPage - 1) * pageSize + index + 1}</p>
             ),
         },
+        // {
+        //     title: 'No',
+        //     dataIndex: 'id',
+        //     key: 'id',
+        //     sorter: (a, b) => a.id - b.id,
+        //     render: (text, record) => (
+        //         <p className="m-0 cs-text-1">{record.id}</p>
+        //     ),
+        // },
         {
             title: 'Name',
             dataIndex: 'name',
@@ -293,6 +303,8 @@ export default function Index() {
                                     dataSource={filteredData}
                                     rowKey="id"
                                     pagination={{
+                                        pageSize: pageSize,
+                                        onChange: (page) => setCurrentPage(page),
                                         showSizeChanger: true,
                                         pageSizeOptions: ['5', '10', '25', '50', '100'],
                                         showQuickJumper: true,
