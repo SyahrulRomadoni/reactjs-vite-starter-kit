@@ -308,7 +308,7 @@ export default function Index() {
 
     // =================================================== Table =================================================== //
     const [currentPage, setCurrentPage] = useState(1);
-    const pageSize = 2;
+    const pageSize = 10;
 
     useEffect(() => {
         if (searchData) {
