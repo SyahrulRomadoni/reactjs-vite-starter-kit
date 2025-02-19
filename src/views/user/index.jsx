@@ -164,6 +164,7 @@ export default function Index() {
             email: '',
             password: ''
         });
+        setError("");
     };
 
     // =================================================== Handle perubahan input form =================================================== //

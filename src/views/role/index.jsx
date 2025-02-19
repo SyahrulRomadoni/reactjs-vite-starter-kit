@@ -101,6 +101,7 @@ export default function Index() {
         setShowModal(false);
         setSelectedData(null);
         setFormData({ name: '' });
+        setError("");
     };
 
     // =================================================== Handle =================================================== //
