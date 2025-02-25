@@ -8,7 +8,7 @@ import { CheckToken } from './middleware/routesMiddleware.jsx';
 import { useEffect, useState } from "react";
 import { logout } from "./controller/authController";
 import { toast } from 'react-hot-toast'
-
+import { useNavigate } from 'react-router-dom';
 import AppRoutes from './routes';
 import Header from './views/Header.jsx';
 import SidebarDekstop from './views/SidebarDekstop.jsx';
@@ -16,6 +16,8 @@ import SidebarMobile from './views/SidebarMobile.jsx';
 import Footer from './views/Footer.jsx';
 
 export default function App() {
+    // Hook untuk berpindah halaman
+    const navigate = useNavigate();
     // State untuk menyimpan token
     const [token, setToken] = useState("");
     // State untuk menyimpan mode dark atau light
@@ -43,12 +45,12 @@ export default function App() {
     // Fungsi untuk logout dan menghapus token
     const handleLogout = async () => {
         const result = await logout();
-        // alert(result.message);
         toast.success(result.message, {
             duration: 3000,
         })
         localStorage.removeItem("authToken");
         setToken(null);
+        navigate("/");
     };
 
     return (
