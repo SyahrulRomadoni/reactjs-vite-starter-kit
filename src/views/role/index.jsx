@@ -219,7 +219,7 @@ export default function Index() {
             title: <p className="mb-0">No</p>,
             key: "index",
             render: (text, record, index) => (
-                <p className="m-0 cs-text-1">{(currentPage - 1) * pageSize + index + 1}</p>
+                <p className="m-0 cs-text-1 text-center">{(currentPage - 1) * pageSize + index + 1}</p>
             ),
         },
         // {
@@ -241,15 +241,22 @@ export default function Index() {
             ),
         },
         {
-            title: <p className="text-end mb-0">Action</p>,
-            key: 'actions',
+            title: <p className="mb-0 text-end">Action</p>,
+            key: "actions",
             render: (text, record) => (
-                <div className="text-end">
-                    <Button className="btn btn-sm btn-info m-1" onClick={() => openReadModal(record.id)}>Read</Button>
-                    <Button className="btn btn-sm btn-warning m-1" onClick={() => openUpdateModal(record.id)}>Update</Button>
-                    <Button className="btn btn-sm btn-danger m-1" onClick={() => openDeleteModal(record.id)}>Delete</Button>
+                <div className="d-flex justify-content-end gap-2">
+                    <Button className="btn btn-sm btn-info" onClick={() => openReadModal(record.id)}>
+                        <i className="bi bi-eye me-1"></i> Read
+                    </Button>
+                    <Button className="btn btn-sm btn-warning" onClick={() => openUpdateModal(record.id)}>
+                        <i className="bi bi-pencil-square me-1"></i> Update
+                    </Button>
+                    <Button className="btn btn-sm btn-danger" onClick={() => openDeleteModal(record.id)}>
+                        <i className="bi bi-trash me-1"></i> Delete
+                    </Button>
                 </div>
             ),
+            responsive: ["md"],
         },
     ];
 

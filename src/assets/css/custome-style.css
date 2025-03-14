@@ -230,31 +230,65 @@ input:checked + .slider:before {
     color: #ffffff;
 }
 
-.transparent-table .ant-table-thead > tr > th {
-    /* background-color: transparent !important; */
+.transparent-table .ant-table {
+    background-color: transparent !important;
+    border: 1px solid #dee2e6 !important; /* Border ala Bootstrap */
+    border-radius: 6px !important; /* Untuk tampilan lebih smooth */
+    overflow: hidden; /* Agar border tidak terpotong */
 }
 
+/* Style untuk header tabel */
+.transparent-table .ant-table-thead > tr > th {
+    /* background-color: transparent !important; */
+    border: 1px solid #dee2e6 !important; /* Border antar header */
+    text-align: left; /* Default align */
+    padding: 10px;
+}
+
+/* Menambahkan border radius ke header pertama & terakhir */
 .transparent-table .ant-table-thead > tr > th:first-child {
-    /* Menambahkan sudut kiri atas */
     border-top-left-radius: 6px !important;
-    border-bottom-left-radius: 6px !important;
 }
 
 .transparent-table .ant-table-thead > tr > th:last-child {
     border-top-right-radius: 6px !important;
+}
+
+/* Style untuk body tabel */
+.transparent-table .ant-table-tbody > tr > td {
+    background-color: transparent !important;
+    padding: 5px;
+    border: 1px solid #dee2e6 !important; /* Border ala Bootstrap */
+}
+
+/* Menambahkan border radius ke sel terakhir */
+.transparent-table .ant-table-tbody > tr:last-child > td:first-child {
+    border-bottom-left-radius: 6px !important;
+}
+
+.transparent-table .ant-table-tbody > tr:last-child > td:last-child {
     border-bottom-right-radius: 6px !important;
 }
 
-/* Menambahkan gaya untuk kolom header Actions agar berada di kanan */
-.ant-table-thead > tr > th:last-child {
-    /* Menempatkan judul kolom ke kanan */
+/* Style untuk header "Actions" agar rata kanan */
+.transparent-table .ant-table-thead > tr > th:last-child {
     text-align: right !important;
 }
 
-.transparent-table .ant-table-tbody > tr > td {
+/* Style untuk table-striped (mode terang) */
+[data-bs-theme=light] .transparent-table .ant-table-tbody > tr:nth-child(odd) > td {
+    background-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+[data-bs-theme=light] .transparent-table .ant-table-tbody > tr:nth-child(even) > td {
     background-color: transparent !important;
 }
 
-.transparent-table .ant-table {
+/* Style untuk table-striped (mode gelap) */
+[data-bs-theme=dark] .transparent-table .ant-table-tbody > tr:nth-child(odd) > td {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+[data-bs-theme=dark] .transparent-table .ant-table-tbody > tr:nth-child(even) > td {
     background-color: transparent !important;
 }
