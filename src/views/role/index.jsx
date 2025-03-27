@@ -8,7 +8,7 @@ import { SearchOutlined } from '@ant-design/icons';
 import Skeleton from "react-loading-skeleton";
 
 // Controller
-import { All, Create, Read, Update, Delete } from "../../controller/roleController";
+import * as roleController from "../../controller/roleController";
 
 export default function Index() {
     // =================================================== State =================================================== //
@@ -41,7 +41,7 @@ export default function Index() {
         const fetchData = async () => {
             try {
                 setLoading(true);
-                const response = await All();
+                const response = await roleController.All();
                 if (response.status === "success") {
                     setRoles(response.data.data);
                 } else {
@@ -72,7 +72,7 @@ export default function Index() {
         setSelectedData(id);
         setShowModal(true);
         try {
-            const response = await Read(id);
+            const response = await roleController.Read(id);
             setFormData({ name: response.data.name });
         } catch (error) {
             console.error("Error fetching role data:", error);
@@ -84,7 +84,7 @@ export default function Index() {
         setSelectedData(id);
         setShowModal(true);
         try {
-            const response = await Read(id);
+            const response = await roleController.Read(id);
             setFormData({ name: response.data.name });
         } catch (error) {
             console.error("Error fetching role data:", error);
@@ -110,7 +110,7 @@ export default function Index() {
         setFormData({ ...formData, [name]: value });
     };
 
-    // CRUDS
+    // =================================================== CRUDS =================================================== //
     const handleCreate = async (e) => {
         e.preventDefault();
 
@@ -127,12 +127,12 @@ export default function Index() {
         }
 
         try {
-            const result = await Create(formData.name);
+            const result = await roleController.Create(formData.name);
             if (result.status === "success") {
                 toast.success(result.message, {
                     duration: 3000,
                 });
-                const response = await All();
+                const response = await roleController.All();
                 setRoles(response.data.data);
                 closeModal();
             } else {
@@ -161,12 +161,12 @@ export default function Index() {
         }
 
         try {
-            const result = await Update(selectedData, formData.name);
+            const result = await roleController.Update(selectedData, formData.name);
             if (result.status === "success") {
                 toast.success(result.message, {
                     duration: 3000,
                 });
-                const response = await All();
+                const response = await roleController.All();
                 setRoles(response.data.data);
                 closeModal();
             } else {
@@ -183,12 +183,12 @@ export default function Index() {
         e.preventDefault();
 
         try {
-            const result = await Delete(selectedData);
+            const result = await roleController.Delete(selectedData);
             if (result.status === "success") {
                 toast.success(result.message, {
                     duration: 3000,
                 });
-                const response = await All();
+                const response = await roleController.All();
                 setRoles(response.data.data);
                 closeModal();
             } else {
@@ -206,9 +206,11 @@ export default function Index() {
 
     useEffect(() => {
         if (searchData) {
-            setFilteredData(roles.filter(data =>
-                data.name.toLowerCase().includes(searchData.toLowerCase())
-            ));
+            setFilteredData(roles.filter(data => {
+                return Object.values(data).some(value =>
+                    value && value.toString().toLowerCase().includes(searchData.toLowerCase())
+                );
+            }));
         } else {
             setFilteredData(roles);
         }

@@ -182,7 +182,7 @@ export default function Index() {
         });
     };
 
-    // CRUDS
+    // =================================================== CRUDS =================================================== //
     const handleCreate = async (e) => {
         e.preventDefault();
 
@@ -312,10 +312,11 @@ export default function Index() {
 
     useEffect(() => {
         if (searchData) {
-            setFilteredData(users.filter(data =>
-                data.name.toLowerCase().includes(searchData.toLowerCase()) ||
-                data.email.toLowerCase().includes(searchData.toLowerCase())
-            ));
+            setFilteredData(users.filter(data => {
+                return Object.values(data).some(value =>
+                    value && value.toString().toLowerCase().includes(searchData.toLowerCase())
+                );
+            }));
         } else {
             setFilteredData(users);
         }
@@ -337,7 +338,7 @@ export default function Index() {
         //     render: (text, record) => (
         //         <p className="m-0 cs-text-1">{record.id}</p>
         //     ),
-        // },                      
+        // },
         {
             title: <p className="mb-0">Name</p>,
             dataIndex: 'name',
