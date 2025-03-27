@@ -308,7 +308,7 @@ export default function Index() {
 
     // =================================================== Table =================================================== //
     const [currentPage, setCurrentPage] = useState(1);
-    const pageSize = 10;
+    const [pageSize, setPageSize] = useState(10);
 
     useEffect(() => {
         if (searchData) {
@@ -488,7 +488,9 @@ export default function Index() {
                                     rowKey="id"
                                     pagination={{
                                         pageSize: pageSize,
+                                        current: currentPage,
                                         onChange: (page) => setCurrentPage(page),
+                                        onShowSizeChange: (current, size) => setPageSize(size),
                                         showSizeChanger: true,
                                         pageSizeOptions: ['5', '10', '25', '50', '100'],
                                         showQuickJumper: true,
