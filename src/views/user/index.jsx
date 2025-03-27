@@ -515,7 +515,7 @@ export default function Index() {
                                     <form>
                                         {error && <div className="alert alert-danger">{error}</div>}
                                         <div className="mb-3">
-                                            <label htmlFor="role" className="form-label">Role</label>
+                                            <label htmlFor="role" className="form-label"><span hidden={modalType === 'read'} style={{ color: "red" }}>*</span> Role</label>
                                             {/* Select Option 1 */}
                                             {/* <select
                                                 id="role"
@@ -548,7 +548,7 @@ export default function Index() {
                                             />
                                         </div>
                                         <div className="mb-3">
-                                            <label htmlFor="name" className="form-label">Name</label>
+                                            <label htmlFor="name" className="form-label"><span hidden={modalType === 'read'} style={{ color: "red" }}>*</span> Name</label>
                                             <input
                                                 id="name"
                                                 name="name"
@@ -561,7 +561,7 @@ export default function Index() {
                                             />
                                         </div>
                                         <div className="mb-3">
-                                            <label htmlFor="email" className="form-label">Email</label>
+                                            <label htmlFor="email" className="form-label"><span hidden={modalType === 'read'} style={{ color: "red" }}>*</span> Email</label>
                                             <input
                                                 id="email"
                                                 name="email"
@@ -576,7 +576,7 @@ export default function Index() {
                                         {modalType !== 'read' && (
                                             <>
                                                 <div className="mb-3 position-relative">
-                                                    <label>Password</label>
+                                                    <label><span hidden={modalType === 'read'} style={{ color: "red" }}>*</span> Password</label>
                                                     <div className="input-group">
                                                         <input
                                                             id="password"
@@ -601,7 +601,7 @@ export default function Index() {
                                                     </div>
                                                 </div>
                                                 <div className="mb-3 position-relative">
-                                                    <label>Confirm Password</label>
+                                                    <label><span hidden={modalType === 'read'} style={{ color: "red" }}>*</span> Confirm Password</label>
                                                     <div className="input-group">
                                                         <input
                                                             id="confirmPassword"

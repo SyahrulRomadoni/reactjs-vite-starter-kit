@@ -340,7 +340,7 @@ export default function Index() {
                                     <form>
                                         {error && <div className="alert alert-danger">{error}</div>}
                                         <div className="mb-3">
-                                            <label htmlFor="name" className="form-label">Name</label>
+                                            <label htmlFor="name" className="form-label"><span hidden={modalType === 'read'} style={{ color: "red" }}>*</span> Name</label>
                                             <input
                                                 id="name"
                                                 name="name"
