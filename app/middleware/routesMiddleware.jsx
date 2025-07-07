@@ -2,7 +2,7 @@ import { Navigate, Outlet } from "react-router-dom";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-const API_URL = import.meta.env.VITE_API_URL_ENDPOINT || "http://localhost:3001/api";
+const API_URL = import.meta.env.VITE_ENDPOINT || "http://localhost:3001/api";
 
 // Fungsi untuk check token valid atau tidak
 export const CheckToken = async () => {

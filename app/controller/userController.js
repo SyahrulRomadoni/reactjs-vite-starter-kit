@@ -2,7 +2,7 @@
 
 import axios from "axios";
 
-const API_URL = import.meta.env.VITE_API_URL_ENDPOINT || "http://localhost:3001/api";
+const API_URL = import.meta.env.VITE_ENDPOINT || "http://localhost:3001/api";
 
 export const CurrentUser = async () => {
     try {
