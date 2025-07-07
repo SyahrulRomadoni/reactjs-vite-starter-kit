@@ -1,4 +1,4 @@
-// src/views/auth/register.jsx
+// app/views/auth/register.jsx
 
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";

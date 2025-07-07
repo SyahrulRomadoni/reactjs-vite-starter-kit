@@ -6,10 +6,10 @@ import 'antd/dist/reset.css';
 
 import { CheckToken } from './middleware/routesMiddleware.jsx';
 import { useEffect, useState } from "react";
-import { logout } from "./controller/authController";
+import { logout } from "./controller/authController.js";
 import { toast } from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom';
-import AppRoutes from './routes';
+import AppRoutes from './routes/index.jsx';
 import Header from './views/Header.jsx';
 import SidebarDekstop from './views/SidebarDekstop.jsx';
 import SidebarMobile from './views/SidebarMobile.jsx';

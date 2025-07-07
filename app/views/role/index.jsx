@@ -1,4 +1,4 @@
-// src/views/role/index.jsx
+// app/views/role/index.jsx
 
 import "react-loading-skeleton/dist/skeleton.css";
 import { useEffect, useState } from "react";

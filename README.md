@@ -14,8 +14,7 @@ npm run dev
 ## Structure Base ##
 ```plaintext
 Project/
-  ├── public/
-  ├── src/
+  ├── app/
   │   ├── assets/
   │   │   └── cutome-style.css
   │   ├── controller/
@@ -48,7 +47,8 @@ Project/
   │   ├── index.css
   │   └── main.jsx
   ├── .env.example
-  └── package.json
+  ├── package.json
+  └── public/
   ```
 
 ## Backend API ##

@@ -12,8 +12,7 @@ npm install antd
 
 ## Structure Base ##
 Project/
-  ├── public/
-  ├── src/
+  ├── app/
   │   ├── assets/
   │   │   └── cutome-style.css
   │   ├── controller/
@@ -46,7 +45,8 @@ Project/
   │   ├── index.css
   │   └── main.jsx
   ├── .env.example
-  └── package.json
+  ├── package.json
+  └── public/
 
 ## Library ##
 - react-router-dom

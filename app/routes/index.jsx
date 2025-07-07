@@ -1,4 +1,4 @@
-// src/routes/index.jsx
+// app/routes/index.jsx
 
 import { Routes, Route } from "react-router-dom";
 import { AdminRoutesMiddleware, GuestRoutesMiddleware } from '../middleware/routesMiddleware.jsx';

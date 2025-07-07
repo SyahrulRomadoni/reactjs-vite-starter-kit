@@ -1,4 +1,4 @@
-// src/services/authController.jsx
+// app/services/authController.jsx
 
 import axios from "axios";
 
