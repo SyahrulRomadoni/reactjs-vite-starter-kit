@@ -59,7 +59,7 @@ export default function App() {
                 {token ? (
                     <>
                         {/* Sidebar Dekstop*/}
-                        <div className="col-xl-2 col-lg-3 col-md-4 d-sm-block d-none p-4 bg-sidebar shadow" style={{ position: 'fixed', height: '100vh', overflowY: 'auto' }}>
+                        <div className="col-xl-2 col-lg-3 col-md-4 d-md-block d-none p-4 bg-sidebar shadow" style={{ position: 'fixed', height: '100vh', overflowY: 'auto' }}>
                             <SidebarDekstop handleLogout={handleLogout} />
                         </div>
 
