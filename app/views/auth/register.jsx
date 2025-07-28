@@ -83,7 +83,6 @@ export default function Register() {
     };
 
     return (
-
         <div className="row justify-content-end align-items-center">
             {/* <div className="col-6 d-flex justify-content-center"></div> */}
             <div className="col-12 d-flex justify-content-center">

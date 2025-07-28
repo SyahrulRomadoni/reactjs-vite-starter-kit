@@ -161,6 +161,7 @@ export default function Index() {
             [name]: value
         });
     };
+    
     const handleSelectChange = (selectedOption) => {
         setFormData({
             ...formData,
