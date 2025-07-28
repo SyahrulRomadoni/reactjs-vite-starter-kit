@@ -99,28 +99,20 @@ export default function Index() {
         setShowModal(true);
 
         try {
-            // Action ke API
             const response = await userController.Read(id);
-            console.log(id);
-            console.log(response);
-            // Kalo Pakai select option 1 maka comment saja baris kode ini, tapi kalo pakai select option 2 maka uncomment baris kode ini
-            const selectedRole = roles.find(role => role.id === response.data.id_role);
-            // Set data form
-            setFormData({ 
-                // Kalo Pakai select option 1
-                // role: response.data.id_role,
+            const userData = response.data;
 
-                // Kalo Pakai select option 2
-                role: selectedRole ? { value: selectedRole.id, label: selectedRole.name } : '',
-                
-                name: response.data.name, 
-                email: response.data.email, 
-                password: '' 
+            // Set data form
+            setFormData({
+                role: userData.roles ? { value: userData.id_role, label: userData.roles.name } : '',
+                name: userData.name,
+                email: userData.email,
+                password: ''
             });
         } catch (error) {
             console.error("Error fetching user data:", error);
         }
-    };    
+    };
 
     const openUpdateModal = async (id) => {
         setModalType('update');
@@ -128,20 +120,14 @@ export default function Index() {
         setShowModal(true);
 
         try {
-            // Action ke API
             const response = await userController.Read(id);
-            // Kalo Pakai select option 1 maka comment saja baris kode ini, tapi kalo pakai select option 2 maka uncomment baris kode ini
-            const selectedRole = roles.find(role => role.id === response.data.id_role);
+            const userData = response.data;
+
             // Set data form
             setFormData({
-                // Kalo Pakai select option 1
-                // role: response.data.id_role,
-
-                // Kalo Pakai select option 2
-                role: selectedRole ? { value: selectedRole.id, label: selectedRole.name } : '',
-
-                name: response.data.name,
-                email: response.data.email,
+                role: userData.roles ? { value: userData.id_role, label: userData.roles.name } : '',
+                name: userData.name,
+                email: userData.email,
                 password: ''
             });
         } catch (error) {
