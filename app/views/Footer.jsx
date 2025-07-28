@@ -13,8 +13,8 @@ export default function Header() {
                         <div className="col-12">
                             <p>{currentYear} © Syahrul Romadoni</p>
                         </div>
-                        {/* <div className="col-6">
-                            <h4 className="text-end">Text 2</h4>
+                        {/* <div className="col-6 text-end">
+                            <p>{currentYear} © Syahrul Romadoni</p>
                         </div> */}
                     </div>
                 </div>
