@@ -40,12 +40,12 @@ export default function Profile() {
 
     return (
         <>
-            <nav aria-label="breadcrumb text-white">
+            {/* <nav aria-label="breadcrumb text-white">
                 <ol className="breadcrumb">
                     <li className="breadcrumb-item cs-breadcrumb">Profile</li>
                     <li className="breadcrumb-item cs-breadcrumb"></li>
                 </ol>
-            </nav>
+            </nav> */}
 
             <div className="card shadow">
                 <div className="card-body">

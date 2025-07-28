@@ -5,12 +5,12 @@ import React from "react";
 export default function Dashboard() {
     return (
         <>
-            <nav aria-label="breadcrumb">
+            {/* <nav aria-label="breadcrumb">
                 <ol className="breadcrumb">
                     <li className="breadcrumb-item cs-breadcrumb">Dashboard</li>
                     <li className="breadcrumb-item cs-breadcrumb"></li>
                 </ol>
-            </nav>
+            </nav> */}
             
             <div className="card shadow">
                 <div className="card-body">

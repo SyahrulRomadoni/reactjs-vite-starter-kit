@@ -265,12 +265,12 @@ export default function Index() {
     return (
         <>
             {/* Breadcrumb */}
-            <nav aria-label="breadcrumb text-white">
+            {/* <nav aria-label="breadcrumb text-white">
                 <ol className="breadcrumb">
                     <li className="breadcrumb-item cs-breadcrumb">Roles</li>
                     <li className="breadcrumb-item cs-breadcrumb"></li>
                 </ol>
-            </nav>
+            </nav> */}
 
             {/* Tabel */}
             <div className="card shadow">

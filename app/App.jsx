@@ -22,6 +22,8 @@ export default function App() {
     const [token, setToken] = useState("");
     // State untuk menyimpan mode dark atau light
     const [isDark, setIsDark] = useState(localStorage.getItem("theme-mode") === "dark");
+    // State untuk menyimpan visibilitas sidebar
+    const [isSidebarVisible, setIsSidebarVisible] = useState(localStorage.getItem("sidebar-visible") !== "false");
 
     // Validasi token saat pertama kali load
     useEffect(() => {
@@ -53,23 +55,32 @@ export default function App() {
         navigate("/");
     };
 
+    // Fungsi untuk toggle visibilitas sidebar
+    const toggleSidebar = () => {
+        const newVisibility = !isSidebarVisible;
+        setIsSidebarVisible(newVisibility);
+        localStorage.setItem("sidebar-visible", newVisibility);
+    };
+
     return (
         <div className="container-fluid">
             <div className="row" style={{ height: '100vh', overflow: 'hidden' }}>
                 {token ? (
                     <>
-                        {/* Sidebar Dekstop*/}
-                        <div className="col-xl-2 col-lg-3 col-md-4 d-md-block d-none p-4 bg-sidebar shadow" style={{ position: 'fixed', height: '100vh', overflowY: 'auto' }}>
-                            <SidebarDekstop handleLogout={handleLogout} />
-                        </div>
+                        {/* Sidebar Dekstop */}
+                        {isSidebarVisible && (
+                            <div className="col-xl-2 col-lg-3 col-md-4 d-md-block d-none p-4 bg-sidebar shadow" style={{ position: 'fixed', height: '100vh', overflowY: 'auto' }}>
+                                <SidebarDekstop handleLogout={handleLogout} />
+                            </div>
+                        )}
 
                         {/* Sidebar Mobile */}
-                        <SidebarMobile handleLogout={handleLogout}/>
+                        <SidebarMobile handleLogout={handleLogout} />
 
                         {/* Header & Content & Footer */}
-                        <div className="col-xl-10 col-lg-9 col-md-8 col-sm-12 offset-xl-2 offset-lg-3 offset-md-4 p-3" style={{ height: '100vh', overflowY: 'auto' }}>
+                        <div className={`col-xl-${isSidebarVisible ? 10 : 12} col-lg-${isSidebarVisible ? 9 : 12} col-md-${isSidebarVisible ? 8 : 12} col-sm-12 ${isSidebarVisible ? `offset-xl-2 offset-lg-3 offset-md-4` : ''} p-3`} style={{ height: '100vh', overflowY: 'auto' }}>
                             {/* Header */}
-                            <Header />
+                            <Header toggleSidebar={toggleSidebar} isSidebarVisible={isSidebarVisible} />
 
                             {/* Content */}
                             <AppRoutes />
