@@ -89,94 +89,94 @@ export default function Register() {
             <div className="col-12 d-flex justify-content-center">
                 <div className="card shadow">
                     <div className="card-body">
-                    <h1 className="fw-bold text-center">Register</h1>
-                    {error && <div className="alert alert-danger">{error}</div>}
-                    <form onSubmit={handleSubmit}>
-                        <div className="mb-3">
-                            <label htmlFor="name" className="form-label">Name</label>
-                            <input
-                                id="name"
-                                name="name"
-                                type="text"
-                                className="form-control"
-                                value={formData.name}
-                                onChange={handleChange}
-                                required
-                            />
-                        </div>
-                        <div className="mb-3">
-                            <label htmlFor="email" className="form-label">Email address</label>
-                            <input
-                                id="email"
-                                name="email"
-                                type="email"
-                                className="form-control"
-                                value={formData.email}
-                                onChange={handleChange}
-                                required
-                            />
-                        </div>
-                        <div className="mb-3 position-relative">
-                            <label>Password</label>
-                            <div className="input-group">
+                        <h1 className="fw-bold text-center">Register</h1>
+                        {error && <div className="alert alert-danger">{error}</div>}
+                        <form onSubmit={handleSubmit}>
+                            <div className="mb-3">
+                                <label htmlFor="name" className="form-label">Name</label>
                                 <input
-                                    id="password"
-                                    name="password"
-                                    type={passwordVisible ? "text" : "password"}
+                                    id="name"
+                                    name="name"
+                                    type="text"
                                     className="form-control"
-                                    value={formData.password}
+                                    value={formData.name}
                                     onChange={handleChange}
                                     required
                                 />
-                                <button
-                                    type="button"
-                                    className="btn cs-btn-outline-secondary"
-                                    onClick={() => setPasswordVisible(!passwordVisible)}
-                                >
-                                    {passwordVisible ? (
-                                        <i className="bi bi-eye-slash"></i>
-                                    ) : (
-                                        <i className="bi bi-eye"></i>
-                                    )}
-                                </button>
                             </div>
-                        </div>
-                        <div className="mb-3 position-relative">
-                            <label>Confirm Password</label>
-                            <div className="input-group">
+                            <div className="mb-3">
+                                <label htmlFor="email" className="form-label">Email address</label>
                                 <input
-                                    id="confirmPassword"
-                                    name="confirmPassword"
-                                    type={confirmPasswordVisible ? "text" : "password"}
+                                    id="email"
+                                    name="email"
+                                    type="email"
                                     className="form-control"
-                                    value={formData.confirmPassword}
+                                    value={formData.email}
                                     onChange={handleChange}
                                     required
                                 />
-                                <button
-                                    type="button"
-                                    className="btn cs-btn-outline-secondary"
-                                    onClick={() => setConfirmPasswordVisible(!confirmPasswordVisible)}
-                                >
-                                    {confirmPasswordVisible ? (
-                                        <i className="bi bi-eye-slash"></i>
-                                    ) : (
-                                        <i className="bi bi-eye"></i>
-                                    )}
-                                </button>
                             </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-6">
-                                <Link to="/" aria-current="page" className="btn btn-secondary w-100">Back</Link>
+                            <div className="mb-3 position-relative">
+                                <label>Password</label>
+                                <div className="input-group">
+                                    <input
+                                        id="password"
+                                        name="password"
+                                        type={passwordVisible ? "text" : "password"}
+                                        className="form-control"
+                                        value={formData.password}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                    <button
+                                        type="button"
+                                        className="btn cs-btn-outline-secondary"
+                                        onClick={() => setPasswordVisible(!passwordVisible)}
+                                    >
+                                        {passwordVisible ? (
+                                            <i className="bi bi-eye-slash"></i>
+                                        ) : (
+                                            <i className="bi bi-eye"></i>
+                                        )}
+                                    </button>
+                                </div>
                             </div>
-                            <div className="col-6">
-                                <button type="submit" className="btn btn-primary w-100" disabled={loading}>
-                                    {loading ? "Registering..." : "Register"}
-                                </button>
+                            <div className="mb-3 position-relative">
+                                <label>Confirm Password</label>
+                                <div className="input-group">
+                                    <input
+                                        id="confirmPassword"
+                                        name="confirmPassword"
+                                        type={confirmPasswordVisible ? "text" : "password"}
+                                        className="form-control"
+                                        value={formData.confirmPassword}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                    <button
+                                        type="button"
+                                        className="btn cs-btn-outline-secondary"
+                                        onClick={() => setConfirmPasswordVisible(!confirmPasswordVisible)}
+                                    >
+                                        {confirmPasswordVisible ? (
+                                            <i className="bi bi-eye-slash"></i>
+                                        ) : (
+                                            <i className="bi bi-eye"></i>
+                                        )}
+                                    </button>
+                                </div>
                             </div>
-                        </div> 
-                    </form>
+                            <div className="row">
+                                <div className="col-6">
+                                    <Link to="/" aria-current="page" className="btn btn-secondary w-100">Back</Link>
+                                </div>
+                                <div className="col-6">
+                                    <button type="submit" className="btn btn-primary w-100" disabled={loading}>
+                                        {loading ? "Registering..." : "Register"}
+                                    </button>
+                                </div>
+                            </div> 
+                        </form>
                     </div>
                 </div>
             </div>
