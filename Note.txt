@@ -44,6 +44,8 @@ Project/
   │   ├── App.jsx
   │   ├── index.css
   │   └── main.jsx
+  ├── public/
+  │   └── vite.svg
   ├── .env.example
   ├── package.json
   └── public/
