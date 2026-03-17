@@ -1,4 +1,4 @@
-// app/views/role/index.jsx
+// src/views/role/index.jsx
 
 import "react-loading-skeleton/dist/skeleton.css";
 import { useEffect, useState } from "react";
@@ -67,33 +67,33 @@ export default function Index() {
         setFormData({ name: '' });
     };
 
-    const openReadModal = async (id) => {
+    const openReadModal = async (uuid) => {
         setModalType('read');
-        setSelectedData(id);
+        setSelectedData(uuid);
         setShowModal(true);
         try {
-            const response = await roleController.Read(id);
+            const response = await roleController.Read(uuid);
             setFormData({ name: response.data.name });
         } catch (error) {
             console.error("Error fetching role data:", error);
         }
     };
 
-    const openUpdateModal = async (id) => {
+    const openUpdateModal = async (uuid) => {
         setModalType('update');
-        setSelectedData(id);
+        setSelectedData(uuid);
         setShowModal(true);
         try {
-            const response = await roleController.Read(id);
+            const response = await roleController.Read(uuid);
             setFormData({ name: response.data.name });
         } catch (error) {
             console.error("Error fetching role data:", error);
         }
     };
 
-    const openDeleteModal = (id) => {
+    const openDeleteModal = (uuid) => {
         setModalType('delete');
-        setSelectedData(id);
+        setSelectedData(uuid);
         setShowModal(true);
     };
 
@@ -224,15 +224,6 @@ export default function Index() {
                 <p className="m-0 cs-text-1 text-center">{(currentPage - 1) * pageSize + index + 1}</p>
             ),
         },
-        // {
-        //     title: 'No',
-        //     dataIndex: 'id',
-        //     key: 'id',
-        //     sorter: (a, b) => a.id - b.id,
-        //     render: (text, record) => (
-        //         <p className="m-0 cs-text-1">{record.id}</p>
-        //     ),
-        // },
         {
             title: 'Name',
             dataIndex: 'name',
@@ -247,13 +238,13 @@ export default function Index() {
             key: "actions",
             render: (text, record) => (
                 <div className="d-flex justify-content-end gap-2">
-                    <Button className="btn btn-sm btn-info" onClick={() => openReadModal(record.id)}>
+                    <Button className="btn btn-sm btn-info" onClick={() => openReadModal(record.uuid)}>
                         <i className="bi bi-eye me-1"></i> Read
                     </Button>
-                    <Button className="btn btn-sm btn-warning" onClick={() => openUpdateModal(record.id)}>
+                    <Button className="btn btn-sm btn-warning" onClick={() => openUpdateModal(record.uuid)}>
                         <i className="bi bi-pencil-square me-1"></i> Update
                     </Button>
-                    <Button className="btn btn-sm btn-danger" onClick={() => openDeleteModal(record.id)}>
+                    <Button className="btn btn-sm btn-danger" onClick={() => openDeleteModal(record.uuid)}>
                         <i className="bi bi-trash me-1"></i> Delete
                     </Button>
                 </div>
@@ -310,7 +301,7 @@ export default function Index() {
                                     className="table transparent-table"
                                     columns={columns}
                                     dataSource={filteredData}
-                                    rowKey="id"
+                                    rowKey="uuid"
                                     pagination={{
                                         pageSize: pageSize,
                                         current: currentPage,

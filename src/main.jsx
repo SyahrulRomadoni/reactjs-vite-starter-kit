@@ -1,4 +1,4 @@
-// app/main.jsx
+// src/main.jsx
 
 import { Toaster } from 'react-hot-toast'
 import App from './App.jsx'

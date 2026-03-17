@@ -1,4 +1,4 @@
-// app/Header.jsx
+// src/Header.jsx
 
 export default function Header({ toggleSidebar, isSidebarVisible }) {
     return (

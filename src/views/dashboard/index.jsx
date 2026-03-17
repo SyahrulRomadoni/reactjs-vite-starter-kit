@@ -1,4 +1,4 @@
-// app/views/dashboard/index.jsx
+// src/views/dashboard/index.jsx
 
 import React from "react";
 

@@ -14,7 +14,9 @@ npm run dev
 ## Structure Base ##
 ```plaintext
 Project/
-  ├── app/
+  ├── public/
+  │   └── vite.svg
+  ├── src/
   │   ├── assets/
   │   │   └── cutome-style.css
   │   ├── controller/
@@ -46,8 +48,6 @@ Project/
   │   ├── App.jsx
   │   ├── index.css
   │   └── main.jsx
-  ├── public/
-  │   └── vite.svg
   ├── .env.example
   ├── package.json
   └── public/

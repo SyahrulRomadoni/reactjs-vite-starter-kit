@@ -1,4 +1,4 @@
-// app/views/home/index.jsx
+// src/views/home/index.jsx
 
 import { Link } from "react-router-dom";
 

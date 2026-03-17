@@ -1,4 +1,4 @@
-// app/views/user/index.jsx
+// src/views/user/index.jsx
 
 import "react-loading-skeleton/dist/skeleton.css";
 import { useEffect, useState } from "react";
@@ -37,11 +37,11 @@ export default function Index() {
 
     // state untuk form data
     const [formData, setFormData] = useState({
-        role: '',
+        role: null,
         name: '',
         email: '',
         password: '',
-        confirmPassword: '',
+        confirmPassword: ''
     });
 
     // State untuk mengatur password dan confirm password
@@ -86,27 +86,28 @@ export default function Index() {
         setModalType('create');
         setShowModal(true);
         setFormData({
-            role: '',
+            role: null,
             name: '',
             email: '',
-            password: ''
+            password: '',
+            confirmPassword: ''
         });
     };
 
-    const openReadModal = async (id) => {
+    const openReadModal = async (uuid) => {
         setModalType('read');
-        setSelectedData(id);
+        setSelectedData(uuid);
         setShowModal(true);
 
         try {
-            const response = await userController.Read(id);
+            const response = await userController.Read(uuid);
             const userData = response.data;
 
             // Set data form
             setFormData({
-                role: userData.roles ? { value: userData.id_role, label: userData.roles.name } : '',
-                name: userData.name,
-                email: userData.email,
+                role: userData.uuid_role || null,
+                name: userData.name || '',
+                email: userData.email || '',
                 password: ''
             });
         } catch (error) {
@@ -114,20 +115,20 @@ export default function Index() {
         }
     };
 
-    const openUpdateModal = async (id) => {
+    const openUpdateModal = async (uuid) => {
         setModalType('update');
-        setSelectedData(id);
+        setSelectedData(uuid);
         setShowModal(true);
 
         try {
-            const response = await userController.Read(id);
+            const response = await userController.Read(uuid);
             const userData = response.data;
 
             // Set data form
             setFormData({
-                role: userData.roles ? { value: userData.id_role, label: userData.roles.name } : '',
-                name: userData.name,
-                email: userData.email,
+                role: userData.uuid_role || null,
+                name: userData.name || '',
+                email: userData.email || '',
                 password: ''
             });
         } catch (error) {
@@ -135,9 +136,9 @@ export default function Index() {
         }
     };
 
-    const openDeleteModal = (id) => {
+    const openDeleteModal = (uuid) => {
         setModalType('delete');
-        setSelectedData(id);
+        setSelectedData(uuid);
         setShowModal(true);
     };
 
@@ -145,10 +146,11 @@ export default function Index() {
         setShowModal(false);
         setSelectedData(null);
         setFormData({
-            role: '',
+            role: null,
             name: '',
             email: '',
-            password: ''
+            password: '',
+            confirmPassword: ''
         });
         setError("");
     };
@@ -159,13 +161,6 @@ export default function Index() {
         setFormData({
             ...formData,
             [name]: value
-        });
-    };
-    
-    const handleSelectChange = (selectedOption) => {
-        setFormData({
-            ...formData,
-            role: selectedOption,
         });
     };
 
@@ -190,20 +185,14 @@ export default function Index() {
 
         // Validasi password konfirmasi
         if (formData.password !== formData.confirmPassword) {
-            setError("Password dan Confirm Password tidak sama");
-            toast.error("Password dan Confirm Password tidak sama");
+            setError("Password dan Confirm Password tidak sama LOL");
+            toast.error("Password dan Confirm Password tidak sama LOL");
             return;
         }
 
         try {
-            // Kalo Pakai select option 1
-            // maka pakai formData.role itu tinggal pakai formData.role saja cuman tidak ada seach sama multi data jadi datanya cuman satu saja, karna dia select option biasa
-
-            // Kalo Pakai select option 2
-            // maka pakai formData.role.value itu dia berupa data object array data nya bisa lebih dari 1 jika isMulti itu true, kalo isMulti nya false maka cuman satu data saja cuman object nya array, disini saya buat isMulti aku comment karna saya butuh search saja
-
             const result = await userController.Create(
-                formData.role.value,
+                formData.role,
                 formData.name,
                 formData.email,
                 formData.password
@@ -241,15 +230,9 @@ export default function Index() {
         }
 
         try {
-            // Kalo Pakai select option 1
-            // maka pakai formData.role itu tinggal pakai formData.role saja cuman tidak ada seach sama multi data jadi datanya cuman satu saja, karna dia select option biasa
-
-            // Kalo Pakai select option 2
-            // maka pakai formData.role.value itu dia berupa data object array data nya bisa lebih dari 1 jika isMulti itu true, kalo isMulti nya false maka cuman satu data saja cuman object nya array, disini saya buat isMulti aku comment karna saya butuh search saja
-
             const result = await userController.Update(
                 selectedData,
-                formData.role.value,
+                formData.role,
                 formData.name,
                 formData.email,
                 formData.password
@@ -317,15 +300,6 @@ export default function Index() {
                 <p className="m-0 cs-text-1 text-center">{(currentPage - 1) * pageSize + index + 1}</p>
             ),
         },
-        // {
-        //     title: <p className="mb-0">No</p>,
-        //     dataIndex: 'id',
-        //     key: 'id',
-        //     sorter: (a, b) => a.id - b.id,
-        //     render: (text, record) => (
-        //         <p className="m-0 cs-text-1">{record.id}</p>
-        //     ),
-        // },
         {
             title: <p className="mb-0">Name</p>,
             dataIndex: 'name',
@@ -347,11 +321,11 @@ export default function Index() {
         },
         {
             title: <p className="mb-0">Role</p>,
-            dataIndex: 'roles.name',
+            dataIndex: 'role',
             key: 'role',
-            sorter: (a, b) => (a.roles || '').localeCompare(b.roles || ''),
+            sorter: (a, b) => (a.role || '').localeCompare(b.role || ''),
             render: (text, record) => (
-                <p className="m-0 cs-text-1 ">{record.roles}</p>
+                <p className="m-0 cs-text-1 ">{record.role}</p>
             ),
             responsive: ['md'],
         },
@@ -360,13 +334,13 @@ export default function Index() {
             key: "actions",
             render: (text, record) => (
                 <div className="d-flex justify-content-end gap-2">
-                    <Button className="btn btn-sm btn-info" onClick={() => openReadModal(record.id)}>
+                    <Button className="btn btn-sm btn-info" onClick={() => openReadModal(record.uuid)}>
                         <i className="bi bi-eye me-1"></i> Read
                     </Button>
-                    <Button className="btn btn-sm btn-warning" onClick={() => openUpdateModal(record.id)}>
+                    <Button className="btn btn-sm btn-warning" onClick={() => openUpdateModal(record.uuid)}>
                         <i className="bi bi-pencil-square me-1"></i> Update
                     </Button>
-                    <Button className="btn btn-sm btn-danger" onClick={() => openDeleteModal(record.id)}>
+                    <Button className="btn btn-sm btn-danger" onClick={() => openDeleteModal(record.uuid)}>
                         <i className="bi bi-trash me-1"></i> Delete
                     </Button>
                 </div>
@@ -408,13 +382,13 @@ export default function Index() {
                     <div className="card-footer">
                         <div className="row">
                             <div className="col-4">
-                                <Button className="btn btn-sm w-100 btn-info" onClick={() => openReadModal(record.id)}>Read</Button>
+                                <Button className="btn btn-sm w-100 btn-info" onClick={() => openReadModal(record.uuid)}>Read</Button>
                             </div>
                             <div className="col-4">
-                                <Button className="btn btn-sm w-100 btn-warning" onClick={() => openUpdateModal(record.id)}>Update</Button>
+                                <Button className="btn btn-sm w-100 btn-warning" onClick={() => openUpdateModal(record.uuid)}>Update</Button>
                             </div>
                             <div className="col-4">
-                                <Button className="btn btn-sm w-100 btn-danger" onClick={() => openDeleteModal(record.id)}>Delete</Button>
+                                <Button className="btn btn-sm w-100 btn-danger" onClick={() => openDeleteModal(record.uuid)}>Delete</Button>
                             </div>
                         </div>
                     </div>
@@ -472,7 +446,7 @@ export default function Index() {
                                     className="table transparent-table"
                                     columns={columns}
                                     dataSource={filteredData}
-                                    rowKey="id"
+                                    rowKey="uuid"
                                     pagination={{
                                         pageSize: pageSize,
                                         current: currentPage,
@@ -506,34 +480,17 @@ export default function Index() {
                                         <div className="mb-3">
                                             <label htmlFor="role" className="form-label"><span hidden={modalType === 'read'} style={{ color: "red" }}>*</span> Role</label>
                                             {/* Select Option 1 */}
-                                            {/* <select
-                                                id="role"
-                                                name="role"
-                                                className="form-control"
-                                                value={formData.role}
-                                                onChange={handleChange}
-                                                disabled={modalType === 'read'}
-                                                required
-                                            >
-                                                <option value="">Select Role</option>
-                                                {roles.map((role) => (
-                                                    <option key={role.id} value={role.id}>{role.name}</option>
-                                                ))}
-                                            </select> */}
-
-                                            {/* Select Option 2 */}
                                             <Select
                                                 id="role"
                                                 name="role"
-                                                // isMulti
-                                                value={formData.role}
-                                                onChange={handleSelectChange}
                                                 isDisabled={modalType === 'read'}
                                                 required
                                                 className="react-select"
                                                 classNamePrefix="react-select"
                                                 placeholder="-- Pilih --"
-                                                options={roles.map((role) => ({ value: role.id, label: role.name })) || []}
+                                                value={roles.map(r => ({ value: r.uuid, label: r.name })).find(option => option.value === formData.role) || null} 
+                                                onChange={(selectedOption) => setFormData({ ...formData, role: selectedOption ? selectedOption.value : null })}
+                                                options={roles.map(r => ({ value: r.uuid, label: r.name }))}
                                             />
                                         </div>
                                         <div className="mb-3">
@@ -565,7 +522,7 @@ export default function Index() {
                                         {modalType !== 'read' && (
                                             <>
                                                 <div className="mb-3 position-relative">
-                                                    <label><span hidden={modalType === 'read'} style={{ color: "red" }}>*</span> Password</label>
+                                                    <label><span hidden={modalType === 'read' || modalType === 'update'} style={{ color: "red" }}>*</span> Password</label>
                                                     <div className="input-group">
                                                         <input
                                                             id="password"
@@ -590,14 +547,14 @@ export default function Index() {
                                                     </div>
                                                 </div>
                                                 <div className="mb-3 position-relative">
-                                                    <label><span hidden={modalType === 'read'} style={{ color: "red" }}>*</span> Confirm Password</label>
+                                                    <label><span hidden={modalType === 'read' || modalType === 'update'} style={{ color: "red" }}>*</span> Confirm Password</label>
                                                     <div className="input-group">
                                                         <input
                                                             id="confirmPassword"
                                                             name="confirmPassword"
                                                             type={confirmPasswordVisible ? "text" : "password"}
                                                             className="form-control"
-                                                            value={formData.confirmPassword}
+                                                            value={formData.confirmPassword} 
                                                             onChange={handleChange}
                                                             required
                                                         />
