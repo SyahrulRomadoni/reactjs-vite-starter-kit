@@ -529,7 +529,7 @@ export default function Index() {
                                                             name="password"
                                                             type={passwordVisible ? "text" : "password"}
                                                             className="form-control"
-                                                            value={formData.password}
+                                                            value={formData.password ?? ""}
                                                             onChange={handleChange}
                                                             required
                                                         />
@@ -554,7 +554,7 @@ export default function Index() {
                                                             name="confirmPassword"
                                                             type={confirmPasswordVisible ? "text" : "password"}
                                                             className="form-control"
-                                                            value={formData.confirmPassword} 
+                                                            value={formData.confirmPassword ?? ""}
                                                             onChange={handleChange}
                                                             required
                                                         />

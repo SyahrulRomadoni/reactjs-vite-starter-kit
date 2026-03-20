@@ -1,69 +1,74 @@
 // src/views/user/index.jsx
 
 import "react-loading-skeleton/dist/skeleton.css";
-import React, { useEffect, useState } from "react";
-import { CurrentUser } from "../../controller/userController";
-import { toast } from 'react-hot-toast';
+import React, { useMemo } from "react";
 import Skeleton from "react-loading-skeleton";
 
-export default function Profile() {
-    // State untuk data user
-    const [users, setUsers] = useState(null);
-    
-    // State untuk loading dan error
-    const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(true);
+export default function Profile({ user }) {
 
-    // Fetch data untuk load data pertama kali
-    useEffect(() => {
-        const fetchUsersData = async () => {
-            try {
-                setLoading(true);
-                const response = await CurrentUser();
-                if (response.status === "success") {
-                    setUsers(response.data);
-                } else {
-                    setError(response.message);
-                    toast.error(response.message);
-                }
-            } catch (error) {
-                setError(error.message);
-                toast.error(error.message);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        // Panggil fungsi ini untuk data yang mau dirender
-        fetchUsersData();
-    }, []);
+    // Generate inisial dari email
+    const initials = useMemo(() => {
+        if (!user?.email) return "?";
+        const namePart = user.email.split("@")[0];
+        if (namePart.length === 1) return namePart.toUpperCase();
+        return (namePart[0] + namePart[namePart.length - 1]).toUpperCase();
+    }, [user]);
 
     return (
-        <>
-            {/* <nav aria-label="breadcrumb text-white">
-                <ol className="breadcrumb">
-                    <li className="breadcrumb-item cs-breadcrumb">Profile</li>
-                    <li className="breadcrumb-item cs-breadcrumb"></li>
-                </ol>
-            </nav> */}
+        <div className="card shadow">
+            <div className="card-body">
 
-            <div className="card shadow">
-                <div className="card-body">
-                    <h1 className="fw-bold">Profile</h1>
+                <h1 className="fw-bold mb-4">Profile</h1>
 
-                    {loading ? (
-                        <Skeleton height={20} count={2} />
-                    ) : error ? (
-                        <h3 className="text-danger text-center p-5">{error}</h3>
-                    ) : (
-                        <>
-                            <p className="col-md-8">Nama: {users?.name || "xxxxxxxxxxxxx"}</p>
-                            <p className="col-md-8">Email: {users?.email || "xxxxxxxxxxxxx"}</p>
-                        </>
-                    )}
+                {!user ? (
+                    <Skeleton height={20} count={3} />
+                ) : (
+                    <div className="row align-items-center">
+                        
+                        {/* Avatar */}
+                        <div className="col-md-3 text-center mb-3">
+                            {user?.avatar ? (
+                                <img
+                                    src={user.avatar}
+                                    alt="avatar"
+                                    style={{
+                                        width: "120px",
+                                        height: "120px",
+                                        borderRadius: "50%",
+                                        objectFit: "cover"
+                                    }}
+                                />
+                            ) : (
+                                <div
+                                    style={{
+                                        width: "120px",
+                                        height: "120px",
+                                        borderRadius: "50%",
+                                        backgroundColor: "#6c757d",
+                                        color: "#fff",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        fontSize: "32px",
+                                        fontWeight: "bold",
+                                        margin: "0 auto"
+                                    }}
+                                >
+                                    {initials}
+                                </div>
+                            )}
+                        </div>
 
-                </div>
+                        {/* Info */}
+                        <div className="col-md-9">
+                            <p><strong>Nama:</strong> {user?.name || "-"}</p>
+                            <p><strong>Email:</strong> {user?.email || "-"}</p>
+                        </div>
+
+                    </div>
+                )}
+
             </div>
-        </>
+        </div>
     );
 }
