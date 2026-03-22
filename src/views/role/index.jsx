@@ -1,17 +1,26 @@
 // src/views/role/index.jsx
 
 import "react-loading-skeleton/dist/skeleton.css";
-import { useEffect, useState } from "react";
-import { toast } from 'react-hot-toast';
-import { Table, Button, Input } from 'antd';
+import {
+    useEffect,
+    useState
+} from "react";
+import {
+    Table,
+    Button,
+    Input
+} from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
+import { toast } from 'react-hot-toast';
 import Skeleton from "react-loading-skeleton";
 
 // Controller
 import * as roleController from "../../controller/roleController";
 
 export default function Index() {
-    // =================================================== State =================================================== //
+    // ====================
+    // State
+    // ====================
     // state untuk menyimpan data roles
     const [roles, setRoles] = useState([]);
 
@@ -36,31 +45,16 @@ export default function Index() {
         name: ''
     });
 
-    // =================================================== Fetch Data =================================================== //
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                setLoading(true);
-                const response = await roleController.All();
-                if (response.status === "success") {
-                    setRoles(response.data.data);
-                } else {
-                    setErrorFetch(response.message);
-                    toast.error(response.message);
-                }
-            } catch (error) {
-                setErrorFetch(error.message);
-                toast.error(error.message);
-            } finally {
-                setLoading(false);
-            }
-        };
+    // ====================
+    // Handler
+    // ====================
+    // Handle input changes
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    };
 
-        // Panggil fungsi ini untuk data yang mau dirender
-        fetchData();
-    }, []);
-
-    // =================================================== Modal =================================================== //
+    // Modal Control
     const openCreateModal = () => {
         setModalType('create');
         setShowModal(true);
@@ -104,13 +98,7 @@ export default function Index() {
         setError("");
     };
 
-    // =================================================== Handle =================================================== //
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
-    };
-
-    // =================================================== CRUDS =================================================== //
+    // CRUDS
     const handleCreate = async (e) => {
         e.preventDefault();
 
@@ -200,7 +188,35 @@ export default function Index() {
         }
     };
 
-    // =================================================== Table =================================================== //
+    // ====================
+    // Fetch Data
+    // ====================
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                setLoading(true);
+                const response = await roleController.All();
+                if (response.status === "success") {
+                    setRoles(response.data.data);
+                } else {
+                    setErrorFetch(response.message);
+                    toast.error(response.message);
+                }
+            } catch (error) {
+                setErrorFetch(error.message);
+                toast.error(error.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        // Panggil fungsi ini untuk data yang mau dirender
+        fetchData();
+    }, []);
+
+    // ====================
+    // Table
+    // ====================
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
 
@@ -321,7 +337,12 @@ export default function Index() {
 
             {/* Modal */}
             {showModal && (
-                <div className="modal show" tabIndex="-1" style={{ display: 'block', backgroundColor: "rgba(0, 0, 0, 0.5)" }} aria-hidden="true">
+                <div
+                    className="modal show"
+                    tabIndex="-1"
+                    style={{ display: 'block', backgroundColor: "rgba(0, 0, 0, 0.5)" }}
+                    aria-hidden="true"
+                >
                     <div className="modal-dialog modal-dialog-centered">
                         <div className="modal-content">
                             <div className="modal-header">

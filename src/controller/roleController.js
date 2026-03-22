@@ -29,7 +29,9 @@ export const All = async (limit = 100) => {
     }
 };
 
-export const Create = async (name) => {
+export const Create = async (
+    name
+) => {
     try {
         // Ambil token dari localStorage
         const token = localStorage.getItem("authToken");
@@ -53,7 +55,9 @@ export const Create = async (name) => {
     }
 };
 
-export const Read = async (uuid) => {
+export const Read = async (
+    uuid
+) => {
     try {
         // Jika id tidak ada, lempar error
         if (!uuid) throw new Error("No UUID found");
@@ -79,7 +83,10 @@ export const Read = async (uuid) => {
     }
 };
 
-export const Update = async (uuid, name) => {
+export const Update = async (
+    uuid,
+    name
+) => {
     try {
         // Jika id tidak ada, lempar error
         if (!uuid) throw new Error("No UUID found");
@@ -106,7 +113,9 @@ export const Update = async (uuid, name) => {
     }
 };
 
-export const Delete = async (uuid) => {
+export const Delete = async (
+    uuid
+) => {
     try {
         // Jika id tidak ada, lempar error
         if (!uuid) throw new Error("No UUID found");

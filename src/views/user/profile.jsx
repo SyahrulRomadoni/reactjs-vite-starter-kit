@@ -1,11 +1,17 @@
 // src/views/user/index.jsx
 
 import "react-loading-skeleton/dist/skeleton.css";
-import React, { useMemo } from "react";
+import
+    React,
+    { useMemo }
+from "react";
 import Skeleton from "react-loading-skeleton";
 
 export default function Profile({ user }) {
 
+    // ====================
+    // Memoized Initials
+    // ====================
     // Generate inisial dari email
     const initials = useMemo(() => {
         if (!user?.email) return "?";

@@ -1,8 +1,15 @@
 // src/views/user/index.jsx
 
 import "react-loading-skeleton/dist/skeleton.css";
-import { useEffect, useState } from "react";
-import { Table, Button, Input } from 'antd';
+import {
+    useEffect,
+    useState
+} from "react";
+import {
+    Table,
+    Button,
+    Input
+} from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import { toast } from 'react-hot-toast';
 import Skeleton from "react-loading-skeleton";
@@ -13,7 +20,9 @@ import * as userController from "../../controller/userController";
 import * as roleController from "../../controller/roleController";
 
 export default function Index() {
-    // =================================================== State =================================================== //
+    // ====================
+    // State
+    // ====================
     // state untuk menyimpan data users dan data roles
     const [users, setUsers] = useState([]);
     const [roles, setRoles] = useState([]);
@@ -48,40 +57,19 @@ export default function Index() {
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
 
-    // =================================================== Fetch Data =================================================== //
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                setLoading(true);
-                // Users
-                const response = await userController.All();
-                if (response.status === "success") {
-                    setUsers(response.data.data);
-                } else {
-                    setErrorFetch(response.message);
-                    toast.error(response.message);
-                }
-                // Roles
-                const roleResponse = await roleController.All();
-                if (roleResponse.status === "success") {
-                    setRoles(roleResponse.data.data);
-                } else {
-                    setErrorFetch(roleResponse.message);
-                    toast.error(roleResponse.message);
-                }
-            } catch (error) {
-                setErrorFetch(error.message);
-                toast.error(error.message);
-            } finally {
-                setLoading(false);
-            }
-        };
+    // ====================
+    // Handler
+    // ====================
+    // Handle input changes
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: value
+        });
+    };
 
-        // Panggil fungsi ini untuk data yang mau dirender
-        fetchData();
-    }, []);
-
-    // =================================================== Modal =================================================== //
+    // Modal Control
     const openCreateModal = () => {
         setModalType('create');
         setShowModal(true);
@@ -155,16 +143,7 @@ export default function Index() {
         setError("");
     };
 
-    // =================================================== Handle perubahan input form =================================================== //
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value
-        });
-    };
-
-    // =================================================== CRUDS =================================================== //
+    // CRUDS
     const handleCreate = async (e) => {
         e.preventDefault();
 
@@ -276,7 +255,45 @@ export default function Index() {
         }
     };
 
-    // =================================================== Table =================================================== //
+    // ====================
+    // Effects
+    // ====================
+    // Fetch data users dan roles saat komponen pertama kali di-render
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                setLoading(true);
+                // Users
+                const response = await userController.All();
+                if (response.status === "success") {
+                    setUsers(response.data.data);
+                } else {
+                    setErrorFetch(response.message);
+                    toast.error(response.message);
+                }
+                // Roles
+                const roleResponse = await roleController.All();
+                if (roleResponse.status === "success") {
+                    setRoles(roleResponse.data.data);
+                } else {
+                    setErrorFetch(roleResponse.message);
+                    toast.error(roleResponse.message);
+                }
+            } catch (error) {
+                setErrorFetch(error.message);
+                toast.error(error.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        // Panggil fungsi ini untuk data yang mau dirender
+        fetchData();
+    }, []);
+
+    // ====================
+    // Table
+    // ====================
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
 
@@ -350,7 +367,7 @@ export default function Index() {
               
     ];
 
-    // =================================================== Child Row Table =================================================== //
+    // Child Row Table
     // Kondisi untuk child row hanya muncul di mobile
     useEffect(() => {
         const checkMobileView = () => {
@@ -466,7 +483,12 @@ export default function Index() {
 
             {/* Modal */}
             {showModal && (
-                <div className="modal show" tabIndex="-1" style={{ display: 'block', backgroundColor: "rgba(0, 0, 0, 0.5)" }} aria-hidden="true">
+                <div
+                    className="modal show"
+                    tabIndex="-1"
+                    style={{ display: 'block', backgroundColor: "rgba(0, 0, 0, 0.5)" }}
+                    aria-hidden="true"
+                >
                     <div className="modal-dialog modal-dialog-centered">
                         <div className="modal-content">
                             <div className="modal-header">

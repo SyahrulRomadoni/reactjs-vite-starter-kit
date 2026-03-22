@@ -1,10 +1,28 @@
-import { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import {
+    useEffect,
+    useState
+} from "react";
+import {
+    Link,
+    useLocation
+} from "react-router-dom";
 
-export default function SidebarMobile({ handleLogout }) {
+export default function SidebarMobile({
+    handleLogout
+}) {
+    // ====================
+    // State
+    // ====================
     // Untuk mengatur lokasi path urlnya
     const location = useLocation();
 
+    // Untuk merubah automatis thema yang ada di bawa dan bisa di trigger pakai handleSwitchChange
+    // Fungsi Dark Mode dan Light Mode Menggunakan Bootstrap
+    const [isDark, setIsDark] = useState(localStorage.getItem("theme-mode") === "dark");
+
+    // ======================
+    // Handler Functions
+    // ======================
     // Fungsi untuk trigger theme-mode jadi light atau dark pakai switch button
     const handleSwitchChange = () => {
         const newTheme = isDark ? "light" : "dark";
@@ -12,9 +30,9 @@ export default function SidebarMobile({ handleLogout }) {
         setIsDark(!isDark);
     };
     
-    // Untuk merubah automatis thema yang ada di bawa dan bisa di trigger pakai handleSwitchChange
-    // Fungsi Dark Mode dan Light Mode Menggunakan Bootstrap
-    const [isDark, setIsDark] = useState(localStorage.getItem("theme-mode") === "dark");
+    // ===================
+    // Effects
+    // ===================
     // Update 'data-bs-theme' jadi dark atau light
     useEffect(() => {
         const htmlElement = document.documentElement;
@@ -26,16 +44,30 @@ export default function SidebarMobile({ handleLogout }) {
     }, [isDark]);
 
     return (
-        <div className="offcanvas offcanvas-start w-75" data-bs-scroll="true" tabIndex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+        <div
+            className="offcanvas offcanvas-start w-75"
+            data-bs-scroll="true"
+            tabIndex="-1"
+            id="offcanvasWithBothOptions"
+            aria-labelledby="offcanvasWithBothOptionsLabel"
+        >
             <div className="offcanvas-header">
                 {/* <h5 className="offcanvas-title" id="offcanvasWithBothOptionsLabel">ReactJs Vite</h5> */}
-                <button type="button" className="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                <button
+                    type="button"
+                    className="btn-close text-reset"
+                    data-bs-dismiss="offcanvas"
+                    aria-label="Close"
+                ></button>
             </div>
             <div className="offcanvas-body">
 
                 <div className="row mb-3">
                     <div className="col-12">
-                        <h2 className="cs-brand mb-2" style={{ fontSize: '25px', marginBottom: '0px' }}>ReactJs Vite</h2>
+                        <h2
+                            className="cs-brand mb-2"
+                            style={{ fontSize: '25px', marginBottom: '0px' }}
+                        >ReactJs Vite</h2>
                     </div>
                     <div className="col-12">
                         <div className="d-flex align-items-center">
@@ -95,27 +127,63 @@ export default function SidebarMobile({ handleLogout }) {
                                 </Link>
                             </li>
                             <li className="nav-item dropdown">
-                                <a className="nav-link text-start cs-text-1 m-1 rounded w-100" data-bs-toggle="collapse" href="#dropdown1" role="button" aria-expanded="false" aria-controls="dropdown1">
-                                    <i className="bi bi-gear" style={{paddingRight: "10px"}}></i> More Action <i className="bi bi-arrow-down-short" style={{ float: 'right'}}></i>
+                                <a
+                                    className="nav-link text-start cs-text-1 m-1 rounded w-100"
+                                    data-bs-toggle="collapse"
+                                    href="#dropdown1"
+                                    role="button"
+                                    aria-expanded="false"
+                                    aria-controls="dropdown1"
+                                >
+                                    <i
+                                        className="bi bi-gear"
+                                        style={{paddingRight: "10px"}}
+                                    ></i>
+                                        More Action
+                                    <i
+                                        className="bi bi-arrow-down-short"
+                                        style={{ float: 'right'}}
+                                    ></i>
                                 </a>
-                                <div className="collapse" id="dropdown1" style={{ padding: '10px 10px 10px 30px'}}>
+                                <div
+                                    className="collapse" id="dropdown1"
+                                    style={{ padding: '10px 10px 10px 30px'}}
+                                >
                                     <ul className="nav flex-column">
                                         <li className="nav-item">
-                                            <a className="nav-link text-start cs-text-1 m-1 rounded w-100" href="#">
-                                                <i className="bi bi-arrow-down-circle cs-icon" style={{paddingRight: "10px"}}></i> Menu 1
+                                            <a
+                                                className="nav-link text-start cs-text-1 m-1 rounded w-100"
+                                                href="#"
+                                            >
+                                                <i
+                                                    className="bi bi-arrow-down-circle cs-icon"
+                                                    style={{paddingRight: "10px"}}
+                                                ></i> Menu 1
                                             </a>
                                         </li>
                                         <li className="nav-item">
-                                            <a className="nav-link text-start cs-text-1 m-1 rounded w-100" href="#">
-                                                <i className="bi bi-arrow-down-circle cs-icon" style={{paddingRight: "10px"}}></i> Menu 2
+                                            <a
+                                                className="nav-link text-start cs-text-1 m-1 rounded w-100"
+                                                href="#"
+                                            >
+                                                <i
+                                                    className="bi bi-arrow-down-circle cs-icon"
+                                                    style={{paddingRight: "10px"}}
+                                                ></i> Menu 2
                                             </a>
                                         </li>
                                     </ul>
                                 </div>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link btn btn-link text-start cs-text-1 m-1 rounded w-100" onClick={handleLogout}>
-                                    <i className="bi bi-door-closed cs-icon" style={{paddingRight: "10px"}}></i> Logout
+                                <a
+                                    className="nav-link btn btn-link text-start cs-text-1 m-1 rounded w-100"
+                                    onClick={handleLogout}
+                                >
+                                    <i
+                                        className="bi bi-door-closed cs-icon"
+                                        style={{paddingRight: "10px"}}
+                                    ></i> Logout
                                 </a>
                             </li>
                         </ul>

@@ -6,11 +6,12 @@ import { register } from "../../controller/authController";
 import { toast } from 'react-hot-toast'
 
 export default function Register() {
-    // =================================================== Navigate =================================================== //
+    // =====================
+    // State
+    // =====================
     // Hook untuk berpindah halaman
     const navigate = useNavigate();
 
-    // =================================================== State =================================================== //
     // State untuk error dan loading
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
@@ -27,14 +28,15 @@ export default function Register() {
         confirmPassword: "",
     });
 
-    // =================================================== Handle =================================================== //
+    // =====================
+    // Handler
+    // =====================
     // Handle perubahan input form
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
 
-    // Handle submit form
     const handleSubmit = async (e) => {
         e.preventDefault();
 

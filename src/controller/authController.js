@@ -4,13 +4,25 @@ import axios from "axios";
 
 const API_URL = import.meta.env.VITE_ENDPOINT || "http://localhost:3001/api";
 
-export const register = async (name, email, password) => {
+export const register = async (
+    name,
+    email,
+    password
+) => {
     try {
         // Static id
         const uuid_users = "0a9ed303-689a-4230-9928-61e46ded7513";
 
         // Kirim request ke API
-        const response = await axios.post(`${API_URL}/auth/register`, { uuid_users, name, email, password });
+        const response = await axios.post(
+            `${API_URL}/auth/register`,
+            { 
+                uuid_users,
+                name,
+                email,
+                password
+            }
+        );
 
         // return response.data
         return response.data;
@@ -19,10 +31,19 @@ export const register = async (name, email, password) => {
     }
 };
 
-export const login = async (email, password) => {
+export const login = async (
+    email,
+    password
+) => {
     try {
         // Kirim request ke API
-        const response = await axios.post(`${API_URL}/auth/login`, { email, password });
+        const response = await axios.post(
+            `${API_URL}/auth/login`,
+            {
+                email,
+                password
+            }
+        );
         if (response.data.status === "success") {
             // Ambil token dari response.data.data
             const { token } = response.data.data;

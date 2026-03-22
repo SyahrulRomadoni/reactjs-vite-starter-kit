@@ -1,7 +1,8 @@
-// src/routes/index.jsx
-
+import {
+    AdminRoutesMiddleware,
+    GuestRoutesMiddleware
+} from '../middleware/routesMiddleware.jsx';
 import { Routes, Route } from "react-router-dom";
-import { AdminRoutesMiddleware, GuestRoutesMiddleware } from '../middleware/routesMiddleware.jsx';
 
 import Dashboard from "../views/dashboard/index.jsx";
 import Home from "../views/home/index.jsx";
@@ -12,15 +13,17 @@ import Roles from "../views/role/index.jsx";
 import Register from "../views/auth/register.jsx";
 import Users from "../views/user/index.jsx";
 
-export default function AppRoutes({ user }) {
+export default function AppRoutes({
+    user,
+    updateAuth
+}) {
     return (
         <Routes>
-
             {/* Guest Routes */}
             <Route element={<GuestRoutesMiddleware />}>
                 <Route path="/" element={<Home />} />
                 <Route path="/register" element={<Register />} />
-                <Route path="/login" element={<Login />} />
+                <Route path="/login" element={<Login updateAuth={updateAuth} />} />
             </Route>
 
             {/* Protected Routes */}
@@ -31,9 +34,7 @@ export default function AppRoutes({ user }) {
                 <Route path="/roles" element={<Roles />} />
             </Route>
 
-            {/* Not Found */}
             <Route path="*" element={<NotFound />} />
-
         </Routes>
     );
 }

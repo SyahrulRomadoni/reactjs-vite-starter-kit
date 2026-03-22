@@ -53,7 +53,12 @@ export const All = async (limit = 100) => {
     }
 };
 
-export const Create = async (uuid_role, name, email, password) => {
+export const Create = async (
+    uuid_role,
+    name,
+    email,
+    password
+) => {
     try {
         // Ambil token dari localStorage
         const token = localStorage.getItem("authToken");
@@ -63,7 +68,12 @@ export const Create = async (uuid_role, name, email, password) => {
         // Kirim request ke API
         const response = await axios.post(
             `${API_URL}/user`,
-            { uuid_role, name, email, password },
+            {
+                uuid_role,
+                name,
+                email,
+                password
+            },
             {
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -103,7 +113,13 @@ export const Read = async (uuid) => {
     }
 };
 
-export const Update = async (uuid, uuid_role, name, email, password) => {
+export const Update = async (
+    uuid,
+    uuid_role,
+    name,
+    email,
+    password
+) => {
     try {
         // Jika id tidak ada, lempar error
         if (!uuid) throw new Error("No UUID found");
@@ -116,7 +132,12 @@ export const Update = async (uuid, uuid_role, name, email, password) => {
         // Kirim request ke API
         const response = await axios.put(
             `${API_URL}/user/${uuid}`, 
-            { uuid_role, name, email, password },
+            {
+                uuid_role,
+                name,
+                email,
+                password
+            },
             {
                 headers: {
                     Authorization: `Bearer ${token}`,

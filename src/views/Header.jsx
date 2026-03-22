@@ -3,8 +3,14 @@
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
 
-export default function Header({ toggleSidebar, isSidebarVisible, user, handleLogout }) {
-
+export default function Header({
+    toggleSidebar,
+    user,
+    handleLogout
+}) {
+    // ====================
+    // Memoized Initials
+    // ====================
     // Generate inisial dari email
     const initials = useMemo(() => {
         if (!user?.email) return "?";
