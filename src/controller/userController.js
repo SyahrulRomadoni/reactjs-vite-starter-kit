@@ -87,7 +87,9 @@ export const Create = async (
     }
 };
 
-export const Read = async (uuid) => {
+export const Read = async (
+    uuid
+) => {
     try {
         // Jika id tidak ada, lempar error
         if (!uuid) throw new Error("No UUID found");
@@ -151,7 +153,9 @@ export const Update = async (
     }
 };
 
-export const Delete = async (uuid) => {
+export const Delete = async (
+    uuid
+) => {
     try {
         // Jika id tidak ada, lempar error
         if (!uuid) throw new Error("No UUID found");

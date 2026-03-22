@@ -11,13 +11,13 @@ export const register = async (
 ) => {
     try {
         // Static id
-        const uuid_role = "0a9ed303-689a-4230-9928-61e46ded7513";
+        const uuid_user = "0a9ed303-689a-4230-9928-61e46ded7513";
 
         // Kirim request ke API
         const response = await axios.post(
             `${API_URL}/auth/register`,
             { 
-                uuid_role,
+                uuid_user,
                 name,
                 email,
                 password

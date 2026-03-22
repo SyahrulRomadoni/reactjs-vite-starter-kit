@@ -85,8 +85,10 @@ export default function Register() {
     };
 
     return (
-        <div className="row justify-content-end align-items-center">
-            {/* <div className="col-6 d-flex justify-content-center"></div> */}
+        <div
+            className="container d-flex justify-content-center align-items-center"
+            style={{ minHeight: '100vh' }}
+        >
             <div className="col-12 d-flex justify-content-center">
                 <div className="card shadow">
                     <div className="card-body">
