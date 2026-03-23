@@ -8,10 +8,6 @@ export default function Header({
     user,
     handleLogout
 }) {
-    // ====================
-    // Memoized Initials
-    // ====================
-    // Generate inisial dari email
     const initials = useMemo(() => {
         if (!user?.email) return "?";
         const namePart = user.email.split("@")[0];
@@ -20,99 +16,107 @@ export default function Header({
     }, [user]);
 
     return (
-        <div className="row mb-3">
-            <div className="col-12">
-                <div className="card shadow h-100 d-flex justify-content-center align-items-center">
-                    <div className="card-body w-100">
-                        <div className="row align-items-center">
+        <div className="mb-3">
 
-                            {/* Mobile button */}
-                            <div className="col-auto d-block d-md-none">
-                                <a
-                                    className="btn cs-btn-side-mobile"
-                                    data-bs-toggle="offcanvas"
-                                    data-bs-target="#offcanvasWithBothOptions"
-                                >
-                                    <i className="bi bi-grid-1x2"></i>
-                                </a>
-                            </div>
+            <div className="d-flex align-items-center">
 
-                            {/* Desktop toggle */}
-                            <div className="col-auto d-none d-md-block">
-                                <a
-                                    className="btn cs-btn-side-mobile"
-                                    onClick={toggleSidebar}
-                                >
-                                    <i className="bi bi-grid-1x2"></i>
-                                </a>
-                            </div>
+                {/* ===== LEFT CARD ===== */}
+                <div
+                    className="card shadow d-flex justify-content-center align-items-center"
+                    style={{
+                        width: "60px",
+                        height: "60px",
+                        borderRadius: "40px",
+                    }}
+                >
+                    <button
+                        type="button"
+                        className="btn cs-btn-side-mobile d-block d-md-none"
+                        data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasWithBothOptions"
+                    >
+                        <i className="bi bi-grid-1x2"></i>
+                    </button>
 
-                            {/* Right section */}
-                            <div className="col text-end d-flex justify-content-end align-items-center gap-3">
+                    <button
+                        type="button"
+                        className="btn cs-btn-side-mobile d-none d-md-block"
+                        onClick={toggleSidebar}
+                    >
+                        <i className="bi bi-grid-1x2"></i>
+                    </button>
+                </div>
 
-                                <h3 className="mb-0">Header</h3>
+                {/* ===== RIGHT CARD (AUTO WIDTH) ===== */}
+                <div
+                    className="card shadow ms-auto"
+                    style={{
+                        borderRadius: "40px",
+                        width: "auto"
+                    }}
+                >
+                    <div className="card-body d-flex align-items-center gap-3">
 
-                                {/* Avatar Dropdown */}
-                                <div className="dropdown">
+                        <h3 className="mb-0">
+                            ReactJs Vite
+                        </h3>
 
-                                    <button
-                                        className="btn p-0 border-0"
-                                        data-bs-toggle="dropdown"
-                                        aria-expanded="false"
+                        {/* Avatar Dropdown */}
+                        <div className="dropdown">
+                            <button
+                                className="btn p-0 border-0"
+                                data-bs-toggle="dropdown"
+                            >
+                                {user?.avatar ? (
+                                    <img
+                                        src={user.avatar}
+                                        alt="avatar"
+                                        style={{
+                                            width: "40px",
+                                            height: "40px",
+                                            borderRadius: "50%",
+                                            objectFit: "cover"
+                                        }}
+                                    />
+                                ) : (
+                                    <div
+                                        style={{
+                                            width: "40px",
+                                            height: "40px",
+                                            borderRadius: "50%",
+                                            backgroundColor: "#6c757d",
+                                            color: "#fff",
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                            fontWeight: "bold"
+                                        }}
                                     >
-                                        {user?.avatar ? (
-                                            <img
-                                                src={user.avatar}
-                                                alt="avatar"
-                                                style={{
-                                                    width: "40px",
-                                                    height: "40px",
-                                                    borderRadius: "50%",
-                                                    objectFit: "cover"
-                                                }}
-                                            />
-                                        ) : (
-                                            <div
-                                                style={{
-                                                    width: "40px",
-                                                    height: "40px",
-                                                    borderRadius: "50%",
-                                                    backgroundColor: "#6c757d",
-                                                    color: "#fff",
-                                                    display: "flex",
-                                                    alignItems: "center",
-                                                    justifyContent: "center",
-                                                    fontWeight: "bold"
-                                                }}
-                                            >
-                                                {initials}
-                                            </div>
-                                        )}
+                                        {initials}
+                                    </div>
+                                )}
+                            </button>
+
+                            <ul className="dropdown-menu dropdown-menu-end" style={{ borderRadius: "20px" }}>
+                                <li>
+                                    <Link className="dropdown-item" to="/profile">
+                                        Profile
+                                    </Link>
+                                </li>
+                                <li>
+                                    <button
+                                        className="dropdown-item"
+                                        onClick={handleLogout}
+                                    >
+                                        Logout
                                     </button>
-
-                                    <ul className="dropdown-menu dropdown-menu-end">
-                                        <li>
-                                            <Link className="dropdown-item" to="/profile">
-                                                Profile
-                                            </Link>
-                                        </li>
-                                        <li>
-                                            <button
-                                                className="dropdown-item"
-                                                onClick={handleLogout}
-                                            >
-                                                Logout
-                                            </button>
-                                        </li>
-                                    </ul>
-
-                                </div>
-
-                            </div>
-
+                                </li>
+                            </ul>
                         </div>
+
                     </div>
                 </div>
+
             </div>
         </div>
     );

@@ -254,13 +254,25 @@ export default function Index() {
             key: "actions",
             render: (text, record) => (
                 <div className="d-flex justify-content-end gap-2">
-                    <Button className="btn btn-sm btn-info" onClick={() => openReadModal(record.uuid)}>
+                    <Button
+                        className="btn btn-sm btn-info"
+                        style={{ borderRadius: "40px" }}
+                        onClick={() => openReadModal(record.uuid)}
+                    >
                         <i className="bi bi-eye me-1"></i> Read
                     </Button>
-                    <Button className="btn btn-sm btn-warning" onClick={() => openUpdateModal(record.uuid)}>
+                    <Button
+                        className="btn btn-sm btn-warning"
+                        style={{ borderRadius: "40px" }}
+                        onClick={() => openUpdateModal(record.uuid)}
+                    >
                         <i className="bi bi-pencil-square me-1"></i> Update
                     </Button>
-                    <Button className="btn btn-sm btn-danger" onClick={() => openDeleteModal(record.uuid)}>
+                    <Button
+                        className="btn btn-sm btn-danger"
+                        style={{ borderRadius: "40px" }}
+                        onClick={() => openDeleteModal(record.uuid)}
+                    >
                         <i className="bi bi-trash me-1"></i> Delete
                     </Button>
                 </div>
@@ -280,14 +292,21 @@ export default function Index() {
             </nav> */}
 
             {/* Tabel */}
-            <div className="card shadow">
+            <div
+                className="card shadow"
+                style={{ borderRadius: "40px" }}
+            >
                 <div className="card-body">
-                    <div className="row">
+                    <div className="row mt-3">
                         <div className="col-6">
                             <h3 className="fw-bold">Roles</h3>
                         </div>
                         <div className="col-6 text-end">
-                            <Button type="primary" onClick={openCreateModal}>Create</Button>
+                            <Button
+                                type="primary"
+                                style={{ borderRadius: "40px" }}
+                                onClick={openCreateModal}
+                            >Create</Button>
                         </div>
                     </div>
 
@@ -307,7 +326,7 @@ export default function Index() {
                                         value={searchData}
                                         onChange={e => setSearchData(e.target.value)}
                                         prefix={<SearchOutlined />}
-                                        style={{ width: '100%' }}
+                                        style={{ width: '100%', borderRadius: "40px" }}
                                     />
                                 </div>
                             </div>
@@ -344,7 +363,10 @@ export default function Index() {
                     aria-hidden="true"
                 >
                     <div className="modal-dialog modal-dialog-centered">
-                        <div className="modal-content">
+                        <div
+                            className="modal-content"
+                            style={{ borderRadius: "40px" }}
+                        >
                             <div className="modal-header">
                                 <h5 className="modal-title">{modalType === 'create' ? 'Create Data' : modalType === 'update' ? 'Update Data' : modalType === 'read' ? 'View Data' : 'Delete Data'}</h5>
                                 <button type="button" className="btn-close" onClick={closeModal}></button>
@@ -372,15 +394,35 @@ export default function Index() {
                                 )}
                             </div>
                             <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary" onClick={closeModal}>Close</button>
+                                <button
+                                    type="button"
+                                    className="btn btn-secondary"
+                                    style={{ borderRadius: "40px" }}
+                                    onClick={closeModal}
+                                >Close</button>
                                 {modalType === 'create' && (
-                                    <button type="button" className="btn btn-primary" onClick={handleCreate}>Create</button>
+                                    <button 
+                                        type="button"
+                                        className="btn btn-primary"
+                                        style={{ borderRadius: "40px" }}
+                                        onClick={handleCreate}
+                                    >Create</button>
                                 )}
                                 {modalType === 'update' && (
-                                    <button type="button" className="btn btn-primary" onClick={handleUpdate}>Update</button>
+                                    <button 
+                                        type="button"
+                                        className="btn btn-primary"
+                                        style={{ borderRadius: "40px" }}
+                                        onClick={handleUpdate}
+                                    >Update</button>
                                 )}
                                 {modalType === 'delete' && (
-                                    <button type="button" className="btn btn-danger" onClick={handleDelete}>Yes</button>
+                                    <button 
+                                        type="button"
+                                        className="btn btn-danger"
+                                        style={{ borderRadius: "40px" }}
+                                        onClick={handleDelete}
+                                    >Yes</button>
                                 )}
                             </div>
                         </div>

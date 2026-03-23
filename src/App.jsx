@@ -89,39 +89,50 @@ export default function App() {
             >
                 {token ? (
                     <>
+                        {/* Sidebar */}
                         {isSidebarVisible && (
                             <div
-                                className="col-xl-2 col-lg-3 col-md-4 d-md-block d-none p-4 bg-sidebar shadow"
-                                style={{ position: 'fixed', height: '100vh', overflowY: 'auto' }}
+                                className="col-xl-2 col-lg-3 col-md-4 d-md-block d-none p-4 m-2 bg-sidebar shadow"
+                                style={{ position: 'fixed', height: '98vh', overflowY: 'auto', borderRadius: '40px' }}
                             >
                                 <SidebarDekstop handleLogout={handleLogout} />
                             </div>
                         )}
                         <SidebarMobile handleLogout={handleLogout} />
+                        
+                        {/* Main Content */}
                         <div
                             className={`col-xl-${isSidebarVisible ? 10 : 12} col-lg-${isSidebarVisible ? 9 : 12} col-md-${isSidebarVisible ? 8 : 12} col-sm-12 ${isSidebarVisible ? 'offset-xl-2 offset-lg-3 offset-md-4' : ''} p-3`}
                             style={{ height: '100vh', overflowY: 'auto' }}
                         >
+                            {/* Header */}
                             <Header
                                 toggleSidebar={toggleSidebar}
                                 isSidebarVisible={isSidebarVisible}
                                 user={user}
                                 handleLogout={handleLogout}
                             />
+
+                            {/* App Routes */}
                             <AppRoutes
                                 user={user}
                                 updateAuth={updateAuth}
                             />
+
+                            {/* Footer */}
                             <Footer />
                         </div>
                     </>
                 ) : (
-                    <div className="col-12">
-                        <AppRoutes
-                            user={user}
-                            updateAuth={updateAuth}
-                        />
-                    </div>
+                    <>
+                        {/* Jika tidak ada token, tampilkan AppRoutes tanpa sidebar dan header */}
+                        <div className="col-12">
+                            <AppRoutes
+                                user={user}
+                                updateAuth={updateAuth}
+                            />
+                        </div>
+                    </>
                 )}
             </div>
         </div>

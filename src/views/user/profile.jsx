@@ -21,7 +21,10 @@ export default function Profile({ user }) {
     }, [user]);
 
     return (
-        <div className="card shadow">
+        <div
+            className="card shadow"
+            style={{ borderRadius: "40px" }}
+        >
             <div className="card-body">
 
                 <h1 className="fw-bold mb-4">Profile</h1>

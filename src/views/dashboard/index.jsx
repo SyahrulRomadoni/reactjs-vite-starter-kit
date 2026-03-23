@@ -12,7 +12,10 @@ export default function Dashboard() {
                 </ol>
             </nav> */}
             
-            <div className="card shadow">
+            <div
+                className="card shadow"
+                style={{ borderRadius: "40px" }}
+            >
                 <div className="card-body">
                     <h1 className="fw-bold">Dashboard</h1>
                     <p className="col-md-8">Welcome to Dashboard</p>
