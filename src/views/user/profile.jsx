@@ -27,7 +27,7 @@ export default function Profile({ user }) {
         >
             <div className="card-body">
 
-                <h1 className="fw-bold mb-4">Profile</h1>
+                <h3 className="fw-bold mb-4">Profile</h3>
 
                 {!user ? (
                     <Skeleton height={20} count={3} />

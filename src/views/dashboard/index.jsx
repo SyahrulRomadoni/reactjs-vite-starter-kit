@@ -17,7 +17,7 @@ export default function Dashboard() {
                 style={{ borderRadius: "40px" }}
             >
                 <div className="card-body">
-                    <h1 className="fw-bold">Dashboard</h1>
+                    <h3 className="fw-bold">Dashboard</h3>
                     <p className="col-md-8">Welcome to Dashboard</p>
                 </div>
             </div>

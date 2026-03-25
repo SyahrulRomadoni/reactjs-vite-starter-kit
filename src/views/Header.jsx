@@ -1,87 +1,73 @@
+// src/Header.jsx
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
-import { Offcanvas } from "bootstrap";
 
 export default function Header({
     toggleSidebar,
     user,
-    handleLogout,
-    isSidebarVisible
+    handleLogout
 }) {
-    // ====================
-    // Initials
-    // ====================
+    // Logic initials user
     const initials = useMemo(() => {
         if (!user?.email) return "?";
-
         const namePart = user.email.split("@")[0];
-
-        if (namePart.length === 1) {
-            return namePart.toUpperCase();
-        }
-
-        return (
-            namePart[0] + namePart[namePart.length - 1]
-        ).toUpperCase();
+        if (namePart.length === 1) return namePart.toUpperCase();
+        return (namePart[0] + namePart[namePart.length - 1]).toUpperCase();
     }, [user]);
-
-    // ====================
-    // Handler
-    // ====================
-    const handleSidebarClick = () => {
-        if (window.innerWidth < 768) {
-            const offcanvasEl = document.getElementById("offcanvasWithBothOptions");
-
-            if (offcanvasEl) {
-                const bsOffcanvas = Offcanvas.getOrCreateInstance(offcanvasEl);
-                bsOffcanvas.show();
-            }
-        } else {
-            toggleSidebar();
-        }
-    };
 
     return (
         <div className="mb-3">
             <div className="d-flex align-items-center">
 
-                {/* ===== LEFT BUTTON ===== */}
+                {/* ===== LEFT CARD (SINGLE WRAPPER, DUAL BUTTON) ===== */}
                 <div
                     className="card d-flex justify-content-center align-items-center"
                     style={{
-                        width: "50px",
-                        height: "50px",
-                        borderRadius: "0px 30px 30px 0px",
+                        width: "60px",
+                        height: "60px",
+                        borderRadius: "0px 40px 40px 0px",
                         marginLeft: "-30px",
-                        marginTop: "-26px",
+                        marginTop: "-16px",
+                        zIndex: 1021,
+                        overflow: "hidden"
                     }}
                 >
-                    <a
-                        href="#"
+                    {/* Tombol Khusus Mobile (Muncul hanya di < 768px) */}
+                    <button
                         type="button"
-                        className="cs-btn-side-mobile cs-text-1"
-                        onClick={(e) => {
-                            e.preventDefault();
-                            handleSidebarClick();
-                        }}
+                        className="btn border-0 p-0 d-md-none"
+                        style={{ width: "100%", height: "100%", borderRadius: "0px 40px 40px 0px" }}
+                        data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasWithBothOptions"
                     >
                         <i className="bi bi-grid-1x2"></i>
-                    </a>
+                    </button>
+
+                    {/* Tombol Khusus Desktop (Muncul hanya di >= 768px) */}
+                    <button
+                        type="button"
+                        className="btn border-0 p-0 d-none d-md-block"
+                        style={{ width: "100%", height: "100%", borderRadius: "0px 40px 40px 0px" }}
+                        onClick={toggleSidebar}
+                    >
+                        <i className="bi bi-grid-1x2"></i>
+                    </button>
                 </div>
 
-                {/* ===== RIGHT CARD ===== */}
+                {/* ===== RIGHT CARD (AUTO WIDTH) ===== */}
                 <div
                     className="card shadow ms-auto"
                     style={{
-                        borderRadius: "30px",
+                        borderRadius: "40px",
                         height: "60px",
                         width: "auto",
                     }}
                 >
                     <div className="card-body d-flex align-items-center justify-content-between px-3 py-2">
+                        {/* Judul: d-block memastikan teks TIDAK hilang di mobile maupun desktop */}
                         <h4
-                            className="mb-0"
-                            style={{ paddingRight: 10 }}
+                            className="mb-0 d-block" 
+                            style={{ paddingRight: "15px", whiteSpace: "nowrap" }}
                         >
                             ReactJs Vite
                         </h4>
@@ -91,6 +77,7 @@ export default function Header({
                             <button
                                 className="btn p-0 border-0"
                                 data-bs-toggle="dropdown"
+                                type="button"
                             >
                                 {user?.avatar ? (
                                     <img
@@ -122,18 +109,19 @@ export default function Header({
                                 )}
                             </button>
 
-                            <ul className="dropdown-menu dropdown-menu-end" style={{ borderRadius: "20px" }}>
+                            <ul className="dropdown-menu dropdown-menu-end shadow border-0" style={{ borderRadius: "20px", marginTop: "10px" }}>
                                 <li>
-                                    <Link className="dropdown-item" to="/profile">
-                                        Profile
+                                    <Link className="dropdown-item py-2" to="/profile">
+                                        <i className="bi bi-person me-2"></i> Profile
                                     </Link>
                                 </li>
+                                <li><hr className="dropdown-divider" /></li>
                                 <li>
                                     <button
-                                        className="dropdown-item"
+                                        className="dropdown-item py-2 text-danger"
                                         onClick={handleLogout}
                                     >
-                                        Logout
+                                        <i className="bi bi-box-arrow-right me-2"></i> Logout
                                     </button>
                                 </li>
                             </ul>
