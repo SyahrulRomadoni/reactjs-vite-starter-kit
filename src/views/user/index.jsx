@@ -353,21 +353,21 @@ export default function Index() {
                 <div className="d-flex justify-content-end gap-2">
                     <Button
                         className="btn btn-sm btn-info"
-                        style={{ borderRadius: "40px" }}
+                        style={{ borderRadius: "30px" }}
                         onClick={() => openReadModal(record.uuid)}
                     >
                         <i className="bi bi-eye me-1"></i> Read
                     </Button>
                     <Button
                         className="btn btn-sm btn-warning"
-                        style={{ borderRadius: "40px" }}
+                        style={{ borderRadius: "30px" }}
                         onClick={() => openUpdateModal(record.uuid)}
                     >
                         <i className="bi bi-pencil-square me-1"></i> Update
                     </Button>
                     <Button
                         className="btn btn-sm btn-danger"
-                        style={{ borderRadius: "40px" }}
+                        style={{ borderRadius: "30px" }}
                         onClick={() => openDeleteModal(record.uuid)}
                     >
                         <i className="bi bi-trash me-1"></i> Delete
@@ -440,7 +440,7 @@ export default function Index() {
             {/* Table */}
             <div
                 className="card shadow"
-                style={{ borderRadius: "40px" }}
+                style={{ borderRadius: "30px" }}
             >
                 <div className="card-body">
                     <div className="row mt-3">
@@ -450,7 +450,7 @@ export default function Index() {
                         <div className="col-6 text-end">
                             <Button
                                 type="primary"
-                                style={{ borderRadius: "40px" }}
+                                style={{ borderRadius: "30px" }}
                                 onClick={openCreateModal}
                             >Create</Button>
                         </div>
@@ -472,7 +472,7 @@ export default function Index() {
                                         value={searchData}
                                         onChange={e => setSearchData(e.target.value)}
                                         prefix={<SearchOutlined />}
-                                        style={{ width: '100%', borderRadius: "40px" }}
+                                        style={{ width: '100%', borderRadius: "30px" }}
                                     />
                                 </div>
                             </div>
@@ -511,7 +511,7 @@ export default function Index() {
                     <div className="modal-dialog modal-dialog-centered">
                         <div
                             className="modal-content"
-                            style={{ borderRadius: "40px" }}
+                            style={{ borderRadius: "30px" }}
                         >
                             <div className="modal-header">
                                 <h5 className="modal-title">{modalType === 'create' ? 'Create Data' : modalType === 'update' ? 'Update Data' : modalType === 'read' ? 'View Data' : 'Delete Data'}</h5>
@@ -626,14 +626,14 @@ export default function Index() {
                                 <button
                                     type="button"
                                     className="btn btn-secondary"
-                                    style={{ borderRadius: "40px" }}
+                                    style={{ borderRadius: "30px" }}
                                     onClick={closeModal}
                                 >Close</button>
                                 {modalType === 'create' && (
                                     <button
                                         type="button"
                                         className="btn btn-primary"
-                                        style={{ borderRadius: "40px" }}
+                                        style={{ borderRadius: "30px" }}
                                         onClick={handleCreate}
                                     >Create</button>
                                 )}
@@ -641,7 +641,7 @@ export default function Index() {
                                     <button
                                         type="button"
                                         className="btn btn-primary"
-                                        style={{ borderRadius: "40px" }}
+                                        style={{ borderRadius: "30px" }}
                                         onClick={handleUpdate}
                                     >Update</button>
                                 )}
@@ -649,7 +649,7 @@ export default function Index() {
                                     <button
                                         type="button"
                                         className="btn btn-danger"
-                                        style={{ borderRadius: "40px" }}
+                                        style={{ borderRadius: "30px" }}
                                         onClick={handleDelete}
                                     >Delete</button>
                                 )}

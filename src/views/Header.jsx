@@ -1,65 +1,90 @@
-// src/Header.jsx
-
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
+import { Offcanvas } from "bootstrap";
 
 export default function Header({
     toggleSidebar,
     user,
-    handleLogout
+    handleLogout,
+    isSidebarVisible
 }) {
+    // ====================
+    // Initials
+    // ====================
     const initials = useMemo(() => {
         if (!user?.email) return "?";
+
         const namePart = user.email.split("@")[0];
-        if (namePart.length === 1) return namePart.toUpperCase();
-        return (namePart[0] + namePart[namePart.length - 1]).toUpperCase();
+
+        if (namePart.length === 1) {
+            return namePart.toUpperCase();
+        }
+
+        return (
+            namePart[0] + namePart[namePart.length - 1]
+        ).toUpperCase();
     }, [user]);
+
+    // ====================
+    // Handler
+    // ====================
+    const handleSidebarClick = () => {
+        if (window.innerWidth < 768) {
+            const offcanvasEl = document.getElementById("offcanvasWithBothOptions");
+
+            if (offcanvasEl) {
+                const bsOffcanvas = Offcanvas.getOrCreateInstance(offcanvasEl);
+                bsOffcanvas.show();
+            }
+        } else {
+            toggleSidebar();
+        }
+    };
 
     return (
         <div className="mb-3">
-
             <div className="d-flex align-items-center">
 
-                {/* ===== LEFT CARD ===== */}
+                {/* ===== LEFT BUTTON ===== */}
                 <div
-                    className="card shadow d-flex justify-content-center align-items-center"
+                    className="card d-flex justify-content-center align-items-center"
                     style={{
-                        width: "60px",
-                        height: "60px",
-                        borderRadius: "40px",
+                        width: "50px",
+                        height: "50px",
+                        borderRadius: "0px 30px 30px 0px",
+                        marginLeft: "-30px",
+                        marginTop: "-26px",
                     }}
                 >
-                    <button
+                    <a
+                        href="#"
                         type="button"
-                        className="btn cs-btn-side-mobile d-block d-md-none"
-                        data-bs-toggle="offcanvas"
-                        data-bs-target="#offcanvasWithBothOptions"
+                        className="cs-btn-side-mobile cs-text-1"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            handleSidebarClick();
+                        }}
                     >
                         <i className="bi bi-grid-1x2"></i>
-                    </button>
-
-                    <button
-                        type="button"
-                        className="btn cs-btn-side-mobile d-none d-md-block"
-                        onClick={toggleSidebar}
-                    >
-                        <i className="bi bi-grid-1x2"></i>
-                    </button>
+                    </a>
                 </div>
 
-                {/* ===== RIGHT CARD (AUTO WIDTH) ===== */}
+                {/* ===== RIGHT CARD ===== */}
                 <div
                     className="card shadow ms-auto"
                     style={{
-                        borderRadius: "40px",
-                        width: "auto"
+                        borderRadius: "30px",
+                        height: "60px",
+                        width: "auto",
                     }}
                 >
-                    <div className="card-body d-flex align-items-center gap-3">
-
-                        <h3 className="mb-0">
+                    <div className="card-body d-flex align-items-center justify-content-between px-3 py-2">
+                        <h4
+                            className="mb-0"
+                            style={{ paddingRight: 10 }}
+                        >
                             ReactJs Vite
-                        </h3>
+                        </h4>
 
                         {/* Avatar Dropdown */}
                         <div className="dropdown">

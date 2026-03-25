@@ -45,14 +45,15 @@ export default function SidebarMobile({
 
     return (
         <div
-            className="offcanvas offcanvas-start w-75"
+            className="offcanvas offcanvas-start w-75 m-2"
+            style={{ borderRadius: '30px' }}
             data-bs-scroll="true"
             tabIndex="-1"
             id="offcanvasWithBothOptions"
             aria-labelledby="offcanvasWithBothOptionsLabel"
         >
             <div className="offcanvas-header">
-                {/* <h5 className="offcanvas-title" id="offcanvasWithBothOptionsLabel">ReactJs Vite</h5> */}
+                <h4 className="offcanvas-title" id="offcanvasWithBothOptionsLabel">ReactJs Vite</h4>
                 <button
                     type="button"
                     className="btn-close text-reset"
@@ -63,12 +64,12 @@ export default function SidebarMobile({
             <div className="offcanvas-body">
 
                 <div className="row mb-3">
-                    <div className="col-12">
+                    {/* <div className="col-12">
                         <h2
                             className="cs-brand mb-2"
                             style={{ fontSize: '25px', marginBottom: '0px' }}
                         >ReactJs Vite</h2>
-                    </div>
+                    </div> */}
                     <div className="col-12">
                         <div className="d-flex align-items-center">
                             <i className="bi bi-lightbulb cs-icon"></i>

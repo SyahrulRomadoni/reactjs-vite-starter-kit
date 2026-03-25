@@ -6,11 +6,13 @@
 
 /* Sidebar */
 [data-bs-theme=light] .bg-sidebar {
-    border-right: 1px solid #d2d2d2;
+    border: 1px solid #d2d2d2;
+    /* border-right: 1px solid #d2d2d2; */
 }
 
 [data-bs-theme=dark] .bg-sidebar {
-    border-right: 1px solid #424549;
+    border: 1px solid #424549;
+    /* border-right: 1px solid #424549; */
 }
 
 /* Text */

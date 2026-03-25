@@ -49,7 +49,10 @@ export default function SidebarDekstop({
                 <div className="col-12">
                     <h2 
                         className="cs-brand mb-2"
-                        style={{ fontSize: '25px', marginBottom: '0px' }}
+                        style={{
+                            fontSize: '25px',
+                            marginBottom: '0px'
+                        }}
                     >ReactJs Vite</h2>
                 </div>
                 <div className="col-12">
@@ -79,7 +82,7 @@ export default function SidebarDekstop({
                                 className={`nav-link text-start cs-text-1 m-1 rounded w-100 ${location.pathname === "/dashboard" ? "cs-active" : ""}`}
                                 aria-current="page"
                             >
-                                <i className="bi bi-speedometer2 cs-icon" style={{paddingRight: "10px"}}></i> Dashboard
+                                <i className="bi bi-speedometer2 cs-icon" style={{ paddingRight: "10px" }}></i> Dashboard
                             </Link>
                         </li>
                         <li className="nav-item">
@@ -88,7 +91,7 @@ export default function SidebarDekstop({
                                 className={`nav-link text-start cs-text-1 m-1 rounded w-100 ${location.pathname === "/profile" ? "cs-active" : ""}`}
                                 aria-current="page"
                             >
-                                <i className="bi bi-person cs-icon" style={{paddingRight: "10px"}}></i> Profile
+                                <i className="bi bi-person cs-icon" style={{ paddingRight: "10px" }}></i> Profile
                             </Link>
                         </li>
                         <li className="nav-item">
@@ -97,7 +100,7 @@ export default function SidebarDekstop({
                                 className={`nav-link text-start cs-text-1 m-1 rounded w-100 ${location.pathname === "/users" ? "cs-active" : ""}`}
                                 aria-current="page"
                             >
-                                <i className="bi bi-people cs-icon" style={{paddingRight: "10px"}}></i> User
+                                <i className="bi bi-people cs-icon" style={{ paddingRight: "10px" }}></i> User
                             </Link>
                         </li>
                         <li className="nav-item">
@@ -106,7 +109,7 @@ export default function SidebarDekstop({
                                 className={`nav-link text-start cs-text-1 m-1 rounded w-100 ${location.pathname === "/roles" ? "cs-active" : ""}`}
                                 aria-current="page"
                             >
-                                <i className="bi bi-laptop" style={{paddingRight: "10px"}}></i> Role
+                                <i className="bi bi-laptop" style={{ paddingRight: "10px" }}></i> Role
                             </Link>
                         </li>
                         <li className="nav-item dropdown">
@@ -120,7 +123,7 @@ export default function SidebarDekstop({
                             >
                                 <i
                                     className="bi bi-gear"
-                                    style={{paddingRight: "10px"}}
+                                    style={{ paddingRight: "10px" }}
                                 ></i>
                                     More Action
                                 <i
@@ -141,7 +144,7 @@ export default function SidebarDekstop({
                                         >
                                             <i
                                                 className="bi bi-arrow-down-circle cs-icon"
-                                                style={{paddingRight: "10px"}}
+                                                style={{ paddingRight: "10px" }}
                                             ></i> Menu 1
                                         </a>
                                     </li>
@@ -152,7 +155,7 @@ export default function SidebarDekstop({
                                         >
                                             <i
                                                 className="bi bi-arrow-down-circle cs-icon"
-                                                style={{paddingRight: "10px"}}
+                                                style={{ paddingRight: "10px" }}
                                             ></i> Menu 2
                                         </a>
                                     </li>
@@ -166,7 +169,7 @@ export default function SidebarDekstop({
                             >
                                 <i
                                     className="bi bi-door-closed cs-icon"
-                                    style={{paddingRight: "10px"}}
+                                    style={{ paddingRight: "10px" }}
                                 ></i> Logout
                             </a>
                         </li>

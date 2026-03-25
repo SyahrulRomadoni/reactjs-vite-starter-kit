@@ -93,7 +93,12 @@ export default function App() {
                         {isSidebarVisible && (
                             <div
                                 className="col-xl-2 col-lg-3 col-md-4 d-md-block d-none p-4 m-2 bg-sidebar shadow"
-                                style={{ position: 'fixed', height: '98vh', overflowY: 'auto', borderRadius: '40px' }}
+                                style={{
+                                    position: 'fixed',
+                                    height: '98vh',
+                                    overflowY: 'auto',
+                                    borderRadius: '30px 0px 30px 30px',
+                                }}
                             >
                                 <SidebarDekstop handleLogout={handleLogout} />
                             </div>

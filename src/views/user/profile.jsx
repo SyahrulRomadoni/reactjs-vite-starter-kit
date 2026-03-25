@@ -23,7 +23,7 @@ export default function Profile({ user }) {
     return (
         <div
             className="card shadow"
-            style={{ borderRadius: "40px" }}
+            style={{ borderRadius: "30px" }}
         >
             <div className="card-body">
 
