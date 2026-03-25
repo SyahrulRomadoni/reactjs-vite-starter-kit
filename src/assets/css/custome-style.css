@@ -22,12 +22,20 @@
 
 [data-bs-theme=dark] .cs-text-1 {
     color: #ffffff;
-    border-radius: 40px !important;
+    border-radius: 15px !important;
 }
 
 [data-bs-theme=light] .cs-text-1 {
     color: #000000;
-    border-radius: 40px !important;
+    border-radius: 15px !important;
+}
+
+[data-bs-theme=dark] .cs-text-1:hover {
+    background-color: #ffffff1a;
+}
+
+[data-bs-theme=light] .cs-text-1:hover {
+    background-color: #F8F9FA;
 }
 
 /* Active Buttom Sidebar */
