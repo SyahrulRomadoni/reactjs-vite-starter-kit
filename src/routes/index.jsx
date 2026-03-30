@@ -1,6 +1,6 @@
 import {
-    AdminRoutesMiddleware,
-    GuestRoutesMiddleware
+    BeforeRoutesMiddleware,
+    AfterRoutesMiddleware,
 } from '../middleware/routesMiddleware.jsx';
 import { Routes, Route } from "react-router-dom";
 
@@ -15,25 +15,58 @@ import Users from "../views/user/index.jsx";
 
 export default function AppRoutes({
     user,
-    updateAuth
+    initials,
+    updateAuth,
+    isLoading,
 }) {
     return (
         <Routes>
-            {/* Guest Routes */}
-            <Route element={<GuestRoutesMiddleware />}>
+            {/* -------------------- */}
+            {/* --- Before Login --- */}
+            {/* -------------------- */}
+
+            <Route element={<BeforeRoutesMiddleware />}>
                 <Route path="/" element={<Home />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/login" element={<Login updateAuth={updateAuth} />} />
             </Route>
 
-            {/* Protected Routes */}
-            <Route element={<AdminRoutesMiddleware />}>
+            {/* ------------------- */}
+            {/* --- After Login --- */}
+            {/* ------------------- */}
+
+            {/* --- All can use route --- */}
+            <Route element={
+                <AfterRoutesMiddleware 
+                    user={user} 
+                    allowedRoles={['Admin', 'User']}
+                />
+            }>
                 <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/profile" element={<Profile user={user} />} />
+                <Route path="/profile" element={
+                    <Profile
+                        user={user}
+                        initials={initials}
+                    />} />
+            </Route>
+
+            {/* --- Admin only route --- */}
+            <Route element={
+                <AfterRoutesMiddleware 
+                    user={user} 
+                    allowedRoles={['Admin']}
+                    isLoading={isLoading}
+                />
+            }>
                 <Route path="/users" element={<Users />} />
                 <Route path="/roles" element={<Roles />} />
             </Route>
 
+            {/* ------------- */}
+            {/* --- Other --- */}
+            {/* ------------- */}
+
+            {/* --- 404 NOT FOUND --- */}
             <Route path="*" element={<NotFound />} />
         </Routes>
     );

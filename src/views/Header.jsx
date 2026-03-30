@@ -1,19 +1,12 @@
 // src/Header.jsx
-import { useMemo } from "react";
 import { Link } from "react-router-dom";
 
 export default function Header({
-    toggleSidebar,
     user,
-    handleLogout
+    initials,
+    toggleSidebar,
+    handleLogout,
 }) {
-    const initials = useMemo(() => {
-        if (!user?.email) return "?";
-        const namePart = user.email.split("@")[0];
-        if (namePart.length === 1) return namePart.toUpperCase();
-        return (namePart[0] + namePart[namePart.length - 1]).toUpperCase();
-    }, [user]);
-
     return (
         <div className="mb-3">
             <div className="d-flex align-items-center">
@@ -62,9 +55,9 @@ export default function Header({
                     }}
                 >
                     <div className="card-body d-flex align-items-center justify-content-between px-3 py-2">
-                        <h4 className="mb-0 d-block" style={{ paddingRight: "15px", whiteSpace: "nowrap" }}>
-                            ReactJs Vite
-                        </h4>
+                        <h5 className="mb-0 d-block" style={{ paddingRight: "15px", whiteSpace: "nowrap" }}>
+                            {user?.name || "-"}
+                        </h5>
 
                         <div className="dropdown">
                             <button

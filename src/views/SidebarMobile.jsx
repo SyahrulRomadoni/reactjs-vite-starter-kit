@@ -8,40 +8,16 @@ import {
 } from "react-router-dom";
 
 export default function SidebarMobile({
-    handleLogout
+    user,
+    isDark,
+    handleSwitchChange,
+    handleLogout,
 }) {
     // ====================
     // State
     // ====================
     // Untuk mengatur lokasi path urlnya
     const location = useLocation();
-
-    // Untuk merubah automatis thema yang ada di bawa dan bisa di trigger pakai handleSwitchChange
-    // Fungsi Dark Mode dan Light Mode Menggunakan Bootstrap
-    const [isDark, setIsDark] = useState(localStorage.getItem("theme-mode") === "dark");
-
-    // ======================
-    // Handler Functions
-    // ======================
-    // Fungsi untuk trigger theme-mode jadi light atau dark pakai switch button
-    const handleSwitchChange = () => {
-        const newTheme = isDark ? "light" : "dark";
-        localStorage.setItem("theme-mode", newTheme);
-        setIsDark(!isDark);
-    };
-    
-    // ===================
-    // Effects
-    // ===================
-    // Update 'data-bs-theme' jadi dark atau light
-    useEffect(() => {
-        const htmlElement = document.documentElement;
-        if (isDark) {
-            htmlElement.setAttribute("data-bs-theme", "dark");
-        } else {
-            htmlElement.setAttribute("data-bs-theme", "light");
-        }
-    }, [isDark]);
 
     return (
         <div
@@ -91,6 +67,8 @@ export default function SidebarMobile({
                 <div className="row">
                     <div className="col-12">
                         <ul className="nav flex-column">
+
+                            {/* All can use */}
                             <li className="nav-item">
                                 <Link
                                     to="/dashboard"
@@ -109,24 +87,32 @@ export default function SidebarMobile({
                                     <i className="bi bi-person cs-icon" style={{paddingRight: "10px"}}></i> Profile
                                 </Link>
                             </li>
-                            <li className="nav-item">
-                                <Link
-                                    to="/users"
-                                    className={`nav-link text-start cs-text-1 m-1 rounded w-100 ${location.pathname === "/users" ? "cs-active" : ""}`}
-                                    aria-current="page"
-                                >
-                                    <i className="bi bi-people cs-icon" style={{paddingRight: "10px"}}></i> User
-                                </Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link
-                                    to="/roles"
-                                    className={`nav-link text-start cs-text-1 m-1 rounded w-100 ${location.pathname === "/roles" ? "cs-active" : ""}`}
-                                    aria-current="page"
-                                >
-                                    <i className="bi bi-laptop" style={{paddingRight: "10px"}}></i> Role
-                                </Link>
-                            </li>
+
+                            {/* Admin Only */}
+                            {user?.role === 'Admin' && (
+                                <>
+                                    <li className="nav-item">
+                                        <Link
+                                            to="/users"
+                                            className={`nav-link text-start cs-text-1 m-1 rounded w-100 ${location.pathname === "/users" ? "cs-active" : ""}`}
+                                            aria-current="page"
+                                        >
+                                            <i className="bi bi-people cs-icon" style={{paddingRight: "10px"}}></i> User
+                                        </Link>
+                                    </li>
+                                    <li className="nav-item">
+                                        <Link
+                                            to="/roles"
+                                            className={`nav-link text-start cs-text-1 m-1 rounded w-100 ${location.pathname === "/roles" ? "cs-active" : ""}`}
+                                            aria-current="page"
+                                        >
+                                            <i className="bi bi-laptop" style={{paddingRight: "10px"}}></i> Role
+                                        </Link>
+                                    </li>
+                                </>
+                            )}
+
+                            {/* Sub Menu */}
                             <li className="nav-item dropdown">
                                 <a
                                     className="nav-link text-start cs-text-1 m-1 rounded w-100"
@@ -176,7 +162,9 @@ export default function SidebarMobile({
                                     </ul>
                                 </div>
                             </li>
-                            <li className="nav-item">
+
+                            {/* Logout */}
+                            {/* <li className="nav-item">
                                 <a
                                     className="nav-link btn btn-link text-start cs-text-1 m-1 rounded w-100"
                                     onClick={handleLogout}
@@ -186,7 +174,7 @@ export default function SidebarMobile({
                                         style={{paddingRight: "10px"}}
                                     ></i> Logout
                                 </a>
-                            </li>
+                            </li> */}
                         </ul>
                     </div>
                 </div>

@@ -1,25 +1,12 @@
 // src/views/user/index.jsx
 
 import "react-loading-skeleton/dist/skeleton.css";
-import
-    React,
-    { useMemo }
-from "react";
 import Skeleton from "react-loading-skeleton";
 
-export default function Profile({ user }) {
-
-    // ====================
-    // Memoized Initials
-    // ====================
-    // Generate inisial dari email
-    const initials = useMemo(() => {
-        if (!user?.email) return "?";
-        const namePart = user.email.split("@")[0];
-        if (namePart.length === 1) return namePart.toUpperCase();
-        return (namePart[0] + namePart[namePart.length - 1]).toUpperCase();
-    }, [user]);
-
+export default function Profile({
+    user,
+    initials
+}) {
     return (
         <div
             className="card shadow"
@@ -72,6 +59,7 @@ export default function Profile({ user }) {
                         <div className="col-md-9">
                             <p><strong>Nama:</strong> {user?.name || "-"}</p>
                             <p><strong>Email:</strong> {user?.email || "-"}</p>
+                            <p><strong>Role:</strong> {user?.role || "-"}</p>
                         </div>
 
                     </div>

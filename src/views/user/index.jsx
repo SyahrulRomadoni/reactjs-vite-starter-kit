@@ -437,12 +437,13 @@ export default function Index() {
                 </ol>
             </nav> */}
 
-            {/* Table */}
+            {/* Card */}
             <div
                 className="card shadow"
                 style={{ borderRadius: "30px" }}
             >
                 <div className="card-body">
+                    {/* Button Create */}
                     <div className="row mt-3">
                         <div className="col-6">
                             <h3 className="fw-bold">User</h3>
@@ -456,12 +457,14 @@ export default function Index() {
                         </div>
                     </div>
 
+                    {/* Skeleton, Error Notif and Table */}
                     {loading ? (
                         <Skeleton height={20} count={10} />
                     ) : errorFetch ? (
                         <h3 className="text-danger text-center p-5">{errorFetch}</h3>
                     ) : (
                         <>
+                            {/* Input Search */}
                             <div className="row">
                                 <div className="col-0 col-sm-5 col-md-5 col-lg-6 col-xl-8">
                                 </div>
@@ -477,6 +480,7 @@ export default function Index() {
                                 </div>
                             </div>
                             
+                            {/* Table */}
                             <div className="table-responsive">
                                 <Table
                                     className="table transparent-table"

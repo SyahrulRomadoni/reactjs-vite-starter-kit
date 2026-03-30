@@ -7,7 +7,8 @@ import 'antd/dist/reset.css';
 import {
     useEffect,
     useState,
-    useCallback
+    useCallback,
+    useMemo,
 } from "react";
 import { CheckToken } from './middleware/routesMiddleware.jsx';
 import { CurrentUser } from "./controller/userController";
@@ -29,16 +30,16 @@ export default function App() {
     const [user, setUser] = useState(null);
     const [isDark, setIsDark] = useState(localStorage.getItem("theme-mode") === "dark");
     const [isSidebarVisible, setIsSidebarVisible] = useState(localStorage.getItem("sidebar-visible") !== "false");
+    const [isLoading, setIsLoading] = useState(true);
 
     // ====================
     // Handler Functions
     // ====================
-    // Fungsi sakti untuk update auth tanpa reload
+    // Fungsi sakti untuk update auth tanpa reload dan isi data user
     const updateAuth = useCallback(async () => {
-        const currentToken = await CheckToken(); // Validasi ke API
-        setToken(currentToken);
-        
+        const currentToken = await CheckToken();
         if (currentToken) {
+            setToken(currentToken);
             const resUser = await CurrentUser();
             if (resUser.status === "success") {
                 setUser(resUser.data);
@@ -46,7 +47,23 @@ export default function App() {
         } else {
             setUser(null);
         }
+
+        setIsLoading(false);
     }, []);
+
+    // Toggle sidebar visibility
+    const toggleSidebar = () => {
+        const newVisibility = !isSidebarVisible;
+        setIsSidebarVisible(newVisibility);
+        localStorage.setItem("sidebar-visible", newVisibility);
+    };
+
+    // Trigger theme-mode jadi light atau dark pakai switch button
+    const handleSwitchChange = () => {
+        const newTheme = isDark ? "light" : "dark";
+        localStorage.setItem("theme-mode", newTheme);
+        setIsDark(!isDark);
+    }
 
     // Logout handler
     const handleLogout = async () => {
@@ -61,25 +78,53 @@ export default function App() {
         }
     };
 
-    // Toggle sidebar visibility
-    const toggleSidebar = () => {
-        const newVisibility = !isSidebarVisible;
-        setIsSidebarVisible(newVisibility);
-        localStorage.setItem("sidebar-visible", newVisibility);
-    };
+    // ====================
+    // Memoized Initials
+    // ====================
+    // Generate inisial dari email
+    // const initials = useMemo(() => {
+    //     if (!user?.email) return "?";
+    //     const namePart = user.email.split("@")[0];
+    //     if (namePart.length === 1) return namePart.toUpperCase();
+    //     return (namePart[0] + namePart[namePart.length - 1]).toUpperCase();
+    // }, [user]);
+
+    // Generate Inisial dari Name
+    const initials = useMemo(() => {
+        if (!user?.name) return "?";
+        // Bersihkan spasi di awal/akhir dan pecah berdasarkan spasi (regex \s+ jaga-jaga spasi ganda)
+        const words = user.name.trim().split(/\s+/);
+        // Hanya 1 kata (Contoh: "Kiss")
+        if (words.length === 1) {
+            return words[0][0].toUpperCase(); // Hasil: "K"
+        }
+        // 2 kata atau lebih (Contoh: "Kiss Hot" atau "Kiss Hot Next")
+        // Kita ambil huruf pertama dari kata PERTAMA dan kata TERAKHIR
+        const firstInitial = words[0][0];
+        const lastInitial = words[words.length - 1][0];
+        return (firstInitial + lastInitial).toUpperCase(); // Hasil: "KH" atau "KN"
+    }, [user]);
 
     // ====================
     // Effects
     // ====================
     // Jalankan sekali saat aplikasi pertama kali dibuka
     useEffect(() => {
+        // Update Auth
         updateAuth();
-    }, [updateAuth]);
 
-    // Dark mode logic
-    useEffect(() => {
+        // Dark mode logic
         document.documentElement.setAttribute("data-bs-theme", isDark ? "dark" : "light");
-    }, [isDark]);
+        const htmlElement = document.documentElement;
+        if (isDark) {
+            htmlElement.setAttribute("data-bs-theme", "dark");
+        } else {
+            htmlElement.setAttribute("data-bs-theme", "light");
+        }
+    }, [
+        updateAuth,
+        isDark
+    ]);
 
     return (
         <div className="container-fluid">
@@ -100,10 +145,20 @@ export default function App() {
                                     borderRadius: '30px 0px 30px 30px',
                                 }}
                             >
-                                <SidebarDekstop handleLogout={handleLogout} />
+                                <SidebarDekstop
+                                    user={user}
+                                    isDark={isDark}
+                                    handleSwitchChange={handleSwitchChange}
+                                    handleLogout={handleLogout}
+                                />
                             </div>
                         )}
-                        <SidebarMobile handleLogout={handleLogout} />
+                        <SidebarMobile
+                            user={user}
+                            isDark={isDark}
+                            handleSwitchChange={handleSwitchChange}
+                            handleLogout={handleLogout}
+                        />
                         
                         {/* Main Content */}
                         <div
@@ -112,16 +167,19 @@ export default function App() {
                         >
                             {/* Header */}
                             <Header
+                                user={user}
+                                initials={initials}
                                 toggleSidebar={toggleSidebar}
                                 isSidebarVisible={isSidebarVisible}
-                                user={user}
                                 handleLogout={handleLogout}
                             />
 
                             {/* App Routes */}
                             <AppRoutes
                                 user={user}
+                                initials={initials}
                                 updateAuth={updateAuth}
+                                isLoading={isLoading}
                             />
 
                             {/* Footer */}
@@ -130,7 +188,7 @@ export default function App() {
                     </>
                 ) : (
                     <>
-                        {/* Jika tidak ada token, tampilkan AppRoutes tanpa sidebar dan header */}
+                        {/* Jika tidak ada token */}
                         <div className="col-12">
                             <AppRoutes
                                 user={user}
