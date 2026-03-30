@@ -81,6 +81,7 @@ export default function App() {
     // ====================
     // Memoized Initials
     // ====================
+    
     // Generate inisial dari email
     // const initials = useMemo(() => {
     //     if (!user?.email) return "?";
@@ -132,6 +133,7 @@ export default function App() {
                 className="row"
                 style={{ height: '100vh', overflow: 'hidden' }}
             >
+                {/* After Login */}
                 {token ? (
                     <>
                         {/* Sidebar */}
@@ -186,6 +188,8 @@ export default function App() {
                             <Footer />
                         </div>
                     </>
+                
+                // Before Login
                 ) : (
                     <>
                         {/* Jika tidak ada token */}
