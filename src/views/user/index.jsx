@@ -1,6 +1,5 @@
 // src/views/user/index.jsx
 
-import "react-loading-skeleton/dist/skeleton.css";
 import {
     useEffect,
     useState
@@ -56,6 +55,179 @@ export default function Index() {
     // State untuk mengatur password dan confirm password
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
+
+    // ====================
+    // Effects
+    // ====================
+    // Fetch data users dan roles saat komponen pertama kali di-render
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                setLoading(true);
+                // Users
+                const response = await userController.All();
+                if (response.status === "success") {
+                    setUsers(response.data.data);
+                } else {
+                    setErrorFetch(response.message);
+                    toast.error(response.message);
+                }
+                // Roles
+                const roleResponse = await roleController.All();
+                if (roleResponse.status === "success") {
+                    setRoles(roleResponse.data.data);
+                } else {
+                    setErrorFetch(roleResponse.message);
+                    toast.error(roleResponse.message);
+                }
+            } catch (error) {
+                setErrorFetch(error.message);
+                toast.error(error.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        // Panggil fungsi ini untuk data yang mau dirender
+        fetchData();
+    }, []);
+
+    // ====================
+    // Table
+    // ====================
+    const [totalData, setTotalData] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [pageSize, setPageSize] = useState(10);
+
+    useEffect(() => {
+        if (searchData) {
+            setFilteredData(users.filter(data => {
+                return Object.values(data).some(value =>
+                    value && value.toString().toLowerCase().includes(searchData.toLowerCase())
+                );
+            }));
+        } else {
+            setFilteredData(users);
+        }
+    }, [searchData, users]);
+
+    const columns = [
+        {
+            title: <p className="mb-0">No</p>,
+            key: "index",
+            render: (text, record, index) => (
+                <p className="m-0 cs-text-1 text-center">{(currentPage - 1) * pageSize + index + 1}</p>
+            ),
+        },
+        {
+            title: <p className="mb-0">Name</p>,
+            dataIndex: 'name',
+            key: 'name',
+            sorter: (a, b) => a.name.localeCompare(b.name),
+            render: (text, record) => (
+                <p className="m-0 cs-text-1">{record.name}</p>
+            ),
+        },
+        {
+            title: <p className="mb-0">Email</p>,
+            dataIndex: 'email',
+            key: 'email',
+            sorter: (a, b) => a.email.localeCompare(b.email),
+            render: (text, record) => (
+                <p className="m-0 cs-text-1 ">{record.email}</p>
+            ),
+            responsive: ['md'],
+        },
+        {
+            title: <p className="mb-0">Role</p>,
+            dataIndex: 'role',
+            key: 'role',
+            sorter: (a, b) => (a.role || '').localeCompare(b.role || ''),
+            render: (text, record) => (
+                <p className="m-0 cs-text-1 ">{record.role}</p>
+            ),
+            responsive: ['md'],
+        },
+        {
+            title: <p className="mb-0 text-end">Action</p>,
+            key: "actions",
+            render: (text, record) => (
+                <div className="d-flex justify-content-end gap-2">
+                    <Button
+                        className="btn btn-sm btn-info"
+                        style={{ borderRadius: "30px" }}
+                        onClick={() => openReadModal(record.uuid)}
+                    >
+                        <i className="bi bi-eye me-1"></i> Read
+                    </Button>
+                    <Button
+                        className="btn btn-sm btn-warning"
+                        style={{ borderRadius: "30px" }}
+                        onClick={() => openUpdateModal(record.uuid)}
+                    >
+                        <i className="bi bi-pencil-square me-1"></i> Update
+                    </Button>
+                    <Button
+                        className="btn btn-sm btn-danger"
+                        style={{ borderRadius: "30px" }}
+                        onClick={() => openDeleteModal(record.uuid)}
+                    >
+                        <i className="bi bi-trash me-1"></i> Delete
+                    </Button>
+                </div>
+            ),
+            responsive: ["md"],
+        },
+              
+    ];
+
+    // Child Row Table
+    // Kondisi untuk child row hanya muncul di mobile
+    useEffect(() => {
+        const checkMobileView = () => {
+            if (window.innerWidth <= 768) {
+                setIsMobile(true);
+            } else {
+                setIsMobile(false);
+            }
+        };
+        // Cek ukuran saat pertama kali render
+        checkMobileView();
+        // Daftarkan event listener untuk resize
+        window.addEventListener('resize', checkMobileView);
+        // Hapus event listener saat komponen di-unmount
+        return () => {
+            window.removeEventListener('resize', checkMobileView);
+        };
+    }, []);
+
+    // Tampilan Child Row yang di render
+    const expandable = {
+        expandedRowRender: record => (
+            <>
+                <div className="card">
+                    <div className="card-body">
+                        <p className="cs-text-1 mb-0">Email : {record.email}</p>
+                        <p className="cs-text-1 mb-0">Role : {record.roles}</p>
+                    </div>
+                    <div className="card-footer">
+                        <div className="row">
+                            <div className="col-4">
+                                <Button className="btn btn-sm w-100 btn-info" onClick={() => openReadModal(record.uuid)}>Read</Button>
+                            </div>
+                            <div className="col-4">
+                                <Button className="btn btn-sm w-100 btn-warning" onClick={() => openUpdateModal(record.uuid)}>Update</Button>
+                            </div>
+                            <div className="col-4">
+                                <Button className="btn btn-sm w-100 btn-danger" onClick={() => openDeleteModal(record.uuid)}>Delete</Button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </>
+        ),
+        rowExpandable: record => true,
+    };
 
     // ====================
     // Handler
@@ -255,178 +427,6 @@ export default function Index() {
         }
     };
 
-    // ====================
-    // Effects
-    // ====================
-    // Fetch data users dan roles saat komponen pertama kali di-render
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                setLoading(true);
-                // Users
-                const response = await userController.All();
-                if (response.status === "success") {
-                    setUsers(response.data.data);
-                } else {
-                    setErrorFetch(response.message);
-                    toast.error(response.message);
-                }
-                // Roles
-                const roleResponse = await roleController.All();
-                if (roleResponse.status === "success") {
-                    setRoles(roleResponse.data.data);
-                } else {
-                    setErrorFetch(roleResponse.message);
-                    toast.error(roleResponse.message);
-                }
-            } catch (error) {
-                setErrorFetch(error.message);
-                toast.error(error.message);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        // Panggil fungsi ini untuk data yang mau dirender
-        fetchData();
-    }, []);
-
-    // ====================
-    // Table
-    // ====================
-    const [currentPage, setCurrentPage] = useState(1);
-    const [pageSize, setPageSize] = useState(10);
-
-    useEffect(() => {
-        if (searchData) {
-            setFilteredData(users.filter(data => {
-                return Object.values(data).some(value =>
-                    value && value.toString().toLowerCase().includes(searchData.toLowerCase())
-                );
-            }));
-        } else {
-            setFilteredData(users);
-        }
-    }, [searchData, users]);
-
-    const columns = [
-        {
-            title: <p className="mb-0">No</p>,
-            key: "index",
-            render: (text, record, index) => (
-                <p className="m-0 cs-text-1 text-center">{(currentPage - 1) * pageSize + index + 1}</p>
-            ),
-        },
-        {
-            title: <p className="mb-0">Name</p>,
-            dataIndex: 'name',
-            key: 'name',
-            sorter: (a, b) => a.name.localeCompare(b.name),
-            render: (text, record) => (
-                <p className="m-0 cs-text-1">{record.name}</p>
-            ),
-        },
-        {
-            title: <p className="mb-0">Email</p>,
-            dataIndex: 'email',
-            key: 'email',
-            sorter: (a, b) => a.email.localeCompare(b.email),
-            render: (text, record) => (
-                <p className="m-0 cs-text-1 ">{record.email}</p>
-            ),
-            responsive: ['md'],
-        },
-        {
-            title: <p className="mb-0">Role</p>,
-            dataIndex: 'role',
-            key: 'role',
-            sorter: (a, b) => (a.role || '').localeCompare(b.role || ''),
-            render: (text, record) => (
-                <p className="m-0 cs-text-1 ">{record.role}</p>
-            ),
-            responsive: ['md'],
-        },
-        {
-            title: <p className="mb-0 text-end">Action</p>,
-            key: "actions",
-            render: (text, record) => (
-                <div className="d-flex justify-content-end gap-2">
-                    <Button
-                        className="btn btn-sm btn-info"
-                        style={{ borderRadius: "30px" }}
-                        onClick={() => openReadModal(record.uuid)}
-                    >
-                        <i className="bi bi-eye me-1"></i> Read
-                    </Button>
-                    <Button
-                        className="btn btn-sm btn-warning"
-                        style={{ borderRadius: "30px" }}
-                        onClick={() => openUpdateModal(record.uuid)}
-                    >
-                        <i className="bi bi-pencil-square me-1"></i> Update
-                    </Button>
-                    <Button
-                        className="btn btn-sm btn-danger"
-                        style={{ borderRadius: "30px" }}
-                        onClick={() => openDeleteModal(record.uuid)}
-                    >
-                        <i className="bi bi-trash me-1"></i> Delete
-                    </Button>
-                </div>
-            ),
-            responsive: ["md"],
-        },
-              
-    ];
-
-    // Child Row Table
-    // Kondisi untuk child row hanya muncul di mobile
-    useEffect(() => {
-        const checkMobileView = () => {
-            if (window.innerWidth <= 768) {
-                setIsMobile(true);
-            } else {
-                setIsMobile(false);
-            }
-        };
-        // Cek ukuran saat pertama kali render
-        checkMobileView();
-        // Daftarkan event listener untuk resize
-        window.addEventListener('resize', checkMobileView);
-        // Hapus event listener saat komponen di-unmount
-        return () => {
-            window.removeEventListener('resize', checkMobileView);
-        };
-    }, []);
-
-    // Tampilan Child Row yang di render
-    const expandable = {
-        expandedRowRender: record => (
-            <>
-                <div className="card">
-                    <div className="card-body">
-                        <p className="cs-text-1 mb-0">Email : {record.email}</p>
-                        <p className="cs-text-1 mb-0">Role : {record.roles}</p>
-                    </div>
-                    <div className="card-footer">
-                        <div className="row">
-                            <div className="col-4">
-                                <Button className="btn btn-sm w-100 btn-info" onClick={() => openReadModal(record.uuid)}>Read</Button>
-                            </div>
-                            <div className="col-4">
-                                <Button className="btn btn-sm w-100 btn-warning" onClick={() => openUpdateModal(record.uuid)}>Update</Button>
-                            </div>
-                            <div className="col-4">
-                                <Button className="btn btn-sm w-100 btn-danger" onClick={() => openDeleteModal(record.uuid)}>Delete</Button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </>
-        ),
-        rowExpandable: record => true,
-    };
-
     return (
         <>
             {/* Breadcrumb */}
@@ -459,7 +459,25 @@ export default function Index() {
 
                     {/* Skeleton, Error Notif and Table */}
                     {loading ? (
-                        <Skeleton height={20} count={10} />
+                        <>
+                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                                <div style={{ width: "10%" }}>
+                                    <Skeleton height={20} width="100%" />
+                                </div>
+                                <div style={{ width: "40%" }}>
+                                    <Skeleton height={20} width="100%" />
+                                </div>
+                            </div>
+                            <Skeleton height={20} count={10} />
+                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                                <div style={{ width: "10%" }}>
+                                    <Skeleton height={20} width="100%" />
+                                </div>
+                                <div style={{ width: "20%" }}>
+                                    <Skeleton height={20} width="100%" />
+                                </div>
+                            </div>
+                        </>
                     ) : errorFetch ? (
                         <h3 className="text-danger text-center p-5">{errorFetch}</h3>
                     ) : (
@@ -488,6 +506,7 @@ export default function Index() {
                                     dataSource={filteredData}
                                     rowKey="uuid"
                                     pagination={{
+                                        total: totalData,
                                         pageSize: pageSize,
                                         current: currentPage,
                                         onChange: (page) => setCurrentPage(page),
@@ -495,6 +514,11 @@ export default function Index() {
                                         showSizeChanger: true,
                                         pageSizeOptions: ['5', '10', '25', '50', '100'],
                                         showQuickJumper: true,
+                                        showTotal: (total, range) => (
+                                            <span style={{ left: 0, position: "absolute" }}>
+                                                Showing {range[0]}-{range[1]} of {total} items
+                                            </span>
+                                        ),
                                     }}
                                     expandable={isMobile ? expandable : false}
                                 />

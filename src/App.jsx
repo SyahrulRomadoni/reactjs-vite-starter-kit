@@ -2,6 +2,7 @@ import './assets/css/custome-style.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import "react-loading-skeleton/dist/skeleton.css";
 import 'antd/dist/reset.css';
 
 import {
@@ -26,7 +27,7 @@ export default function App() {
     // State
     // ====================
     const navigate = useNavigate();
-    const [token, setToken] = useState(localStorage.getItem("authToken"));
+    const [token, setToken] = useState(null);
     const [user, setUser] = useState(null);
     const [isDark, setIsDark] = useState(localStorage.getItem("theme-mode") === "dark");
     const [isSidebarVisible, setIsSidebarVisible] = useState(localStorage.getItem("sidebar-visible") !== "false");
