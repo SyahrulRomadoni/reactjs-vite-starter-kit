@@ -17,7 +17,7 @@ export default function Header({
                     style={{
                         width: "60px",
                         height: "60px",
-                        borderRadius: "0px 40px 40px 0px",
+                        borderRadius: "0px 25px 25px 0px",
                         marginLeft: "-30px",
                         marginTop: "-16px",
                         zIndex: 1021,
@@ -27,7 +27,7 @@ export default function Header({
                     <button
                         type="button"
                         className="btn border-0 p-0 d-md-none"
-                        style={{ width: "100%", height: "100%", borderRadius: "0px 40px 40px 0px" }}
+                        style={{ width: "100%", height: "100%", borderRadius: "0px 25px 25px 0px" }}
                         data-bs-toggle="offcanvas"
                         data-bs-target="#offcanvasWithBothOptions"
                     >
@@ -37,7 +37,7 @@ export default function Header({
                     <button
                         type="button"
                         className="btn border-0 p-0 d-none d-md-block"
-                        style={{ width: "100%", height: "100%", borderRadius: "0px 40px 40px 0px" }}
+                        style={{ width: "100%", height: "100%", borderRadius: "0px 25px 25px 0px" }}
                         onClick={toggleSidebar}
                     >
                         <i className="bi bi-grid-1x2"></i>

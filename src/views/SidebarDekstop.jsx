@@ -63,7 +63,7 @@ export default function SidebarDekstop({
                                 <i className="bi bi-speedometer2 cs-icon" style={{ paddingRight: "10px" }}></i> Dashboard
                             </Link>
                         </li>
-                        <li className="nav-item">
+                        {/* <li className="nav-item">
                             <Link
                                 to="/profile"
                                 className={`nav-link text-start cs-text-1 m-1 rounded w-100 ${location.pathname === "/profile" ? "cs-active" : ""}`}
@@ -71,7 +71,7 @@ export default function SidebarDekstop({
                             >
                                 <i className="bi bi-person cs-icon" style={{ paddingRight: "10px" }}></i> Profile
                             </Link>
-                        </li>
+                        </li> */}
 
                         {/* Admin Only */}
                         {user?.role === 'Admin' && (
@@ -91,7 +91,7 @@ export default function SidebarDekstop({
                                         className={`nav-link text-start cs-text-1 m-1 rounded w-100 ${location.pathname === "/roles" ? "cs-active" : ""}`}
                                         aria-current="page"
                                     >
-                                        <i className="bi bi-laptop" style={{ paddingRight: "10px" }}></i> Role
+                                        <i className="bi bi-person cs-icon" style={{ paddingRight: "10px" }}></i> Role
                                     </Link>
                                 </li>
                             </>
